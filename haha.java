@@ -32,7 +32,7 @@ public class SinhVien {
     }
     public String getHoten(){
         return hoten;
-    }
+    }    
     void setMalop (String malop){
         this.malop=malop;
     }
@@ -59,5 +59,5 @@ public class SinhVien {
             return "Đậu";
         return "Rớt";
     }
-    
+   4 
 }
