@@ -1,0 +1,2 @@
+create database QLKhachsan
+use QlKhachsan
