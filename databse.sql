@@ -57,4 +57,10 @@ alter table khach_tratien add constraint FK_khach_tratien foreign key (iddoanhth
 alter table khach_tratien add constraint FK_khach_tratien1 foreign key (idphong) references phong(idphong)
 alter table khach_tratien add constraint FK_khach_tratien2 foreign key (idkhach) references khach(idkhach)
 
-select * from phong
+--them mat khau
+create table passwordlist(
+	idpass varchar(64) primary key,
+	pass varchar(64)
+)
+insert into passwordlist values('admin','nghiameow')
+insert into passwordlist values('cashier','nghiameow')
