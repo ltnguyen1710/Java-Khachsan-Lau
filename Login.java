@@ -1,5 +1,6 @@
-package desgin;
+package DesginDoAn;
 
+import DesginDoAn.homePage;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -27,6 +28,13 @@ public class Login extends JFrame {
         b1 = new JButton("Admin");
         b2 = new JButton("Thu Ngan");
         b3 = new JButton("Dang Nhap");
+        b3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new homePage();
+                setVisible(false);
+            }
+        });
         p = new JPanel();
         tk = new JTextField();
         mk = new JPasswordField();
@@ -82,6 +90,7 @@ public class Login extends JFrame {
     }
 
     public static void main(String[] args) {
+
         new Login();
     }
 }
