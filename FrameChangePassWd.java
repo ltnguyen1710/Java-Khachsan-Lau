@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DesginDoAn;
+package GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class FrameChangePassWd extends JFrame {
@@ -24,7 +25,7 @@ public class FrameChangePassWd extends JFrame {
 
     private void DisPlay() {
         setTitle("Change Password");
-        setVisible(true);
+        
         setResizable(false);
         setBounds(450, 210, 300, 300);
         setLayout(null);
@@ -32,9 +33,9 @@ public class FrameChangePassWd extends JFrame {
         l1 = new JLabel("Mat Khau cu :");
         l2 = new JLabel("Mat Khau moi:");
         l3 = new JLabel("Nhap Lai Mat Khau:");
-        t1 = new JTextField();
-        t2 = new JTextField();
-        t3 = new JTextField();
+        t1 = new JPasswordField();
+        t2 = new JPasswordField();
+        t3 = new JPasswordField();
         b = new JButton("Xac Nhan");
         b.addActionListener(new ActionListener(){
             @Override
@@ -57,5 +58,6 @@ public class FrameChangePassWd extends JFrame {
         l3.setBounds(45, 140, 200, 30);
         t3.setBounds(45, 175, 200, 30);
         b.setBounds(100, 220, 100, 30);
+        setVisible(true);
     }
 }

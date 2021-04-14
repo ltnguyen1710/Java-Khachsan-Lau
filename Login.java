@@ -1,6 +1,6 @@
-package DesginDoAn;
+package GUI;
 
-import DesginDoAn.homePage;
+import GUI.homePage;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

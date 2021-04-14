@@ -1,4 +1,4 @@
-package DesginDoAn;
+package GUI;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -19,7 +19,6 @@ public class FormCustomer extends JFrame {
 
     private void DisPlay() {
         setTitle("Form Customer");
-        setVisible(true);
         setLayout(null);
         setBounds(320,200,600,300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -76,6 +75,7 @@ public class FormCustomer extends JFrame {
         add(Date1);
         add(sex);
         add(FullName);
+        setVisible(true);
     }
     
     private void AddActionPerformed(ActionEvent e){

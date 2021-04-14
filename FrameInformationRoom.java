@@ -1,4 +1,4 @@
-package DesginDoAn;
+package GUI;
 
 import java.awt.Font;
 import javax.swing.*;
@@ -15,7 +15,7 @@ public class FrameInformationRoom extends JFrame {
     private void DisPlay() {
         setTitle("Thong Tin Phong");
         setLayout(null);
-        setVisible(true);
+        
         setResizable(false);
         setBounds(450, 100, 400, 300);
         setLayout(null);
@@ -32,6 +32,7 @@ public class FrameInformationRoom extends JFrame {
         add(ID);
         add(ngayDat);
         add(gia);
+        setVisible(true);
     }
     public void setNumber(String t){
         ID.setText(t);

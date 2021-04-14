@@ -1,4 +1,4 @@
-package DesginDoAn;
+package GUI;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -30,8 +30,7 @@ public class FrameDatPhong extends JFrame {
 
     private void DisPlay() {
         setTitle("Dat Phong");
-        setVisible(true);
-        //f3.setResizable(false);
+        setResizable(false);
         setBounds(270, 20, 700, 600);
         setLayout(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -222,5 +221,6 @@ public class FrameDatPhong extends JFrame {
         pt.add(p23);
         pt.add(p24);
         pt.add(p25);
+        setVisible(true);
     }
 }

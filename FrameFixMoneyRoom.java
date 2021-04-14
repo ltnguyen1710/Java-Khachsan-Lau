@@ -1,4 +1,4 @@
-package DesginDoAn;
+package GUI;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -18,7 +18,7 @@ public class FrameFixMoneyRoom extends JFrame {
 
     private void DisPlay() {
         setLayout(new FlowLayout());
-        setVisible(true);
+        
         setBounds(470, 250, 300, 180);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ro = new JLabel("ROOM");
@@ -34,6 +34,7 @@ public class FrameFixMoneyRoom extends JFrame {
         add(t1);
         add(b1);
         add(b2);
+        setVisible(true);
     }
 
     public static void main(String[] args) {

@@ -1,8 +1,10 @@
-package DesginDoAn;
+package GUI;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,7 +28,7 @@ public class HomePageAdmin extends JFrame {
     private void DisPlay() {
         setLayout(null);
         setTitle("Admin");
-        setVisible(true);
+        
         //setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -75,8 +77,29 @@ public class HomePageAdmin extends JFrame {
         sp.setBounds(400, 100, 600, 500);
         add(sp);
         FIX1 = new JButton("FIX MONEY ROOM");
+        FIX1.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new FrameFixMoneyRoom();
+            }
+            
+        });
         DS = new JButton("LIST CUSTOMER");
+        
+        DS.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new FrameDSKH();
+            }
+            
+        });
         DX = new JButton("LOGOUT");
+        DX.addActionListener(new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e){
+            new Login();
+        }
+        });
         FIX1.setBounds(1100, 100, 180, 80);
         DS.setBounds(1100, 300, 180, 80);
         DX.setBounds(1100, 500, 180, 80);
@@ -85,7 +108,7 @@ public class HomePageAdmin extends JFrame {
         add(title);
         add(FIX1);
         add(DS);
-
+        setVisible(true);
     }
 
     public static void main(String[] args) {

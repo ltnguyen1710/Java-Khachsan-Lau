@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DesginDoAn;
+package GUI;
 
 import java.awt.Font;
 import javax.swing.JButton;
@@ -21,7 +21,7 @@ public class FrameKhoaSo extends JFrame {
 
     private void DisPLay() {
         setTitle("Khoa So");
-        setVisible(true);
+        
         setResizable(false);
         setBounds(450, 100, 400, 500);
         setLayout(null);
@@ -54,5 +54,6 @@ public class FrameKhoaSo extends JFrame {
         l5.setBounds(50, 200, 150, 30);
         b1.setBounds(90, 250, 100, 40);
         b2.setBounds(190, 250, 100, 40);
+        setVisible(true);
     }
 }

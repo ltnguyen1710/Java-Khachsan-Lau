@@ -1,4 +1,4 @@
-package DesginDoAn;
+package GUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -126,7 +126,7 @@ public class homePage extends JFrame {
         b3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new RevenueInDay();
             }
 
         });
