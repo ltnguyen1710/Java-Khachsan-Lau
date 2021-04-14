@@ -26,7 +26,7 @@ public class FormCustomer extends JFrame {
         title.setBounds(100,0,400,60);
         title.setFont(new Font(null,Font.BOLD,30));
         CMND = new JLabel("CMND");
-        CMND.setBounds(70,70,30,30);
+        CMND.setBounds(60,70,50,30);
         ID1 = new JTextField();
         ID1.setBounds(100,70,150,30);
         FullName = new JLabel("Ho & Ten");
@@ -34,7 +34,7 @@ public class FormCustomer extends JFrame {
         Name = new JTextField();
         Name.setBounds(330,70,200,30);
         Date = new JLabel("Ngay Sinh");
-        Date.setBounds(10,110,80,30);
+        Date.setBounds(30,110,80,30);
         Date1 = new JTextField();
         Date1.setBounds(100,110,200,30);
         sex = new JLabel("Gioi tinh");

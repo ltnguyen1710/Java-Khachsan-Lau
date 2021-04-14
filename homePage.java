@@ -14,9 +14,9 @@ public class homePage extends JFrame {
     JButton[] DOI = new JButton[14];
     JButton[] DON = new JButton[21];
     int a = 1;
-    int b = 1;
-    int c = 1;
-    int d = 1;
+    int b = 8;
+    int c = 22;
+    int d = 36;
 
     homePage() {
         DisPlay();
@@ -42,7 +42,7 @@ public class homePage extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     FrameInformationRoom FIR = new FrameInformationRoom();
-                    FIR.setNumber("PHONG SO " +sophong);
+                    FIR.setNumber("Phong So " +sophong);
 
                 }
             });
@@ -62,7 +62,7 @@ public class homePage extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     FrameInformationRoom FIR = new FrameInformationRoom();
-                    FIR.setNumber("PHONG SO " + sophong);
+                    FIR.setNumber("Phong So " + sophong);
                 }
             });
         }
@@ -83,7 +83,7 @@ public class homePage extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     FrameInformationRoom FIR = new FrameInformationRoom();
-                    FIR.setNumber("PHONG SO " + sophong);
+                    FIR.setNumber("Phong So " + sophong);
                 }
             });
         }
@@ -102,7 +102,7 @@ public class homePage extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     FrameInformationRoom FIR = new FrameInformationRoom();
-                    FIR.setNumber("PHONG SO " + sophong);
+                    FIR.setNumber("Phong So " + sophong);
                 }
             });
         }
