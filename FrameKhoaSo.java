@@ -6,6 +6,8 @@
 package GUI;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,6 +37,18 @@ public class FrameKhoaSo extends JFrame {
         l5 = new JLabel("Du Cuoi Ca: ");
         b1 = new JButton("IN");
         b2 = new JButton("DONG");
+        b1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Them action 
+            }
+        });
+        b2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Them action 
+            }
+        });
         add(title);
         add(date);
         add(l1);

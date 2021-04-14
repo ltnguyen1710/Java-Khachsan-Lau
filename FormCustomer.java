@@ -7,7 +7,7 @@ import javax.swing.*;
 
 public class FormCustomer extends JFrame {
 
-    private JLabel ID, title, FullName, Date, sex;
+    private JLabel CMND, title, FullName, Date, sex;
     private JButton add,done;
     private JTextField Name, Date1, ID1;
     private JRadioButton Nam, Nu;
@@ -25,8 +25,8 @@ public class FormCustomer extends JFrame {
         title = new JLabel("THONG TIN KHACH HANG");
         title.setBounds(100,0,400,60);
         title.setFont(new Font(null,Font.BOLD,30));
-        ID = new JLabel("ID");
-        ID.setBounds(70,70,30,30);
+        CMND = new JLabel("CMND");
+        CMND.setBounds(70,70,30,30);
         ID1 = new JTextField();
         ID1.setBounds(100,70,150,30);
         FullName = new JLabel("Ho & Ten");
@@ -68,7 +68,7 @@ public class FormCustomer extends JFrame {
         add(Nam);
         add(Nu);
         add(title);
-        add(ID);
+        add(CMND);
         add(ID1);
         add(Name);
         add(Date);

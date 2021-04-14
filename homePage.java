@@ -36,11 +36,13 @@ public class homePage extends JFrame {
         for (JButton i : V) {
             i = new JButton(String.valueOf(a++));
             p1.add(i);
+            //lay so phong cua button
+            final String sophong=i.getText();
             i.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     FrameInformationRoom FIR = new FrameInformationRoom();
-                    FIR.setNumber("PHONG SO ");
+                    FIR.setNumber("PHONG SO " +sophong);
 
                 }
             });
@@ -54,11 +56,13 @@ public class homePage extends JFrame {
         for (JButton i : GD) {
             i = new JButton(String.valueOf(b++));
             p2.add(i);
+            //lay so phong cua button
+            final String sophong=i.getText();
             i.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     FrameInformationRoom FIR = new FrameInformationRoom();
-                    FIR.setNumber("PHONG SO " + b);
+                    FIR.setNumber("PHONG SO " + sophong);
                 }
             });
         }
@@ -73,11 +77,13 @@ public class homePage extends JFrame {
         for (JButton i : DOI) {
             i = new JButton(String.valueOf(c++));
             p3.add(i);
+            //lay so phong cua button
+            final String sophong=i.getText();
             i.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     FrameInformationRoom FIR = new FrameInformationRoom();
-                    FIR.setNumber("PHONG SO " + c);
+                    FIR.setNumber("PHONG SO " + sophong);
                 }
             });
         }
@@ -90,11 +96,13 @@ public class homePage extends JFrame {
         for (JButton i : DON) {
             i = new JButton(String.valueOf(d++));
             p4.add(i);
+            //lay so phong cua button
+            final String sophong=i.getText();
             i.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     FrameInformationRoom FIR = new FrameInformationRoom();
-                    FIR.setNumber("PHONG SO " + d);
+                    FIR.setNumber("PHONG SO " + sophong);
                 }
             });
         }
