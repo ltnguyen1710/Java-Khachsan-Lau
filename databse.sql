@@ -1,6 +1,4 @@
-create database QLKhachsan
-use QlKhachsan
-
+CREATE DATABASE QLKHACHSAN
 create table phong(
 	IDphong int not null primary key,
 	loaiphong varchar(64),
@@ -21,6 +19,9 @@ create table nhanvien(
 	ten varchar(64),
 	gioitinh varchar(64),
 	ngaysinh smalldatetime,
+)
+create table admin(
+	idadmin int not null primary key
 )
 --thêm cột ngayvaolam vào bảng nhanvien
 alter table nhanvien add ngayvaolam smalldatetime
@@ -64,3 +65,4 @@ create table passwordlist(
 )
 insert into passwordlist values('admin','nghiameow')
 insert into passwordlist values('cashier','nghiameow')
+
