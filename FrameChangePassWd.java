@@ -58,6 +58,6 @@ public class FrameChangePassWd extends JFrame {
         l3.setBounds(45, 140, 200, 30);
         t3.setBounds(45, 175, 200, 30);
         b.setBounds(100, 220, 100, 30);
-        setVisible(true);
+        setVisible(false);
     }
 }

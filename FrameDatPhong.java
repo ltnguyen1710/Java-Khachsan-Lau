@@ -221,6 +221,6 @@ public class FrameDatPhong extends JFrame {
         pt.add(p23);
         pt.add(p24);
         pt.add(p25);
-        setVisible(true);
+        setVisible(false);
     }
 }

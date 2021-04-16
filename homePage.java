@@ -17,6 +17,11 @@ public class homePage extends JFrame {
     int b = 8;
     int c = 22;
     int d = 36;
+    FrameChangePassWd FCP = new FrameChangePassWd();
+    FrameKhoaSo FKS = new FrameKhoaSo();
+    RevenueInDay RID = new RevenueInDay();
+    FrameDatPhong FDP = new FrameDatPhong();
+    Login login = new Login();
 
     homePage() {
         DisPlay();
@@ -37,12 +42,12 @@ public class homePage extends JFrame {
             i = new JButton(String.valueOf(a++));
             p1.add(i);
             //lay so phong cua button
-            final String sophong=i.getText();
+            final String sophong = i.getText();
             i.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     FrameInformationRoom FIR = new FrameInformationRoom();
-                    FIR.setNumber("Phong So " +sophong);
+                     FIR.setNumber("Phong So " +sophong);
 
                 }
             });
@@ -57,12 +62,12 @@ public class homePage extends JFrame {
             i = new JButton(String.valueOf(b++));
             p2.add(i);
             //lay so phong cua button
-            final String sophong=i.getText();
+            final String sophong = i.getText();
             i.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     FrameInformationRoom FIR = new FrameInformationRoom();
-                    FIR.setNumber("Phong So " + sophong);
+                     FIR.setNumber("Phong So " +sophong);
                 }
             });
         }
@@ -78,12 +83,12 @@ public class homePage extends JFrame {
             i = new JButton(String.valueOf(c++));
             p3.add(i);
             //lay so phong cua button
-            final String sophong=i.getText();
+            final String sophong = i.getText();
             i.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     FrameInformationRoom FIR = new FrameInformationRoom();
-                    FIR.setNumber("Phong So " + sophong);
+                     FIR.setNumber("Phong So " +sophong);
                 }
             });
         }
@@ -97,12 +102,12 @@ public class homePage extends JFrame {
             i = new JButton(String.valueOf(d++));
             p4.add(i);
             //lay so phong cua button
-            final String sophong=i.getText();
+            final String sophong = i.getText();
             i.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     FrameInformationRoom FIR = new FrameInformationRoom();
-                    FIR.setNumber("Phong So " + sophong);
+                     FIR.setNumber("Phong So " +sophong);
                 }
             });
         }
@@ -118,7 +123,9 @@ public class homePage extends JFrame {
         b1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new FrameChangePassWd();
+                if (!FCP.isVisible()) {
+                    FCP.setVisible(true);
+                }
             }
 
         });
@@ -126,7 +133,9 @@ public class homePage extends JFrame {
         b2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new FrameKhoaSo();
+                if (!FKS.isVisible()) {
+                    FKS.setVisible(true);
+                }
             }
 
         });
@@ -134,7 +143,9 @@ public class homePage extends JFrame {
         b3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new RevenueInDay();
+                if (!RID.isVisible()) {
+                    RID.setVisible(true);
+                }
             }
 
         });
@@ -142,7 +153,10 @@ public class homePage extends JFrame {
         b4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new FrameDatPhong();
+
+                if (!FDP.isVisible()) {
+                    FDP.setVisible(true);
+                }
             }
 
         });
@@ -150,7 +164,9 @@ public class homePage extends JFrame {
         b5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Login();
+                if (!login.isVisible()) {
+                    login.setVisible(true);
+                }
             }
 
         });

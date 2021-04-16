@@ -85,12 +85,12 @@ public class Login extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setResizable(false); // khong cho thu nho man hinh
         setLayout(null);
-        setVisible(true);
+        setVisible(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public static void main(String[] args) {
 
-        new Login();
+        new Login().setVisible(true);
     }
 }
