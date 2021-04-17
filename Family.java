@@ -1,5 +1,5 @@
 
-package Object;
+package DTO;
 
 public class Family extends Room{
     

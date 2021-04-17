@@ -1,7 +1,5 @@
 
 package DAL;
-
-import DTO.Customer;
 import DTO.Staff;
 import java.sql.Connection;
 import java.sql.Date;

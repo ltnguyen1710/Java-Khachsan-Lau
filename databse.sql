@@ -20,13 +20,22 @@ create table nhanvien(
 	gioitinh varchar(64),
 	ngaysinh smalldatetime,
 )
+
 create table admin(
 	idadmin int not null primary key
 )
 --thêm cột ngayvaolam vào bảng nhanvien
 alter table nhanvien add ngayvaolam smalldatetime
+--Thêm tk mk vào bảng nhanvien
+alter table nhanvien add tk varchar(20)
+alter table nhanvien add mk varchar(20)
+
 --thêm 1 nhân viên để test
 insert into nhanvien values(1,'test','nam',1/1/1111,1/1/1111)
+update nhanvien set tk='cash' where idnhanvien='1'
+update nhanvien set mk='nghiameow' where idnhanvien='1'
+
+
 
 create table khach_datphong(
 	idphong int not null ,
@@ -45,7 +54,7 @@ create table doanhthungay(
 	ngay smalldatetime not null,
 	doanhthu money
 )
-
+select * from khach
 create table khach_tratien(
 	iddoanhthungay int not null,
 	idkhach int not null,
@@ -58,11 +67,4 @@ alter table khach_tratien add constraint FK_khach_tratien foreign key (iddoanhth
 alter table khach_tratien add constraint FK_khach_tratien1 foreign key (idphong) references phong(idphong)
 alter table khach_tratien add constraint FK_khach_tratien2 foreign key (idkhach) references khach(idkhach)
 
---them mat khau
-create table passwordlist(
-	idpass varchar(64) primary key,
-	pass varchar(64)
-)
-insert into passwordlist values('admin','nghiameow')
-insert into passwordlist values('cashier','nghiameow')
 

@@ -1,5 +1,5 @@
 
-package Object;
+package DTO;
 
 import java.sql.*;
 import java.util.Vector;

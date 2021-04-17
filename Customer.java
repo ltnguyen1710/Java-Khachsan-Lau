@@ -15,7 +15,7 @@ public class Customer {
         this.date = date;
     }
 
-    Customer() {
+    public Customer() {
     }
 
     public String getID() {

@@ -1,4 +1,4 @@
-package Object;
+package DTO;
 
 public class VIP extends Room{
 

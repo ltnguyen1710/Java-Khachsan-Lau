@@ -41,7 +41,7 @@ public class DALCustomer {
                 ResultSet rs = stmt.executeQuery(sql);
                 while (rs.next()) {
                     Customer cus = new Customer();
-                    cus.setCMND(rs.getString("CMND"));
+                    cus.setID(rs.getString("CMND"));
                     cus.setName(rs.getString("TEN"));
                     cus.setSex(rs.getString("GIOITINH"));
                     cus.setDate(rs.getDate("NGAYSINH"));
@@ -62,7 +62,7 @@ public class DALCustomer {
             try {
                 String sql = "INSERT INTO KHACH VALUES(?,?,?,?)";
                 PreparedStatement stmt = con.prepareStatement(sql);
-                stmt.setString(1, cus.getCMND());
+                stmt.setString(1, cus.getID());
                 stmt.setString(2, cus.getName());
                 stmt.setString(3, cus.getSex());
                 stmt.setDate(4, (Date) cus.getDate());
@@ -75,11 +75,11 @@ public class DALCustomer {
         return result;
     }
 
-    public boolean hasCusID(String CMND) {
+    public boolean hasCusID(String ID) {
         boolean result = false;
         if (openConnection()) {
             try {
-                String sql = "SELECT * FROM KHACH WHERE CMND=" + CMND + "";
+                String sql = "SELECT * FROM KHACH WHERE IDKHACH=" + ID + "";
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);
                 result = rs.next();
