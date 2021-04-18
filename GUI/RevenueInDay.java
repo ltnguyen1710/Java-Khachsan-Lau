@@ -30,8 +30,8 @@ public class RevenueInDay extends JFrame {
         l1.setBounds(350,100,200,30);
         t1 = new JTextField();
         t1.setBounds(500,100,200,30);
-        tim = new JButton("TIM");
-        tim.setBounds(800, 100, 80, 30);
+        tim = new JButton("TIM", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\loupe.png"));
+        tim.setBounds(710, 100, 80, 30);
         tb.setModel(model);
         model.addColumn("Doanh Thu ngay");
         model.addColumn("So du dau ca");
