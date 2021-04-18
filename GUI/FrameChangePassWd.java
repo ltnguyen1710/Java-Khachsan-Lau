@@ -7,6 +7,7 @@ package GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,7 +37,7 @@ public class FrameChangePassWd extends JFrame {
         t1 = new JPasswordField();
         t2 = new JPasswordField();
         t3 = new JPasswordField();
-        b = new JButton("Xac Nhan");
+        b = new JButton("Xac Nhan", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\checked.png"));
         b.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -57,7 +58,7 @@ public class FrameChangePassWd extends JFrame {
         t2.setBounds(45, 105, 200, 30);
         l3.setBounds(45, 140, 200, 30);
         t3.setBounds(45, 175, 200, 30);
-        b.setBounds(100, 220, 100, 30);
-        setVisible(false);
+        b.setBounds(70, 220, 150, 30);
+        setVisible(true);
     }
 }

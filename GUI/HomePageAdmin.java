@@ -1,7 +1,6 @@
 package GUI;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -76,7 +75,7 @@ public class HomePageAdmin extends JFrame {
         model.addColumn("Ngay Lam");
         sp.setBounds(400, 100, 600, 500);
         add(sp);
-        FIX1 = new JButton("FIX MONEY ROOM");
+        FIX1 = new JButton("FIX MONEY ROOM",new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\fix.png"));
         FIX1.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -84,7 +83,7 @@ public class HomePageAdmin extends JFrame {
             }
             
         });
-        DS = new JButton("LIST CUSTOMER");
+        DS = new JButton("LIST CUSTOMER",new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\list.png"));
         
         DS.addActionListener(new ActionListener(){
             @Override
@@ -93,7 +92,7 @@ public class HomePageAdmin extends JFrame {
             }
             
         });
-        DX = new JButton("LOGOUT");
+        DX = new JButton("LOGOUT",new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\log-out.png"));
         DX.addActionListener(new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e){

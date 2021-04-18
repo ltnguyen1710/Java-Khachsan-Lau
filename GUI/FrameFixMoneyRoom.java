@@ -26,8 +26,8 @@ public class FrameFixMoneyRoom extends JFrame {
         t1 = new JTextField();
         t1.setPreferredSize(new Dimension(200,30));
         cb.setPreferredSize(new Dimension(200,30));
-        b1 = new JButton("   OK   ");
-        b2 = new JButton("CANCEL");
+        b1 = new JButton("   OK   ",new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\checked.png"));
+        b2 = new JButton("CANCEL",new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\x-button.png"));
         add(ro);
         add(cb);
         add(l1);
@@ -35,6 +35,7 @@ public class FrameFixMoneyRoom extends JFrame {
         add(b1);
         add(b2);
         setVisible(true);
+        setResizable(false); // khong cho thu nho man hinh
     }
 
     public static void main(String[] args) {

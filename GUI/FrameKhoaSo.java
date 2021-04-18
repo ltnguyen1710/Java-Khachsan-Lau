@@ -8,6 +8,7 @@ package GUI;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,8 +36,8 @@ public class FrameKhoaSo extends JFrame {
         l3 = new JLabel("Tien Mat: ");
         l4 = new JLabel("VISA: ");
         l5 = new JLabel("Du Cuoi Ca: ");
-        b1 = new JButton("IN");
-        b2 = new JButton("DONG");
+        b1 = new JButton("IN",new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\printer.png"));
+        b2 = new JButton("KHOA SO",new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\lock.png"));
         b1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -66,8 +67,11 @@ public class FrameKhoaSo extends JFrame {
         l3.setBounds(50, 140, 150, 30);
         l4.setBounds(50, 170, 150, 30);
         l5.setBounds(50, 200, 150, 30);
-        b1.setBounds(90, 250, 100, 40);
-        b2.setBounds(190, 250, 100, 40);
-        setVisible(false);
+        b1.setBounds(70, 250, 120, 40);
+        b2.setBounds(190, 250, 120, 40);
+        setVisible(true);
+    }
+    public static void main(String [] args){
+        new FrameKhoaSo();
     }
 }

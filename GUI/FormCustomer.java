@@ -19,6 +19,7 @@ public class FormCustomer extends JFrame {
 
     private void DisPlay() {
         setTitle("Form Customer");
+        setResizable(false); // khong cho thu nho man hinh
         setLayout(null);
         setBounds(320,200,600,300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -45,8 +46,8 @@ public class FormCustomer extends JFrame {
         Nu.setBounds(450,110,80,30);
         bg.add(Nam);
         bg.add(Nu);
-        add = new JButton("ADD");
-        add.setBounds(300,160,80,30);
+        add = new JButton("ADD",new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\addition.png"));
+        add.setBounds(280,160,100,30);
         add.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -54,8 +55,8 @@ public class FormCustomer extends JFrame {
             }
             
         });
-        done = new JButton("DONE");
-        done.setBounds(390,160,80,30);
+        done = new JButton("DONE",new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\thumb-ups.png"));
+        done.setBounds(390,160,100,30);
         done.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -81,8 +82,7 @@ public class FormCustomer extends JFrame {
     private void AddActionPerformed(ActionEvent e){
 
         Name.setText(null);
-      
-        
+         
     }
     
     private void DoneActionPerformed(ActionEvent e){
