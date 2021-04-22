@@ -10,7 +10,7 @@ public class BLLStaff {
     }
     DALStaff dstaff = new DALStaff();
 
-    public boolean ChecklogStaff(String tk, String mk) {
+    public boolean ChecklogStaff(int tk, String mk) {
         if (dstaff.checkLogin(tk, mk)) {
             return true;
         }

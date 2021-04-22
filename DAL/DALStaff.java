@@ -97,13 +97,13 @@ public class DALStaff {
         return result;
     }
 
-    public boolean checkLogin(String tk, String mk) {
+    public boolean checkLogin(int tk, String mk) {
         boolean result = false;
         if (openConnection()) {
             try {
-                String sql = "SELECT * FROM NHANVIEN WHERE TK = ? AND MK = ?";
+                String sql = "SELECT * FROM NHANVIEN WHERE IDNHANVIEN = ? AND MK = ?";
                 PreparedStatement stmt = con.prepareStatement(sql);
-                stmt.setString(1, tk);
+                stmt.setInt(1, tk);
                 stmt.setString(2, mk);
                 result = stmt.execute();
             } catch (SQLException aC) {

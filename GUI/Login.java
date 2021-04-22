@@ -35,7 +35,7 @@ public class Login extends JFrame {
         b3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (BLLStaff.ChecklogStaff(tk.getText(), mk.getText())) {
+                if (BLLStaff.ChecklogStaff(Integer.parseInt(tk.getText()), mk.getText())) {
                     new homePage();
                     setVisible(false);
                 } else {
