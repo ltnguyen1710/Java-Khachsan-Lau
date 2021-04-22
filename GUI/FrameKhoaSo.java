@@ -69,7 +69,7 @@ public class FrameKhoaSo extends JFrame {
         l5.setBounds(50, 200, 150, 30);
         b1.setBounds(70, 250, 120, 40);
         b2.setBounds(190, 250, 120, 40);
-        setVisible(true);
+        
     }
     public static void main(String [] args){
         new FrameKhoaSo();

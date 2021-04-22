@@ -1,5 +1,5 @@
-
 package DAL;
+
 import DTO.Staff;
 import java.sql.Connection;
 import java.sql.Date;
@@ -9,8 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
-
-
 
 public class DALStaff {
 
@@ -39,6 +37,7 @@ public class DALStaff {
             System.out.println(ex);
         }
     }
+
     public Vector<Staff> getVectorSta() {
         Vector<Staff> arrSta = new Vector<>();
         if (openConnection()) {
@@ -61,7 +60,8 @@ public class DALStaff {
         }
         return arrSta;
     }
-        public boolean addStaff(Staff sta) {
+
+    public boolean addStaff(Staff sta) {
         boolean result = false;
         if (openConnection()) {
             try {
@@ -79,11 +79,12 @@ public class DALStaff {
         }
         return result;
     }
-            public boolean hasStaID(int ID) {
+
+    public boolean checkMK(String mk) {
         boolean result = false;
         if (openConnection()) {
             try {
-                String sql = "SELECT * FROM NHANVIEN WHERE IDNHANVIEN=" + ID + "";
+                String sql = "SELECT * FROM NHANVIEN WHERE MKNHANVIEN=" + mk + "";
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);
                 result = rs.next();
@@ -95,4 +96,38 @@ public class DALStaff {
         }
         return result;
     }
+
+    public boolean checkLogin(String tk, String mk) {
+        boolean result = false;
+        if (openConnection()) {
+            try {
+                String sql = "SELECT * FROM NHANVIEN WHERE TK = ? AND MK = ?";
+                PreparedStatement stmt = con.prepareStatement(sql);
+                stmt.setString(1, tk);
+                stmt.setString(2, mk);
+                result = stmt.execute();
+            } catch (SQLException aC) {
+                System.err.println(aC.getMessage());
+            } finally {
+                closeConnection();
+            }
+        }
+        return result;
+    }
+
+    public boolean changedPass(int idStaff, String newPass) {
+        boolean result = false;
+        if (openConnection()) {
+            try {
+                Statement stmt = con.createStatement();
+                stmt.executeUpdate("UPDATE ADMIN SET MKADMIN = "+ newPass +"WHERE IDNHANVIEN="+ idStaff +"");
+            } catch (Exception hS) {
+                System.err.println(hS);
+            } finally {
+                closeConnection();
+            }
+        }
+        return result;
+    }
+
 }

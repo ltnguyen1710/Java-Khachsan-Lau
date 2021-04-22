@@ -1,6 +1,7 @@
 package DAL;
 
 import DTO.Admin;
+import GUI.Login;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -38,6 +39,7 @@ public class DALAdmin {
         }
     }
 //   lay du lieu tu database
+/*
     public Vector<Admin> getVectorAd() {
         Vector<Admin> arrAd = new Vector<>();
         if (openConnection()) {
@@ -57,7 +59,9 @@ public class DALAdmin {
         }
         return arrAd;
     }
+    */
 //nhap du lieu vao database
+/*
     public boolean addAd(Admin ad) {
         boolean result = false;
         if (openConnection()) {
@@ -73,7 +77,26 @@ public class DALAdmin {
         }
         return result;
     }
+*/
+    public boolean checkLogin(String tk, String mk) {
+        boolean result = false;
+        if (openConnection()) {
+            try {
+                String sql = "SELECT * FROM ADMIN WHERE TKADMIN = ? AND MKADMIN = ?";
+                PreparedStatement stmt = con.prepareStatement(sql);
+                stmt.setString(1, tk);
+                stmt.setString(2, mk);
+                result = stmt.execute();
+            } catch (SQLException aC) {
+                System.err.println(aC.getMessage());
+            } finally {
+                closeConnection();
+            }
+        }
+        return result;
+    }
 //kiem tra id ton tai
+/*
     public boolean hasAdID(int ID) {
         boolean result = false;
         if (openConnection()) {
@@ -90,4 +113,5 @@ public class DALAdmin {
         }
         return result;
     }
+*/
 }

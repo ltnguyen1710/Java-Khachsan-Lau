@@ -20,7 +20,7 @@ public class HomePageAdmin extends JFrame {
     private DefaultTableModel model = new DefaultTableModel();
     private JScrollPane sp = new JScrollPane(tb);
 
-    HomePageAdmin() {
+    public HomePageAdmin() {
         DisPlay();
     }
 

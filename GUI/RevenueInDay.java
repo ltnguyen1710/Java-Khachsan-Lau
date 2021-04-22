@@ -21,7 +21,7 @@ public class RevenueInDay extends JFrame {
         setTitle("Danh Sach Doanh Thu");
         setResizable(false); // khong cho thu nho man hinh
         setLayout(null);
-        setVisible(true);
+        
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         title = new JLabel("DANH SACH DOANH THU");
         title.setBounds(320, 0, 700, 60);

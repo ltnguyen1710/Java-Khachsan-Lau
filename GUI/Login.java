@@ -1,20 +1,21 @@
 package GUI;
-
-import GUI.homePage;
+import BLL.BLLStaff;
+import BLL.BLLAdmin;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Login extends JFrame {
-
+    BLLStaff BLLStaff = new BLLStaff();
+    BLLAdmin BLLad = new BLLAdmin();
     private JButton b1, b2, b3, b4;
     private JLabel l, title, l1, l2, a;
-    private JPanel p1, p2;
-    private JTextField tkAd, tkStaff;
-    private JTextField mkAd, mkStaff;
+    private JPanel p;
+    public static JTextField tk;
+    public static JTextField mk;
 
-    Login() {
+    public Login() {
         setContentPane(new JLabel(new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\login2.jpg")));
         a = new JLabel();
         a.setBounds(750, 200, 350, 50);
@@ -30,82 +31,89 @@ public class Login extends JFrame {
         b1 = new JButton("Admin", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\staff.png"));
         b2 = new JButton("Thu Ngan", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\staff1.png"));
         b3 = new JButton("Dang Nhap");
-        b4 = new JButton("Thoat");
+        b4 = new JButton("Dang Nhap");
         b3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new homePage();
-                setVisible(false);
+                if (BLLStaff.ChecklogStaff(tk.getText(), mk.getText())) {
+                    new homePage();
+                    setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng");
+                }
+
             }
         });
+
         b4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (BLLad.Checklog(tk.getText(), mk.getText())) {
+                    new HomePageAdmin();
+                    setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng");
+                }
 
-                new Login().setVisible(true);
-                setVisible(false);
             }
 
         });
-        p1 = new JPanel();
-        p2 = new JPanel();
-        tkAd = new JTextField();
-        mkAd = new JPasswordField();
-        tkStaff = new JTextField();
-        mkStaff = new JPasswordField();
+        p = new JPanel();
+
+        tk = new JTextField();
+        mk = new JPasswordField();
+
         l1 = new JLabel("Tai khoan:");
         l2 = new JLabel("Mat Khau :");
         b1.setBounds(480, 250, 150, 60);
         b2.setBounds(640, 250, 150, 60);
-        p1.setBounds(490, 320, 300, 300);
-        p2.setBounds(490, 320, 300, 300);
+        p.setBounds(490, 320, 300, 300);
+
+        p.add(l1);
+        p.add(tk);
+        p.add(l2);
+        p.add(mk);
 
         //l1.setbounds(10,10,);
-        tkAd.setPreferredSize(new Dimension(200, 30));
-        mkAd.setPreferredSize(new Dimension(200, 30));
-        tkStaff.setPreferredSize(new Dimension(200, 30));
-        mkStaff.setPreferredSize(new Dimension(200, 30));
+        tk.setPreferredSize(new Dimension(200, 30));
+        mk.setPreferredSize(new Dimension(200, 30));
 
         b1.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                p1.revalidate();
+
                 a.setText("Admin");
                 l.setText("Dang Nhap Duoi Quyen ");
                 a.setForeground(Color.RED);
                 add(a);
-                tkAd.setText(null);
-                mkAd.setText(null);
-                p1.add(l1);
-                p1.add(tkAd);
-                p1.add(l2);
-                p1.add(mkAd);
-                p1.add(b3);
-                p1.add(b4);
-                b2.setEnabled(false);
-                add(p1);
+                tk.setText(null);
+                mk.setText(null);
+
+                b3.setVisible(false);
+                p.add(b4);
+                b4.setVisible(true);
+                add(p);
+
             }
         });
         b2.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                p2.revalidate();
+
                 a.setText("Thu Ngan");
                 l.setText("Dang Nhap Duoi Quyen ");
                 a.setForeground(Color.BLUE);
                 add(a);
-                tkStaff.setText(null);
-                mkStaff.setText(null);
-                p2.add(l1);
-                p2.add(tkStaff);
-                p2.add(l2);
-                p2.add(mkStaff);
-                p2.add(b3);
-                p2.add(b4);
-                b1.setEnabled(false);
-                add(p2);
+                tk.setText(null);
+                mk.setText(null);
+
+                b4.setVisible(false);
+                p.add(b3);
+                b3.setVisible(true);
+                add(p);
+
             }
         });
 

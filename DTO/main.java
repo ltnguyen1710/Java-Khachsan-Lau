@@ -14,8 +14,8 @@ public class main {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKhachsan";
-            String username = "cop";
-            String password = "cop123";
+            String username = "HOLAKAKA";
+            String password = "1";
             con = DriverManager.getConnection(dbUrl, username, password);
             data();
             addtoDB();
@@ -28,32 +28,36 @@ public class main {
     public static void data() {
         for (int i = 0; i < 56; i++) {
             if (i < 7) {
-                VIP vip = new VIP();
-                vip.setID(i + 1);
-                vip.setPrice(2500);
-                vip.setStatus("Trong");
-                rooms.add(vip);
+                Room room =new Room();
+                room.setID(i + 1);
+                room.setPrice(2500);
+                room.setStatus("Trong");
+                room.setType("VIP");
+                rooms.add(room);
             }
             if (i >= 7 && i < 21) {
-                Couple couple = new Couple();
-                couple.setID(i + 1);
-                couple.setPrice(1000);
-                couple.setStatus("Trong");
-                rooms.add(couple);
+                Room room =new Room();
+                room.setID(i + 1);
+                room.setPrice(2500);
+                room.setStatus("Trong");
+                room.setType("Couple");
+                rooms.add(room);
             }
             if (i >= 21 && i < 35) {
-                Family fam = new Family();
-                fam.setID(i + 1);
-                fam.setPrice(1500);
-                fam.setStatus("Trong");
-                rooms.add(fam);
+               Room room =new Room();
+                room.setID(i + 1);
+                room.setPrice(2500);
+                room.setStatus("Trong");
+                room.setType("Family");
+                rooms.add(room);
             }
             if (i >= 35) {
-                Single sing = new Single();
-                sing.setID(i + 1);
-                sing.setPrice(200);
-                sing.setStatus("Trong");
-                rooms.add(sing);
+               Room room =new Room();
+                room.setID(i + 1);
+                room.setPrice(2500);
+                room.setStatus("Trong");
+                room.setType("Single");
+                rooms.add(room);
             }
         }
     }
@@ -63,28 +67,28 @@ public class main {
         try {
             PreparedStatement prest = con.prepareStatement(sql);
             for (int i = 0; i < 56; i++) {
-                if(rooms.get(i) instanceof VIP){
+                if(rooms.get(i).getType().equalsIgnoreCase("VIP")){
                     prest.setInt(1, i+1);
                     prest.setString(2, "VIP");
                     prest.setString(3, rooms.get(i).getStatus());
                     prest.setInt(4, rooms.get(i).getPrice());
                     prest.executeUpdate();
                 }
-                if(rooms.get(i) instanceof Couple){
+                if(rooms.get(i).getType().equalsIgnoreCase("Couple")){
                     prest.setInt(1, i+1);
                     prest.setString(2, "Couple");
                     prest.setString(3, rooms.get(i).getStatus());
                     prest.setInt(4, rooms.get(i).getPrice());
                     prest.executeUpdate();
                 }
-                if(rooms.get(i) instanceof Family){
+                if(rooms.get(i).getType().equalsIgnoreCase("Family")){
                     prest.setInt(1, i+1);
                     prest.setString(2, "Family");
                     prest.setString(3, rooms.get(i).getStatus());
                     prest.setInt(4, rooms.get(i).getPrice());
                     prest.executeUpdate();
                 }
-                if(rooms.get(i) instanceof Single){
+                if(rooms.get(i).getType().equalsIgnoreCase("Single")){
                     prest.setInt(1, i+1);
                     prest.setString(2, "Single");
                     prest.setString(3, rooms.get(i).getStatus());
