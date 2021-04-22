@@ -22,8 +22,15 @@ create table nhanvien(
 )
 
 create table admin(
-	idadmin int not null primary key
+	idadmin int not null primary key,
+	tkadmin varchar(20),
+	mkadmin varchar(20)
 )
+drop table admin
+--thêm 1 admin
+select * from admin
+insert into admin values(1,'nguyencop','nghiameow')
+
 --thêm cột ngayvaolam vào bảng nhanvien
 alter table nhanvien add ngayvaolam smalldatetime
 --Thêm tk mk vào bảng nhanvien
@@ -38,33 +45,19 @@ update nhanvien set mk='nghiameow' where idnhanvien='1'
 
 
 create table khach_datphong(
+	iddatphong int not null primary key,
 	idphong int not null ,
 	idkhach int not null,
 	idnhanvien int not null,
 	ngaydat smalldatetime,
 	ngaytra smalldatetime,
+	gia money,
+	datra money
 )
-alter table khach_datphong add constraint PK_khach_datphong primary key (idphong,idkhach,idnhanvien)
-alter table khach_datphong add constraint FK_khach_datphong foreign key (idphong) references phong(idphong)
-alter table khach_datphong add constraint FK_khach_datphong1 foreign key (idkhach) references khach(idkhach)
-alter table khach_datphong add constraint FK_khach_datphong2 foreign key (idnhanvien) references nhanvien(idnhanvien)
-
-create table doanhthungay(
-	iddoanhthungay int not null primary key,
-	ngay smalldatetime not null,
-	doanhthu money
-)
-select * from khach
-create table khach_tratien(
-	iddoanhthungay int not null,
-	idkhach int not null,
-	idphong int not null,
-	sotientra money,
-	sotienno money
-)
-alter table khach_tratien add constraint PK_khach_tratien primary key (iddoanhthungay,idkhach,idphong)
-alter table khach_tratien add constraint FK_khach_tratien foreign key (iddoanhthungay) references doanhthungay(iddoanhthungay)
-alter table khach_tratien add constraint FK_khach_tratien1 foreign key (idphong) references phong(idphong)
-alter table khach_tratien add constraint FK_khach_tratien2 foreign key (idkhach) references khach(idkhach)
+drop table khach_datphong
 
 
+
+
+
+select * from phong
