@@ -16,28 +16,21 @@ create table khach(
 
 create table nhanvien(
 	idnhanvien int not null primary key, 
+	mkstaff varchar (40),
 	ten varchar(64),
 	gioitinh varchar(64),
 	ngaysinh smalldatetime,
+	ngayvaolam smalldatetime,
 )
+--thêm 1 nhân viên để test
+insert into nhanvien values(1,'nghiameow','NguyenCop','nam',1/1/1111,1/1/1111)
 
 create table admin(
 	tkadmin varchar(20)not null primary key,
 	mkadmin varchar(20)
 )
-drop table admin
+drop table nhanvien
 --thêm 1 admin
-select * from admin
-insert into admin values('nguyencop','nghiameow')
-
---thêm cột ngayvaolam vào bảng nhanvien
-alter table nhanvien add ngayvaolam smalldatetime
---Thêm tk mk vào bảng nhanvien
-alter table nhanvien add mk varchar (40)
---thêm 1 nhân viên để test
-insert into nhanvien values(1,'test','nam',1/1/1111,1/1/1111)
-update nhanvien set mk='nghiameow' where idnhanvien='1'
-
 
 
 create table khach_datphong(
