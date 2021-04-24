@@ -1,4 +1,5 @@
 package GUI;
+
 import BLL.BLLStaff;
 import BLL.BLLAdmin;
 import javax.swing.*;
@@ -7,13 +8,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Login extends JFrame {
+
     BLLStaff BLLStaff = new BLLStaff();
     BLLAdmin BLLad = new BLLAdmin();
     private JButton b1, b2, b3, b4;
     private JLabel l, title, l1, l2, a;
     private JPanel p;
-    public static JTextField tk;
-    public static JTextField mk;
+    public JTextField tk;
+    public JTextField mk;
+
+
 
     public Login() {
         setContentPane(new JLabel(new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\login2.jpg")));
@@ -36,7 +40,7 @@ public class Login extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (BLLStaff.ChecklogStaff(Integer.parseInt(tk.getText()), mk.getText())) {
-                    new homePage();
+                    new homePage().setTaikhoan(tk.getText());
                     setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng");
@@ -49,8 +53,10 @@ public class Login extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (BLLad.Checklog(tk.getText(), mk.getText())) {
+
                     new HomePageAdmin();
-                    setVisible(false);
+                    //setVisible(false);
+                    dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng");
                 }
@@ -127,6 +133,7 @@ public class Login extends JFrame {
         setLayout(null);
         setVisible(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 
     public static void main(String[] args) {

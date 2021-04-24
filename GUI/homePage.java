@@ -1,5 +1,6 @@
 package GUI;
 
+import BLL.BLLStaff;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -18,15 +19,38 @@ public class homePage extends JFrame {
     int b = 8;
     int c = 22;
     int d = 36;
+    String taikhoan;
+    int sodudau;
     FrameChangePassWd FCP = new FrameChangePassWd();
     FrameKhoaSo FKS = new FrameKhoaSo();
     RevenueInDay RID = new RevenueInDay();
     FrameDatPhong FDP = new FrameDatPhong();
     Login login = new Login();
+    BLLStaff BLLstaff = new BLLStaff();
+    Login log = new Login();
+    FrameChangePassWd changePass = new FrameChangePassWd();
 
     homePage() {
         Login log = new Login();
+        String inputDialog = JOptionPane.showInputDialog("SÔ DƯ ĐẦU ");
+        sodudau = Integer.parseInt(inputDialog);
         DisPlay();
+    }
+
+    public int getSodudau() {
+        return sodudau;
+    }
+
+    public void setSodudau(int sodudau) {
+        this.sodudau = sodudau;
+    }
+
+    public void setTaikhoan(String taikhoan) {
+        this.taikhoan = taikhoan;
+    }
+
+    public String getTaikhoan() {
+        return taikhoan;
     }
 
     private void DisPlay() {
@@ -117,6 +141,7 @@ public class homePage extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!FCP.isVisible()) {
+                    FCP.setTaikhoan(taikhoan);
                     FCP.setVisible(true);
                 }
             }
@@ -156,6 +181,7 @@ public class homePage extends JFrame {
         b5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 dispose();
                 if (!login.isVisible()) {
                     login.setVisible(true);

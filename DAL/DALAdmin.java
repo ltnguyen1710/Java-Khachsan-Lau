@@ -59,7 +59,7 @@ public class DALAdmin {
         }
         return arrAd;
     }
-    */
+     */
 //nhap du lieu vao database
 /*
     public boolean addAd(Admin ad) {
@@ -77,16 +77,15 @@ public class DALAdmin {
         }
         return result;
     }
-*/
+     */
     public boolean checkLogin(String tk, String mk) {
         boolean result = false;
         if (openConnection()) {
             try {
-                String sql = "SELECT * FROM ADMIN WHERE TKADMIN = ? AND MKADMIN = ?";
-                PreparedStatement stmt = con.prepareStatement(sql);
-                stmt.setString(1, tk);
-                stmt.setString(2, mk);
-                result = stmt.execute();
+                String sql = "SELECT * FROM ADMIN WHERE TKADMIN ='" + tk + "'  AND MKADMIN = '" + mk + "'";
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);
+                result = rs.next();
             } catch (SQLException aC) {
                 System.err.println(aC.getMessage());
             } finally {
@@ -113,5 +112,5 @@ public class DALAdmin {
         }
         return result;
     }
-*/
+     */
 }

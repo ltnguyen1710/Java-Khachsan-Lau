@@ -80,11 +80,29 @@ public class DALStaff {
         return result;
     }
 
-    public boolean checkMK(String mk) {
+
+    public boolean checkLogin(int tk, String mk) {
         boolean result = false;
         if (openConnection()) {
             try {
-                String sql = "SELECT * FROM NHANVIEN WHERE MKNHANVIEN=" + mk + "";
+                String sql = "SELECT * FROM NHANVIEN WHERE IDNHANVIEN ="+tk+"  AND MK = '"+mk+"'";
+                Statement stmt = con.createStatement();
+                ResultSet rs=stmt.executeQuery(sql);
+                result=rs.next();
+            } catch (SQLException aC) {
+                System.err.println(aC.getMessage());
+            } finally {
+                closeConnection();
+            }
+        }
+        return result;
+    }
+
+    public boolean checkMKS(String mk) {
+        boolean result = false;
+        if (openConnection()) {
+            try {
+                String sql = "SELECT * FROM NHANVIEN WHERE MK='" + mk + "'";
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);
                 result = rs.next();
@@ -96,31 +114,12 @@ public class DALStaff {
         }
         return result;
     }
-
-    public boolean checkLogin(int tk, String mk) {
-        boolean result = false;
-        if (openConnection()) {
-            try {
-                String sql = "SELECT * FROM NHANVIEN WHERE IDNHANVIEN = ? AND MK = ?";
-                PreparedStatement stmt = con.prepareStatement(sql);
-                stmt.setInt(1, tk);
-                stmt.setString(2, mk);
-                result = stmt.execute();
-            } catch (SQLException aC) {
-                System.err.println(aC.getMessage());
-            } finally {
-                closeConnection();
-            }
-        }
-        return result;
-    }
-
-    public boolean changedPass(int idStaff, String newPass) {
+    public boolean changedPass(int idstaff, String newPass) {
         boolean result = false;
         if (openConnection()) {
             try {
                 Statement stmt = con.createStatement();
-                stmt.executeUpdate("UPDATE ADMIN SET MKADMIN = "+ newPass +"WHERE IDNHANVIEN="+ idStaff +"");
+                stmt.executeUpdate("UPDATE NHANVIEN SET MK = '"+ newPass +"' WHERE IDNHANVIEN="+ idstaff +"");
             } catch (Exception hS) {
                 System.err.println(hS);
             } finally {
