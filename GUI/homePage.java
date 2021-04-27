@@ -1,9 +1,11 @@
 package GUI;
 
+import BLL.BLLStaff;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.TitledBorder;
+import BLL.BLLRoom;
 
 // giao dien thu ngan.
 public class homePage extends JFrame {
@@ -18,15 +20,39 @@ public class homePage extends JFrame {
     int b = 8;
     int c = 22;
     int d = 36;
+    String taikhoan;
+    int sodudau;
     FrameChangePassWd FCP = new FrameChangePassWd();
     FrameKhoaSo FKS = new FrameKhoaSo();
     RevenueInDay RID = new RevenueInDay();
     FrameDatPhong FDP = new FrameDatPhong();
     Login login = new Login();
+    BLLStaff BLLstaff = new BLLStaff();
+    Login log = new Login();
+    FrameChangePassWd changePass = new FrameChangePassWd();
+    BLLRoom bllroom = new BLLRoom();
 
     homePage() {
         Login log = new Login();
+        String inputDialog = JOptionPane.showInputDialog("SÔ DƯ ĐẦU ");
+        sodudau = Integer.parseInt(inputDialog);
         DisPlay();
+    }
+
+    public int getSodudau() {
+        return sodudau;
+    }
+
+    public void setSodudau(int sodudau) {
+        this.sodudau = sodudau;
+    }
+
+    public void setTaikhoan(String taikhoan) {
+        this.taikhoan = taikhoan;
+    }
+
+    public String getTaikhoan() {
+        return taikhoan;
     }
 
     private void DisPlay() {
@@ -43,19 +69,21 @@ public class homePage extends JFrame {
         p1.setBackground(new Color(0, 0, 0, 0));
         add(p1);
         for (JButton i : V) {
-            final int num =a;
             i = new JButton(String.valueOf(a++), new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\vip.png"));
+            if (!bllroom.getTinhtrang(a-1).equalsIgnoreCase("Trong")) {
+                i.setBackground(Color.red);
+            }
             p1.add(i);
+            
             i.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    FrameInformationRoom FIR = new FrameInformationRoom();
-                    FIR.setNumber("Phong So " + num);
+
                 }
             });
         }
         // khoi tao p2 va dat ten panel
-        p2 = new JPanel(new GridLayout(2, 7, 10, 10));
+        p2 = new JPanel(null);
         p2.setBorder(BorderFactory.createTitledBorder(null, "Phong Gia Dinh",
                 TitledBorder.CENTER, TitledBorder.CENTER, new Font("Brush Script Std", Font.PLAIN, 20), new Color(0, 204, 255)));
         p2.setBounds(50, 115, 700, 125);
@@ -63,6 +91,9 @@ public class homePage extends JFrame {
 
         for (JButton i : GD) {
             i = new JButton(String.valueOf(b++), new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\family.png"));
+            if (!bllroom.getTinhtrang(b-1).equalsIgnoreCase("Trong")) {
+                i.setBackground(Color.red);
+            }
             p2.add(i);
             i.addActionListener(new ActionListener() {
                 @Override
@@ -70,9 +101,10 @@ public class homePage extends JFrame {
                 }
             });
         }
+        p2.setLayout(new GridLayout(2, 7, 10, 10));
         add(p2);
         // khoi tao p3 va dat ten panel
-        p3 = new JPanel(new GridLayout(2, 7, 10, 10));
+        p3 = new JPanel(null);
         p3.setBorder(BorderFactory.createTitledBorder(null, "Phong Doi",
                 TitledBorder.CENTER, TitledBorder.CENTER, new Font("Brush Script Std", Font.PLAIN, 20), new Color(255, 0, 255)));
         p3.setBounds(50, 270, 700, 125);
@@ -81,6 +113,9 @@ public class homePage extends JFrame {
 
         for (JButton i : DOI) {
             i = new JButton(String.valueOf(c++), new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\couple.png"));
+            if (!bllroom.getTinhtrang(c-1).equalsIgnoreCase("Trong")) {
+                i.setBackground(Color.red);
+            }
             p3.add(i);
             i.addActionListener(new ActionListener() {
                 @Override
@@ -88,14 +123,18 @@ public class homePage extends JFrame {
                 }
             });
         }
+        p3.setLayout(new GridLayout(2, 7, 10, 10));
         // khoi tao p4 va dat ten panel
-        p4 = new JPanel(new GridLayout(3, 7, 10, 10));
+        p4 = new JPanel(null);
         p4.setBorder(BorderFactory.createTitledBorder(null, "Phong Don",
                 TitledBorder.CENTER, TitledBorder.CENTER, new Font("Brush Script Std", Font.PLAIN, 20), new Color(255, 77, 77)));
         p4.setBounds(50, 425, 700, 180);
         p4.setBackground(new Color(0, 0, 0, 0));
         for (JButton i : DON) {
             i = new JButton(String.valueOf(d++), new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\single.png"));
+            if (!bllroom.getTinhtrang(d-1).equalsIgnoreCase("Trong")) {
+                i.setBackground(Color.red);
+            }
             p4.add(i);
             i.addActionListener(new ActionListener() {
                 @Override
@@ -105,6 +144,7 @@ public class homePage extends JFrame {
             });
         }
 
+        p4.setLayout(new GridLayout(3, 7, 10, 10));
         add(p4);
         b1 = new JButton("Doi Mat Khau", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\sup.png"));
         b2 = new JButton("Khoa So", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\lock.png"));
@@ -116,6 +156,7 @@ public class homePage extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!FCP.isVisible()) {
+                    FCP.setTaikhoan(taikhoan);
                     FCP.setVisible(true);
                 }
             }
@@ -155,6 +196,7 @@ public class homePage extends JFrame {
         b5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 dispose();
                 if (!login.isVisible()) {
                     login.setVisible(true);
@@ -171,6 +213,7 @@ public class homePage extends JFrame {
     }
 
     public static void main(String[] args) {
+
         new homePage();
     }
 

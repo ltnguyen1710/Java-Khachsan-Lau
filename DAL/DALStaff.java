@@ -18,8 +18,8 @@ public class DALStaff {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKhachsan";
-            String username = "HOLAKAKA";
-            String password = "1";
+            String username = "cop";
+            String password = "cop123";
             con = DriverManager.getConnection(dbUrl, username, password);
             return true;
         } catch (Exception ex) {
@@ -120,6 +120,21 @@ public class DALStaff {
             try {
                 Statement stmt = con.createStatement();
                 stmt.executeUpdate("UPDATE NHANVIEN SET MK = '"+ newPass +"' WHERE IDNHANVIEN="+ idstaff +"");
+            } catch (Exception hS) {
+                System.err.println(hS);
+            } finally {
+                closeConnection();
+            }
+        }
+        return result;
+    }
+    public boolean checkStaff(int idstaff){
+        boolean result = false;
+        if (openConnection()) {
+            try {
+                Statement stmt = con.createStatement();
+                ResultSet rs=stmt.executeQuery("Select * from nhanvien where idnhanvien="+idstaff);
+                result=rs.next();
             } catch (Exception hS) {
                 System.err.println(hS);
             } finally {

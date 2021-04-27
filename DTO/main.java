@@ -14,8 +14,8 @@ public class main {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKhachsan";
-            String username = "HOLAKAKA";
-            String password = "1";
+            String username = "cop";
+            String password = "cop123";
             con = DriverManager.getConnection(dbUrl, username, password);
             data();
             addtoDB();
@@ -35,18 +35,18 @@ public class main {
                 room.setType("VIP");
                 rooms.add(room);
             }
-            if (i >= 7 && i < 21) {
+            if (i >= 21 && i < 35) {
                 Room room =new Room();
                 room.setID(i + 1);
-                room.setPrice(2500);
+                room.setPrice(2000);
                 room.setStatus("Trong");
                 room.setType("Couple");
                 rooms.add(room);
             }
-            if (i >= 21 && i < 35) {
+            if (i >= 7 && i < 21) {
                Room room =new Room();
                 room.setID(i + 1);
-                room.setPrice(2500);
+                room.setPrice(1500);
                 room.setStatus("Trong");
                 room.setType("Family");
                 rooms.add(room);
@@ -54,7 +54,7 @@ public class main {
             if (i >= 35) {
                Room room =new Room();
                 room.setID(i + 1);
-                room.setPrice(2500);
+                room.setPrice(200);
                 room.setStatus("Trong");
                 room.setType("Single");
                 rooms.add(room);

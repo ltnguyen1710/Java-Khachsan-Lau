@@ -13,8 +13,8 @@ public class DALCustomer {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKhachsan";
-            String username = "HOLAKAKA";
-            String password = "1";
+            String username = "cop";
+            String password = "cop123";
             con = DriverManager.getConnection(dbUrl, username, password);
             return true;
         } catch (Exception ex) {
@@ -45,7 +45,7 @@ public class DALCustomer {
                     cus.setID(rs.getString("CMND"));
                     cus.setName(rs.getString("TEN"));
                     cus.setSex(rs.getString("GIOITINH"));
-                    cus.setDate(rs.getDate("NGAYSINH"));
+                    cus.setDate(rs.getString("NGAYSINH"));
                 }
 
             } catch (Exception gC) {
@@ -66,7 +66,8 @@ public class DALCustomer {
                 stmt.setString(1, cus.getID());
                 stmt.setString(2, cus.getName());
                 stmt.setString(3, cus.getSex());
-                stmt.setDate(4, (Date) cus.getDate());
+                stmt.setString(4, cus.getDate());
+                stmt.executeUpdate();
             } catch (Exception aC) {
                 System.err.println(aC.getMessage());
             } finally {
@@ -80,7 +81,7 @@ public class DALCustomer {
         boolean result = false;
         if (openConnection()) {
             try {
-                String sql = "SELECT * FROM KHACH WHERE IDKHACH=" + ID + "";
+                String sql = "SELECT * FROM KHACH WHERE CMND=" + ID + "";
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);
                 result = rs.next();

@@ -5,17 +5,16 @@ import java.util.Date;
 
 public class Customer {
     private String ID,Name,sex;
-    private Date date;
-    
+    private String date;
 
-    public Customer(String ID, String Name, String sex, Date date) {
+    public Customer() {
+    }
+
+    public Customer(String ID, String Name, String sex, String date) {
         this.ID = ID;
         this.Name = Name;
         this.sex = sex;
         this.date = date;
-    }
-
-    public Customer() {
     }
 
     public String getID() {
@@ -42,12 +41,15 @@ public class Customer {
         this.sex = sex;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
+    
+
+   
     
 }

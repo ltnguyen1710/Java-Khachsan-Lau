@@ -26,4 +26,7 @@ public class BLLStaff {
             return "Đổi mật khẩu thành công";
         }    
     }
+    public boolean checkStaff(int idstaff){
+        return dstaff.checkStaff(idstaff);
+    }
 }
