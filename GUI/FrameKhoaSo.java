@@ -8,10 +8,12 @@ package GUI;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class FrameKhoaSo extends JFrame {
 
@@ -24,7 +26,7 @@ public class FrameKhoaSo extends JFrame {
 
     private void DisPLay() {
         setTitle("Khoa So");
-        
+
         setResizable(false);
         setBounds(450, 100, 400, 500);
         setLayout(null);
@@ -36,8 +38,8 @@ public class FrameKhoaSo extends JFrame {
         l3 = new JLabel("Tien Mat: ");
         l4 = new JLabel("VISA: ");
         l5 = new JLabel("Du Cuoi Ca: ");
-        b1 = new JButton("IN",new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\printer.png"));
-        b2 = new JButton("KHOA SO",new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\lock.png"));
+        b1 = new JButton("IN", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\printer.png"));
+        b2 = new JButton("KHOA SO", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\lock.png"));
         b1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -62,16 +64,33 @@ public class FrameKhoaSo extends JFrame {
         title.setBounds(110, 5, 250, 50);
         title.setFont(new Font(null, Font.BOLD, 20));
         date.setBounds(150, 40, 140, 40);
-        l1.setBounds(50, 80, 150, 30);
-        l2.setBounds(50, 110, 150, 30);
-        l3.setBounds(50, 140, 150, 30);
-        l4.setBounds(50, 170, 150, 30);
-        l5.setBounds(50, 200, 150, 30);
+        l1.setBounds(50, 80, 200, 30);
+        l2.setBounds(50, 110, 200, 30);
+        l3.setBounds(50, 140, 200, 30);
+        l4.setBounds(50, 170, 200, 30);
+        l5.setBounds(50, 200, 200, 30);
         b1.setBounds(70, 250, 120, 40);
         b2.setBounds(190, 250, 120, 40);
-        
     }
-    public static void main(String [] args){
-        new FrameKhoaSo();
+
+    public void setSoDuDau(int t) {
+        l1.setText(l1.getText() + t);
     }
+
+    public void setDTNgay(Date t) {
+        l2.setText(l2.getText() + t);
+    }
+
+    public void setTienMat(int t) {
+        l3.setText(l3.getText() + t);
+    }
+
+    public void setMasterCard(int t) {
+        l4.setText(l4.getText() + t);
+    }
+
+    public void setDuCuoiCa(int t) {
+        l5.setText(l5.getText() + t);
+    }
+
 }
