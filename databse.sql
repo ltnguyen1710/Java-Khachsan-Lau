@@ -53,10 +53,9 @@ as
 begin
 declare @today date=cast(getdate() as date)
 declare @sophong varchar(20)=cast(@idphong as varchar(20))
-declare @sokytu int=cast(Len(@sophong) as int)
-	if @sophong not in (select SUBSTRING(idphong,charindex(@sophong,idphong),@sokytu) 
+	if not exists (select *
 						from khach_datphong
-						where @today<=ngaydat and @today>=ngaytra)
+						where @today>=ngaydat and @today<=ngaytra and @sophong in (select * from [dbo].[SplitStringToTable](idphong,',')))
 	begin
 	update phong set tinhtrang='Trong' where IDphong=@idphong	
 	end
@@ -92,18 +91,38 @@ returns table
 as
 return (select idphong,loaiphong,gia 
 from phong p
-where p.IDphong not in (select SUBSTRING(idphong,charindex(cast(p.IDphong as varchar(64)),idphong),len(cast(p.IDphong as varchar(64))))
-from khach_datphong
-where (@ngaydat<=ngaydat and @ngaytra>=ngaytra) or 
+where not exists (select *
+from khach_datphong k
+where ((@ngaydat<=ngaydat and @ngaytra>=ngaytra) or 
 (@ngaydat<=ngaydat and @ngaytra<=ngaytra and @ngaytra>=ngaydat) or 
 (@ngaydat>=ngaydat and @ngaytra<=ngaytra) or 
-(@ngaydat>=ngaydat and @ngaytra>=ngaytra and @ngaydat<=ngaytra) ))
+(@ngaydat>=ngaydat and @ngaytra>=ngaytra and @ngaydat<=ngaytra)) and
+cast(p.IDphong as varchar(64)) in (select * from [dbo].[SplitStringToTable](k.idphong,','))
+)
+)
 
-drop function dbo.fn_roomsInTime
-select * from nhanvien
-drop proc themkhach
-select SUBSTRING(idphong,charindex('1',idphong),1) 
-					from khach_datphong
-					where '2021-4-27'>=ngaydat and '2021-4-27'<=ngaytra
+--hàm cắt chuỗi lấy trên mạng
+CREATE FUNCTION [dbo].[SplitStringToTable]
+(
+    @string VARCHAR(MAX),
+    @delimiter CHAR(1)
+)
+RETURNS @output TABLE(
+    data VARCHAR(MAX)
+)
+BEGIN
+    DECLARE @start INT, @end INT
+    SELECT @start = 1, @end = CHARINDEX(@delimiter, @string)
 
+    WHILE @start < LEN(@string) + 1 BEGIN
+        IF @end = 0 
+            SET @end = LEN(@string) + 1
+
+        INSERT INTO @output (data) 
+        VALUES(SUBSTRING(@string, @start, @end - @start))
+        SET @start = @end + 1
+        SET @end = CHARINDEX(@delimiter, @string, @start)
+    END
+    RETURN
+END
 

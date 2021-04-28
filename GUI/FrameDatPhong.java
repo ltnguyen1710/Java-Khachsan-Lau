@@ -132,17 +132,16 @@ public class FrameDatPhong extends JFrame {
         DatCoc.setBounds(600, 570, 320, 40);
         Find.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                bllroom =new BLLRoom();
-                phongtrong = bllroom.getPhongtrong(from1.getText(), to1.getText());
+            public void actionPerformed(ActionEvent e) {                               
+                phongtrong = bllroom.getPhongtrong(from1.getText(), to1.getText());   
                 int row = tb.getRowCount();
-                int row1 = tb1.getRowCount();
+                int row1 = tb1.getRowCount();   
                 for (int i = row; i > 0; i--) {
                     model.removeRow(0);
                 }
                 for (int i = row1; i > 0; i--) {
                     model1.removeRow(0);
-                }   
+                }
                 Name.setText("");
                 Date1.setText("");
                 for (Room i : phongtrong) {
@@ -186,7 +185,7 @@ public class FrameDatPhong extends JFrame {
                 String phuongthuc = (r1.isSelected() ? "Tien mat" : "Master Card");
                 NameCus.setText("Ho&Ten Khach : " + Name.getText());
                 RentDay.setText("Ngay Dat Phong: " + from1.getText());
-                PayDay.setText("Ngay Tra Phong: " + to1.getText());;
+                PayDay.setText("Ngay Tra Phong: " + to1.getText());
                 Total.setText("Tong Tien: " + Tong);
                 IDStaff.setText("ID NV: " + idnhanvien);
                 String sotienkhachtra = JOptionPane.showInputDialog("Nhap so tien khach tra: ");
