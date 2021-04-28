@@ -100,26 +100,6 @@ public class FrameDatPhong extends JFrame {
         model.addColumn("So phong");
         model.addColumn("Loai phong");
         model.addColumn("Gia");
-        Find.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                phongtrong = bllroom.getPhongtrong(from1.getText(), to1.getText());
-                for(int i=0;i<model.getRowCount();i++){
-                    model.removeRow(1);
-                }
-                for(int i=0;i<model1.getRowCount();i++){
-                    model1.removeRow(1);
-                }
-                Name.setText("");
-                Date1.setText("");                
-                for (Room i : phongtrong) {
-                    model.addRow(new Object[]{
-                        i.getID(), i.getType(), i.getPrice()
-                    });
-                }
-            }
-        });
-
         sp.setBounds(5, 280, 500, 400);
         p2 = new JPanel(null);
         p2.setBounds(600, 100, 320, 400);
@@ -150,6 +130,28 @@ public class FrameDatPhong extends JFrame {
         tt.setBounds(710, 510, 200, 50);
         DatCoc = new JButton("Dat Coc");
         DatCoc.setBounds(600, 570, 320, 40);
+        Find.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                bllroom =new BLLRoom();
+                phongtrong = bllroom.getPhongtrong(from1.getText(), to1.getText());
+                int row = tb.getRowCount();
+                int row1 = tb1.getRowCount();
+                for (int i = row; i > 0; i--) {
+                    model.removeRow(0);
+                }
+                for (int i = row1; i > 0; i--) {
+                    model1.removeRow(0);
+                }   
+                Name.setText("");
+                Date1.setText("");
+                for (Room i : phongtrong) {
+                    model.addRow(new Object[]{
+                        i.getID(), i.getType(), i.getPrice()
+                    });
+                }
+            }
+        });
         DatCoc.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -195,11 +197,11 @@ public class FrameDatPhong extends JFrame {
                 }
                 Customer cus = new Customer(ID1.getText(), Name.getText(), gioitinh, Date1.getText());
                 bllcus.addCus(cus);
-                Deposit.setText("Tien Coc: " + sotientra);   
+                Deposit.setText("Tien Coc: " + sotientra);
                 bllroom.datphong(str, ID1.getText(), Integer.parseInt(idnhanvien), from1.getText(), to1.getText(), Tong, Integer.parseInt(sotienkhachtra), phuongthuc);
                 for (int i = 0; i < model1.getRowCount(); i++) {
-                    bllroom.setTinhtrang(Integer.parseInt(tb1.getModel().getValueAt(i, 0).toString()));     
-                }                
+                    bllroom.setTinhtrang(Integer.parseInt(tb1.getModel().getValueAt(i, 0).toString()));
+                }
                 JOptionPane.showMessageDialog(null, "Dat coc thanh cong");
             }
         });
