@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import BLL.BLLBangdoanhthu;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,9 +20,12 @@ public class FrameKhoaSo extends JFrame {
 
     private JLabel l1, l2, l3, l4, l5;
     private JButton b1, b2;
+    private BLLBangdoanhthu BLLbd = new BLLBangdoanhthu();
 
     FrameKhoaSo() {
+        
         DisPLay();
+        
     }
 
     private void DisPLay() {
@@ -74,7 +78,13 @@ public class FrameKhoaSo extends JFrame {
     }
 
     public void setSoDuDau(int t) {
-        l1.setText(l1.getText() + t);
+        l1.setText("Số dư đầu:        " + t);
+        int soducuoica=t+BLLbd.getDthu();
+        l2.setText("Doanh Thu Ngay: "+BLLbd.getDthu());
+        l3.setText("Tien Mat: "+BLLbd.getTienmat());
+        l4.setText("VISA: "+BLLbd.getVisa());
+        l5.setText("Du Cuoi Ca: "+soducuoica);
+        
     }
 
     public void setDTNgay(Date t) {

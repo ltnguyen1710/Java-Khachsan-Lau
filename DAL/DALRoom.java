@@ -12,14 +12,14 @@ import java.util.Vector;
 public class DALRoom {
 
     private Connection con;
-    private Vector<Room> rooms = new Vector();
+    
 
     public boolean openConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKhachsan";
-            String username = "cop";
-            String password = "cop123";
+            String username = "HOLAKAKA";
+            String password = "1";
             con = DriverManager.getConnection(dbUrl, username, password);
             return true;
         } catch (Exception ex) {
@@ -39,6 +39,7 @@ public class DALRoom {
     }
     //lấy danh sách tất cả các phòng
     public Vector<Room> getRooms() {
+       Vector<Room> rooms = new Vector();
         if (openConnection()) {
             try {
                 Statement stmt = con.createStatement();
@@ -93,6 +94,7 @@ public class DALRoom {
     }
     //lay danh sach phong trong tu ngaydat toi ngaytra
     public Vector<Room> getPhongtrong(String ngaydat,String ngaytra){
+        Vector<Room> rooms = new Vector();
          if (openConnection()) {
             try {
                 Statement stmt=con.createStatement();
@@ -112,10 +114,10 @@ public class DALRoom {
         }
         return rooms;
     }
-    public void datphong(String idphong, String idkhach, int idnhanvien, String ngaydat, String ngaytra, int gia, int datra,String phuongthuc) {
+    public void datphong(String idphong, String idkhach, int idnhanvien, String ngaydat, String ngaytra, int gia, int datra,String phuongthuc, String ngaytratien) {
         if (openConnection()) {
             try {
-                CallableStatement callst = con.prepareCall("{call datphong(?,?,?,?,?,?,?,?)}");
+                CallableStatement callst = con.prepareCall("{call datphong(?,?,?,?,?,?,?,?,?)}");
                 callst.setString(1, idphong);
                 callst.setString(2, idkhach);
                 callst.setInt(3, idnhanvien);
@@ -124,6 +126,7 @@ public class DALRoom {
                 callst.setInt(6, gia);
                 callst.setInt(7, datra);
                 callst.setString(8, phuongthuc);
+                callst.setString(9, ngaytratien);
                 callst.execute();
             } catch (Exception gA) {
                 System.err.println(gA.getMessage());

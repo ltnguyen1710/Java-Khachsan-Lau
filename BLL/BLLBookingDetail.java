@@ -7,6 +7,8 @@ package BLL;
 import DTO.BookingDetail;
 import DAL.DALBookingDetail;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Vector;
 /**
  *
@@ -19,6 +21,6 @@ public class BLLBookingDetail {
         bdList=DALbd.getbookingdetaillist();
         return bdList;
     }
-    
+ 
 
 }

@@ -20,7 +20,6 @@ public class BookingDetail {
     private Date ngaytra;
     private int gia;
     private int datra;
-    private String ThanhToan;
 
     public int getIddatphong() {
         return iddatphong;
@@ -85,10 +84,5 @@ public class BookingDetail {
     public void setDatra(int datra) {
         this.datra = datra;
     }
-    public void setThanhToan(String ThanhToan){
-        this.ThanhToan=ThanhToan;
-    }
-    public String getThanhToan(){
-        return ThanhToan;
-    }
+    
 }

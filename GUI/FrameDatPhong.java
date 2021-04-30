@@ -16,6 +16,7 @@ import java.awt.event.MouseListener;
 import java.util.Vector;
 import BLL.BLLStaff;
 import DTO.Customer;
+import java.time.LocalDate;
 
 public class FrameDatPhong extends JFrame {
 
@@ -132,10 +133,16 @@ public class FrameDatPhong extends JFrame {
         DatCoc.setBounds(600, 570, 320, 40);
         Find.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {                               
-                phongtrong = bllroom.getPhongtrong(from1.getText(), to1.getText());   
+            public void actionPerformed(ActionEvent e) {
+                LocalDate date = LocalDate.parse(from1.getText());
+                LocalDate date1 = LocalDate.parse(to1.getText());
+                if (date.isBefore(java.time.LocalDate.now()) || date1.isBefore(java.time.LocalDate.now()) || date1.isBefore(date)||date1.isBefore(java.time.LocalDate.now()) || date.isAfter(date1)) {
+                    JOptionPane.showMessageDialog(null, "NGÀY KHÔNG HỢP LỆ");
+                    return;
+                }
+                phongtrong = bllroom.getPhongtrong(from1.getText(), to1.getText());
                 int row = tb.getRowCount();
-                int row1 = tb1.getRowCount();   
+                int row1 = tb1.getRowCount();
                 for (int i = row; i > 0; i--) {
                     model.removeRow(0);
                 }
@@ -149,6 +156,7 @@ public class FrameDatPhong extends JFrame {
                         i.getID(), i.getType(), i.getPrice()
                     });
                 }
+
             }
         });
         DatCoc.addActionListener(new ActionListener() {
@@ -188,16 +196,12 @@ public class FrameDatPhong extends JFrame {
                 PayDay.setText("Ngay Tra Phong: " + to1.getText());
                 Total.setText("Tong Tien: " + Tong);
                 IDStaff.setText("ID NV: " + idnhanvien);
-                String sotienkhachtra = JOptionPane.showInputDialog("Nhap so tien khach tra: ");
-                int sotientra = Integer.parseInt(sotienkhachtra);
-                if (Tong / 2 > sotientra) {
-                    JOptionPane.showMessageDialog(null, "So tien coc phai lon hon hoac bang nua tong tien!");
-                    return;
-                }
+                JOptionPane.showMessageDialog(null, "SỐ TIỀN KHÁCH PHẢI TRẢ : " + Tong / 2);
+
                 Customer cus = new Customer(ID1.getText(), Name.getText(), gioitinh, Date1.getText());
                 bllcus.addCus(cus);
-                Deposit.setText("Tien Coc: " + sotientra);
-                bllroom.datphong(str, ID1.getText(), Integer.parseInt(idnhanvien), from1.getText(), to1.getText(), Tong, Integer.parseInt(sotienkhachtra), phuongthuc);
+                Deposit.setText("Tien Coc: " + Tong / 2);
+                bllroom.datphong(str, ID1.getText(), Integer.parseInt(idnhanvien), from1.getText(), to1.getText(), Tong, Tong / 2, phuongthuc, java.time.LocalDate.now().toString());
                 for (int i = 0; i < model1.getRowCount(); i++) {
                     bllroom.setTinhtrang(Integer.parseInt(tb1.getModel().getValueAt(i, 0).toString()));
                 }
