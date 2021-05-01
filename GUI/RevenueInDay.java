@@ -5,6 +5,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import BLL.BLLBangdoanhthu;
 import DTO.Bangdoanhthu;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
 public class RevenueInDay extends JFrame {
@@ -20,7 +22,7 @@ public class RevenueInDay extends JFrame {
 
     RevenueInDay() {
         DisPlay();
-        
+
     }
 
     private void DisPlay() {
@@ -38,18 +40,28 @@ public class RevenueInDay extends JFrame {
         t1.setBounds(500, 100, 200, 30);
         tim = new JButton("TIM", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\loupe.png"));
         tim.setBounds(710, 100, 80, 30);
+        tim.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = tb.getRowCount();
+                for (int i = row; i > 0; i--) {
+                    model.removeRow(0);
+                }
+                for (Bangdoanhthu i : bangdoanhthu) {
+                    if (i.getNgay().equals(t1.getText())) {
+                        model.addRow(new Object[]{
+                            i.getNgay(), i.getTienmat(), i.getVisa(), i.getDthu()
+                        });
+                    }
+                }
+            }
+        });
         tb.setModel(model);
         model.addColumn("NGÀY");
         model.addColumn("TIỀN MẶT");
         model.addColumn("VISA");
         model.addColumn("DOANH THU NGÀY");
-        bangdoanhthu = BLLbdt.getBangdoanhthu();
-        for (Bangdoanhthu i : bangdoanhthu) {
 
-            model.addRow(new Object[]{
-                i.getNgay(), i.getTienmat(), i.getVisa(), i.getDthu()
-            });
-        }
         sp.setBounds(200, 170, 900, 500);
         add(title);
         add(sp);
@@ -61,7 +73,17 @@ public class RevenueInDay extends JFrame {
     }
 
     public void dumamay() {
-        
+        bangdoanhthu = BLLbdt.getBangdoanhthu();
+        int row = tb.getRowCount();
+        for (int i = row; i > 0; i--) {
+            model.removeRow(0);
+        }
+        for (Bangdoanhthu i : bangdoanhthu) {
+
+            model.addRow(new Object[]{
+                i.getNgay(), i.getTienmat(), i.getVisa(), i.getDthu()
+            });
+        }
         System.out.println(bangdoanhthu);
     }
 

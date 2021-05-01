@@ -29,5 +29,6 @@ public class BLLBangdoanhthu {
             bangdoanhthu=DALbdt.getBangdoanhthu();
             return bangdoanhthu;
     }
+    
  
 }

@@ -171,6 +171,7 @@ public class homePage extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!RID.isVisible()) {
+                    RID.dumamay();
                     RID.setVisible(true);
                 }
             }

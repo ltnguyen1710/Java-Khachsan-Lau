@@ -50,7 +50,7 @@ public class DALStaff {
                     sta.setId(rs.getInt("IDNHANVIEN"));
                     sta.setTen(rs.getString("TEN"));
                     sta.setNgaysinh(rs.getString("GIOITINH"));
-                    sta.setNgayvaolam(rs.getDate("NGAYVAOLAM"));
+                    sta.setNgayvaolam(rs.getDate("NGAYVAOLAM");
                 }
             } catch (Exception gS) {
                 System.err.println(gS.getMessage());
