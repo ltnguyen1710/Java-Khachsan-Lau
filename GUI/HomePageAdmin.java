@@ -6,6 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import BLL.BLLStaff;
+import DTO.Staff;
+import java.util.Vector;
 
 public class HomePageAdmin extends JFrame {
 
@@ -19,9 +22,12 @@ public class HomePageAdmin extends JFrame {
     private JTable tb = new JTable();
     private DefaultTableModel model = new DefaultTableModel();
     private JScrollPane sp = new JScrollPane(tb);
+    private BLLStaff bllsta = new BLLStaff();
+    private Vector<Staff> stalist= new Vector();
 
     public HomePageAdmin() {
         DisPlay();
+        xuatdanhsach();
     }
 
     private void DisPlay() {
@@ -44,6 +50,7 @@ public class HomePageAdmin extends JFrame {
         ID.setPreferredSize(new Dimension(290, 30));
         Day = new JTextField();
         Day.setPreferredSize(new Dimension(290, 30));
+        Day.setText(java.time.LocalDate.now().toString());
         sex = new JLabel("Gioi Tinh");
         cb.setPreferredSize(new Dimension(190, 30));
         date1 = new JLabel("Ngay Sinh");
@@ -53,6 +60,24 @@ public class HomePageAdmin extends JFrame {
         passwd = new JTextField();
         passwd.setPreferredSize(new Dimension(190, 30));
         ADD = new JButton("Them",new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\add.png"));
+        ADD.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(ID.getText().equals("") || name.getText().equals("") || Day.getText().equals("") || date.getText().equals("") || passwd.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Chưa nhập đủ thông tin!");
+                    return;
+                }
+                Staff sta=new Staff();
+                sta.setId(Integer.parseInt(ID.getText()));
+                sta.setTen(name.getText());
+                sta.setNgayvaolam(Day.getText());
+                sta.setNgaysinh(date.getText());
+                sta.setMatkhau(passwd.getText());
+                sta.setGioitinh(gt[cb.getSelectedIndex()]);
+                JOptionPane.showMessageDialog(null, bllsta.addStaff(sta));
+                xuatdanhsach();
+            }
+        });
         FIX = new JButton("Sua",new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\edit.png"));
         Find = new JButton("Tim",new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\loupe.png"));
         Del = new JButton("Xoa",new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\delete.png"));
@@ -128,7 +153,19 @@ public class HomePageAdmin extends JFrame {
         add(DSKH);
         setVisible(true);
     }
-
+    public void xuatdanhsach(){
+        stalist=bllsta.getVectorSta();
+        int row=tb.getRowCount();
+        for(int i=row;i>0;i--){
+            model.removeRow(0);
+        }
+        for(Staff i : stalist){
+            model.addRow(new Object[]{
+                i.getId(),i.getMatkhau(),i.getTen(),i.getNgaysinh(),i.getGioitinh(),i.getNgayvaolam()
+            });
+        }
+        
+    }
     public static void main(String[] args) {
         new HomePageAdmin();
     }

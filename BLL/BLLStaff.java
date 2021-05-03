@@ -1,6 +1,8 @@
 package BLL;
 
 import DAL.DALStaff;
+import DTO.Staff;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 
 public class BLLStaff {
@@ -28,5 +30,15 @@ public class BLLStaff {
     }
     public boolean checkStaff(int idstaff){
         return dstaff.checkStaff(idstaff);
+    }
+    public String addStaff(Staff sta){
+        if(checkStaff(sta.getId()))
+            return "Nhân viên đã tồn tại";
+        if(dstaff.addStaff(sta))
+            return "Thêm thành công";
+        return "Thêm thất bại";
+    }
+    public Vector<Staff> getVectorSta() {
+        return dstaff.getVectorSta();
     }
 }

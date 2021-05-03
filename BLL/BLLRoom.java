@@ -43,4 +43,7 @@ public class BLLRoom {
     public void datphong(String idphong, String idkhach, int idnhanvien, String ngaydat, String ngaytra, int gia, int datra,String phuongthuc, String ngaytratien){
         DALroom.datphong(idphong, idkhach, idnhanvien, ngaydat, ngaytra, gia, datra,phuongthuc,ngaytratien);
     }
+    public int getGia(int sophong){
+        return DALroom.getGia(sophong);
+    }
 }

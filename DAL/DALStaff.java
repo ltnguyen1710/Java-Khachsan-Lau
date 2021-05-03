@@ -18,8 +18,8 @@ public class DALStaff {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKhachsan";
-            String username = "HOLAKAKA";
-            String password = "1";
+            String username = "cop";
+            String password = "cop123";
             con = DriverManager.getConnection(dbUrl, username, password);
             return true;
         } catch (Exception ex) {
@@ -49,8 +49,11 @@ public class DALStaff {
                     Staff sta = new Staff();
                     sta.setId(rs.getInt("IDNHANVIEN"));
                     sta.setTen(rs.getString("TEN"));
-                    sta.setNgaysinh(rs.getString("GIOITINH"));
-                    sta.setNgayvaolam(rs.getDate("NGAYVAOLAM");
+                    sta.setMatkhau(rs.getString("MK"));
+                    sta.setNgaysinh(rs.getString("NGAYSINH"));
+                    sta.setGioitinh(rs.getString("GIOITINH"));
+                    sta.setNgayvaolam(rs.getString("NGAYVAOLAM"));
+                    arrSta.add(sta);
                 }
             } catch (Exception gS) {
                 System.err.println(gS.getMessage());
@@ -65,12 +68,16 @@ public class DALStaff {
         boolean result = false;
         if (openConnection()) {
             try {
-                String sql = "INSERT INTO NHANVIEN VALUES(?,?,?,?)";
+                String sql = "INSERT INTO NHANVIEN VALUES(?,?,?,?,?,?)";
                 PreparedStatement stmt = con.prepareStatement(sql);
                 stmt.setInt(1, sta.getId());
-                stmt.setString(2, sta.getTen());
-                stmt.setString(3, sta.getNgaysinh());
-                stmt.setDate(4, (Date) sta.getNgayvaolam());
+                stmt.setString(2, sta.getMatkhau());
+                stmt.setString(3, sta.getTen());
+                stmt.setString(4,sta.getGioitinh());
+                stmt.setString(5, sta.getNgaysinh());
+                stmt.setString(6, sta.getNgayvaolam());
+                if(stmt.executeUpdate()>=1)
+                    result =true;
             } catch (Exception aS) {
                 System.err.println(aS.getMessage());
             } finally {

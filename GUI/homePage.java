@@ -131,7 +131,7 @@ public class homePage extends JFrame {
             i.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
+                    
                 }
             });
         }
@@ -193,6 +193,7 @@ public class homePage extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 if (!DSDP.isVisible()) {
+                    DSDP.xuatdanhsach();
                     DSDP.setVisible(true);
                 }
             }
