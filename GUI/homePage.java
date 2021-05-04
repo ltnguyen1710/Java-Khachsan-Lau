@@ -7,11 +7,10 @@ import java.awt.event.*;
 import javax.swing.border.TitledBorder;
 import BLL.BLLRoom;
 
-// giao dien thu ngan.
 public class homePage extends JFrame {
 
     JPanel p1, p2, p3, p4;
-    JButton b1, b2, b3, b4, b5,b6;
+    JButton b1, b2, b3, b4, b5, b6, rs;
     JButton[] V = new JButton[7];
     JButton[] GD = new JButton[14];
     JButton[] DOI = new JButton[14];
@@ -31,7 +30,7 @@ public class homePage extends JFrame {
     Login log = new Login();
     FrameChangePassWd changePass = new FrameChangePassWd();
     BLLRoom bllroom = new BLLRoom();
-    FrameDSDP DSDP = new FrameDSDP(); 
+    FrameDSDP DSDP = new FrameDSDP();
 
     homePage() {
         String inputDialog = JOptionPane.showInputDialog("SÔ DƯ ĐẦU ");
@@ -131,7 +130,7 @@ public class homePage extends JFrame {
             i.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    
+
                 }
             });
         }
@@ -142,8 +141,10 @@ public class homePage extends JFrame {
         b2 = new JButton("Khoa So", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\lock.png"));
         b3 = new JButton("Doanh Thu", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\list.png"));
         b4 = new JButton("Dat Phong", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\room.png"));
-        b5 = new JButton("Dang Xuat", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\log-out.png"));
-        b6 = new JButton("DS D.Phong", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\log-out.png"));
+        b5 = new JButton("DS D.Phong", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\log-out.png"));
+        b6 = new JButton("Dang Xuat", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\log-out.png"));
+        rs= new JButton("Rest Room");
+        rs.setBounds(900,20,120,40);
         b1.setBounds(1100, 20, 180, 80);
         b1.addActionListener(new ActionListener() {
             @Override
@@ -187,23 +188,24 @@ public class homePage extends JFrame {
             }
 
         });
-        b6.setBounds(1100, 420, 180, 80);
-        b6.addActionListener(new ActionListener(){
+
+        b5.setBounds(1100, 420, 180, 80);
+        b5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 dispose();
                 if (!DSDP.isVisible()) {
                     DSDP.xuatdanhsach();
                     DSDP.setVisible(true);
                 }
             }
-        
+
         });
-        b5.setBounds(1100, 520, 180, 80);
-        b5.addActionListener(new ActionListener() {
+        b6.setBounds(1100, 520, 180, 80);
+        b6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 dispose();
                 if (!login.isVisible()) {
                     login.setVisible(true);
@@ -217,6 +219,7 @@ public class homePage extends JFrame {
         add(b4);
         add(b5);
         add(b6);
+        add(rs);
         setVisible(true);
     }
 

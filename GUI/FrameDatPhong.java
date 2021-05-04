@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 public class FrameDatPhong extends JFrame {
 
+    private Login lg = new Login();
     private JPanel p1, p2;
     public JTextField from1, to1;
     private JRadioButton r1, r2;
@@ -112,7 +113,7 @@ public class FrameDatPhong extends JFrame {
                 TitledBorder.CENTER, TitledBorder.CENTER, new Font("Brush Script Std", Font.PLAIN, 20), new Color(255, 77, 77)));
         NameCus = new JLabel("Ho&Ten Khach : " + FullName.getText());
         NameCus.setBounds(10, 10, 400, 30);
-        IDStaff = new JLabel("ID NV: " + "");
+        IDStaff = new JLabel("ID NV: " + lg.getTk());
         IDStaff.setBounds(10, 40, 400, 30);
         RentDay = new JLabel("Ngay Dat Phong: " + from1.getText());
         RentDay.setBounds(10, 70, 400, 30);
@@ -185,17 +186,11 @@ public class FrameDatPhong extends JFrame {
                     Tong += Integer.parseInt(tb1.getModel().getValueAt(i, 1).toString());
 
                 }
-                
-                String idnhanvien = JOptionPane.showInputDialog("Nhap ma nhan vien: ");
-                if (!bllstaff.checkStaff(Integer.parseInt(idnhanvien))) {
-                    JOptionPane.showMessageDialog(null, "Ma nhan vien khong ton tai!");
-                    return;
-                }
                 if (!r1.isSelected() && !r2.isSelected()) {
                     JOptionPane.showMessageDialog(null, "Chon phuong thuc thanh toan!");
                     return;
                 }
-                long diff=0;
+                long diff = 0;
                 SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-mm-dd");
                 try {
                     java.util.Date date1 = myFormat.parse(from1.getText());
@@ -204,19 +199,18 @@ public class FrameDatPhong extends JFrame {
                 } catch (ParseException p) {
                     p.printStackTrace();
                 }
-                Tong=(int) (Tong*(TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)));
+                Tong = (int) (Tong * (TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)));
                 String phuongthuc = (r1.isSelected() ? "Tien mat" : "Master Card");
                 NameCus.setText("Ho&Ten Khach : " + Name.getText());
                 RentDay.setText("Ngay Dat Phong: " + from1.getText());
                 PayDay.setText("Ngay Tra Phong: " + to1.getText());
                 Total.setText("Tong Tien: " + Tong);
-                IDStaff.setText("ID NV: " + idnhanvien);
+                IDStaff.setText("ID NV: " + lg.getTk());
                 JOptionPane.showMessageDialog(null, "SỐ TIỀN KHÁCH PHẢI TRẢ : " + Tong / 2);
-
                 Customer cus = new Customer(ID1.getText(), Name.getText(), gioitinh, Date1.getText());
                 bllcus.addCus(cus);
                 Deposit.setText("Tien Coc: " + Tong / 2);
-                bllroom.datphong(str, ID1.getText(), Integer.parseInt(idnhanvien), from1.getText(), to1.getText(), Tong, Tong / 2, phuongthuc, java.time.LocalDate.now().toString());
+                bllroom.datphong(str, ID1.getText(), Integer.parseInt(lg.getTk()), from1.getText(), to1.getText(), Tong, Tong / 2, phuongthuc, java.time.LocalDate.now().toString());
                 for (int i = 0; i < model1.getRowCount(); i++) {
                     bllroom.setTinhtrang(Integer.parseInt(tb1.getModel().getValueAt(i, 0).toString()));
                 }
@@ -237,99 +231,56 @@ public class FrameDatPhong extends JFrame {
                     model.removeRow(i);
                 }
             }
-
             @Override
-            public void mousePressed(MouseEvent e
-            ) {
-
+            public void mousePressed(MouseEvent e) {
             }
 
             @Override
-            public void mouseReleased(MouseEvent e
-            ) {
-
+            public void mouseReleased(MouseEvent e) {
             }
 
             @Override
-            public void mouseEntered(MouseEvent e
-            ) {
-
+            public void mouseEntered(MouseEvent e) {
             }
 
             @Override
-            public void mouseExited(MouseEvent e
-            ) {
-
+            public void mouseExited(MouseEvent e) {
             }
         });
         bg1.add(r1);
-
         bg1.add(r2);
-
         tt.add(r1);
-
         tt.add(r2);
-
         bg.add(Nam);
-
         bg.add(Nu);
-
         p1.add(Nam);
-
         p1.add(Nu);
-
         p1.add(CMND);
-
         p1.add(ID1);
-
         p1.add(Name);
-
         p1.add(Date);
-
         p1.add(Date1);
-
         p1.add(sex);
-
         p1.add(FullName);
-
         add(title);
-
         add(dayNow);
-
         add(from);
-
         add(from1);
-
         add(to);
-
         add(to1);
-
         add(Find);
-
         add(p1);
-
         add(InforRoo);
-
         add(sp);
-
         p2.add(NameCus);
-
         p2.add(IDStaff);
-
         p2.add(RentDay);
-
         p2.add(PayDay);
-
         p2.add(sp1);
-
         p2.add(Deposit);
-
         p2.add(Total);
-
         add(tt);
-
         add(p2);
-
         add(DatCoc);
 
     }
