@@ -8,6 +8,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import BLL.BLLBookingDetail;
+import DTO.BookingDetail;
+import java.util.Vector;
+import BLL.BLLRoom;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.concurrent.TimeUnit;
 
 public class FrameDSDP extends JFrame {
 
@@ -23,6 +30,11 @@ public class FrameDSDP extends JFrame {
     private JTable tb1 = new JTable();
     private DefaultTableModel model1 = new DefaultTableModel();
     private JScrollPane sp1 = new JScrollPane(tb1);
+    private BLLBookingDetail bllbd = new BLLBookingDetail();
+    private Vector<BookingDetail> bdlist = new Vector();
+    private BLLRoom bllroom = new BLLRoom();
+    private String cmnd = "", ngaydat = "", phuongthuc = "", ngaytra = "",idphong="";
+    private String splits[];
 
     FrameDSDP() {
         DisPlay();
@@ -56,7 +68,6 @@ public class FrameDSDP extends JFrame {
         model.addColumn("Tien Coc");
         model.addColumn("Gia");
         sp.setBounds(50, 150, 800, 470);
-
         p = new JPanel(null);
         p.setBounds(870, 160, 320, 400);
         p.setBorder(BorderFactory.createTitledBorder(null, "Thanh Toan",
@@ -118,7 +129,7 @@ public class FrameDSDP extends JFrame {
         tb1.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                tableMouseClicked(e);
+
             }
 
             @Override
@@ -140,7 +151,7 @@ public class FrameDSDP extends JFrame {
         tb.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                tableMouseClicked(e);
             }
 
             @Override
@@ -161,17 +172,43 @@ public class FrameDSDP extends JFrame {
         });
     }
 
+    public void xuatdanhsach() {
+        bdlist = bllbd.getbdList();
+        int row = tb.getRowCount();
+        for (int i = row; i > 0; i--) {
+            model.removeRow(0);
+        }
+        for (BookingDetail i : bdlist) {
+            model.addRow(new Object[]{
+                i.getIdkhach(), i.getIdnhanvien(), i.getNgaydat(), i.getNgaytra(), i.getIdphong(), i.getTralan1(), i.getGia()
+            });
+        }
+    }
+
     private void tableMouseClicked(MouseEvent e) {
         int i = tb.getSelectedRow();
         if (i >= 0) {
-            NameCus.setText(NameCus.getText() + tb.getModel().getValueAt(i, 0).toString());
-            IDStaff.setText(IDStaff.getText() + tb.getModel().getValueAt(i, 1).toString());
-            RentDayTT.setText(RentDayTT.getText() + tb.getModel().getValueAt(i, 2).toString());
-            PayDay.setText(PayDay.getText() + tb.getModel().getValueAt(i, 3).toString());
-
+            idphong=tb.getModel().getValueAt(i, 4).toString();
+            cmnd = tb.getModel().getValueAt(i, 0).toString();
+            ngaydat = tb.getModel().getValueAt(i, 2).toString();
+            NameCus.setText("CMND Khach: " + tb.getModel().getValueAt(i, 0).toString());
+            IDStaff.setText("ID NV: " + tb.getModel().getValueAt(i, 1).toString());
+            RentDayTT.setText("Ngay Dat: " + tb.getModel().getValueAt(i, 2).toString());
+            PayDay.setText("Ngay Tra: " + tb.getModel().getValueAt(i, 3).toString());
+            splits = tb.getModel().getValueAt(i, 4).toString().split(",");
+            int row = tb1.getRowCount();
+            for (int j = row; j > 0; j--) {
+                model1.removeRow(0);
+            }
+            for (int j = 0; j < splits.length; j++) {
+                String gia = bllroom.getGia(Integer.parseInt(splits[j])) + "";
+                model1.addRow(new Object[]{
+                    splits[j], gia
+                });
+            }
             //sp1.setText(tb.getModel().getValueAt(i, 4).toString()); lay id phong gia tien
-            Deposit.setText(Deposit.getText() + tb.getModel().getValueAt(i, 5).toString());
-            Total.setText(Total.getText() + tb.getModel().getValueAt(i, 6).toString());
+            Deposit.setText("Tien Coc: " + tb.getModel().getValueAt(i, 5).toString());
+            Total.setText("Gia: " + tb.getModel().getValueAt(i, 6).toString());
         }
     }
 
@@ -186,7 +223,37 @@ public class FrameDSDP extends JFrame {
     }
 
     private void TTActionListener(ActionEvent e) {
-        
+        int gia = 0;
+        if (cmnd.equals("") || ngaydat.equals("") || (!r1.isSelected() && !r2.isSelected())) {
+            JOptionPane.showMessageDialog(null, "Chọn khách cần thanh toán!!!!");
+            return;
+        }
+        phuongthuc = (r1.isSelected() ? r1.getText() : r2.getText());
+        for (int i = 0; i < model1.getRowCount(); i++) {
+            gia += Integer.parseInt(tb1.getModel().getValueAt(i, 1).toString());
+
+        }
+        long diff = 0;
+        SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-mm-dd");
+        try {
+            java.util.Date date1 = myFormat.parse(ngaydat);
+            java.util.Date date2 = myFormat.parse(java.time.LocalDate.now().toString());
+            diff = date2.getTime() - date1.getTime();
+        } catch (ParseException p) {
+            p.printStackTrace();
+        }
+        int ngay=(int) (TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+        if (ngay==0) ngay=1;
+        gia=(gia*ngay);
+        bllbd.setDetailtrasau(cmnd, ngaydat, phuongthuc, gia, java.time.LocalDate.now().toString(),idphong);
+        xuatdanhsach();
+        for (int j = 0; j < splits.length; j++) {
+            bllroom.setTinhtrang(Integer.parseInt(splits[j]));
+        }
+        int row = tb1.getRowCount();
+        for (int j = row; j > 0; j--) {
+            model1.removeRow(0);
+        }
     }
 
     public static void main(String[] args) {
