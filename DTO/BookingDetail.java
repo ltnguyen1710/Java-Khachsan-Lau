@@ -21,6 +21,15 @@ public class BookingDetail {
     private int gia;
     private int tralan1;
     private int tralan2;
+    private Date ngaytratien;
+
+    public Date getNgaytratien() {
+        return ngaytratien;
+    }
+
+    public void setNgaytratien(Date ngaytratien) {
+        this.ngaytratien = ngaytratien;
+    }
 
     public int getIddatphong() {
         return iddatphong;

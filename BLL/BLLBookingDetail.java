@@ -6,9 +6,6 @@
 package BLL;
 import DTO.BookingDetail;
 import DAL.DALBookingDetail;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Vector;
 /**
  *
@@ -23,6 +20,9 @@ public class BLLBookingDetail {
     }
     public void setDetailtrasau(String cmnd, String ngaydat, String phuongthuc,int gia,String ngaytra,String idphong) {
         DALbd.setDetailtrasau(cmnd, ngaydat, phuongthuc,gia,ngaytra,idphong);
+    }
+    public void huy(String ngaydat,String cmnd,String idphong){
+        DALbd.huy(ngaydat, cmnd, idphong);
     }
     
 }

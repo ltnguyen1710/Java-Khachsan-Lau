@@ -17,7 +17,6 @@ import java.util.Vector;
 public class DALBookingDetail {
 
     private Connection con;
-    
 
     public boolean openConnection() {
         try {
@@ -60,6 +59,7 @@ public class DALBookingDetail {
                     bd.setGia(rs.getInt("gia"));
                     bd.setTralan1(rs.getInt("tralan1"));
                     bd.setTralan2(rs.getInt("tralan2"));
+                    bd.setNgaytratien(rs.getDate("ngaytratien"));
                     bookingdetaillist.add(bd);
                 }
             } catch (Exception gA) {
@@ -71,15 +71,29 @@ public class DALBookingDetail {
         return bookingdetaillist;
     }
 
-    public void setDetailtrasau(String cmnd, String ngaydat, String phuongthuc,int gia,String ngaytra,String idphong) {
+    public void setDetailtrasau(String cmnd, String ngaydat, String phuongthuc, int gia, String ngaytra, String idphong) {
         if (openConnection()) {
             try {
-                Statement stmt = con.createStatement();                 
+                Statement stmt = con.createStatement();
                 stmt.executeUpdate("Update khach_datphong set phuongthucthanhtoan=concat(phuongthucthanhtoan,'," + phuongthuc + "')"
                         + " where phuongthucthanhtoan <> '" + phuongthuc + "' and idkhach='" + cmnd + "' and ngaydat='" + ngaydat + "' and len(phuongthucthanhtoan)<=11");
-                stmt.executeUpdate("Update khach_datphong set gia="+gia+" where idkhach='"+cmnd+"' and ngaydat='"+ngaydat+"' and idphong='"+idphong+"'");
-                stmt.executeUpdate("Update khach_datphong set ngaytra='"+ngaytra+"' where idkhach='"+cmnd+"' and ngaydat='"+ngaydat+"' and idphong='"+idphong+"'");
-                stmt.executeUpdate("Update khach_datphong set tralan2=gia-tralan1 where idkhach='"+cmnd+"' and ngaydat='"+ngaydat+"' and gia>tralan1 and idphong='"+idphong+"'");
+                stmt.executeUpdate("Update khach_datphong set gia=" + gia + " where idkhach='" + cmnd + "' and ngaydat='" + ngaydat + "' and idphong='" + idphong + "'");
+                stmt.executeUpdate("Update khach_datphong set ngaytra='" + ngaytra + "' where idkhach='" + cmnd + "' and ngaydat='" + ngaydat + "' and idphong='" + idphong + "'");
+                stmt.executeUpdate("Update khach_datphong set tralan2=gia-tralan1 where idkhach='" + cmnd + "' and ngaydat='" + ngaydat + "' and gia>tralan1 and idphong='" + idphong + "'");
+            } catch (Exception gA) {
+                System.err.println(gA.getMessage());
+            } finally {
+                closeConnection();
+            }
+        }
+    }
+
+    public void huy(String ngaydat, String cmnd, String idphong) {
+        if (openConnection()) {
+            try {
+                Statement stmt = con.createStatement();
+                stmt.executeUpdate("Delete from khach_datphong where ngaydat='" + ngaydat + "' and idkhach='" + cmnd + "' and idphong='" + idphong + "'");
+                
             } catch (Exception gA) {
                 System.err.println(gA.getMessage());
             } finally {
