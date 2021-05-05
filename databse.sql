@@ -33,7 +33,6 @@ create table admin(
 drop table admin
 --thêm 1 admin
 insert into admin values('nguyencop','nghiameow')
---CÓ SỬA Ở ĐÂY!!!!!!!! (2/5/2021)
 create table khach_datphong(
 	iddatphong int not null primary key,
 	idphong varchar(64) not null ,
@@ -61,7 +60,7 @@ declare @today date=cast(getdate() as date)
 declare @sophong varchar(20)=cast(@idphong as varchar(20))
 	if not exists (select *
 						from khach_datphong
-						where @today>=ngaydat and @today<=ngaytra and @sophong in (select * from [dbo].[SplitStringToTable](idphong,','))and (tralan1+tralan2) < gia)
+						where @today>=ngaynhan and @today<ngaytra and @sophong in (select * from [dbo].[SplitStringToTable](idphong,',')))
 	begin
 	update phong set tinhtrang='Trong' where IDphong=@idphong	
 	end
@@ -69,10 +68,11 @@ declare @sophong varchar(20)=cast(@idphong as varchar(20))
 	begin
 	update phong set tinhtrang='Da thue' where IDphong=@idphong
 	end
+
 end
 
 drop procedure datphong
---CÓ SỬA Ở ĐÂY!!!!!!!! (2/5/2021)
+
 create procedure datphong
 	@idphong varchar(64),
 	@idkhach varchar(64),
@@ -92,7 +92,6 @@ declare @maxid int=(select max(iddatphong) from khach_datphong)
 	insert into khach_datphong values(@maxid+1,@idphong,@idkhach,@idnhanvien,@ngaydat,@ngaynhan,@ngaytra,@gia,@tralan1,@tralan2,@phuongthucthanhtoan)
 end
 drop function fn_roomsInTime
---CÓ SỬA Ở ĐÂY!!!!!!!! (2/5/2021)
 --ngày trống trong khoảng thời gian từ ngaydat đến ngaytra
 create function fn_roomsInTime(@ngaynhan date,@ngaytra date)
 returns table
@@ -106,12 +105,11 @@ where ((@ngaynhan<=ngaynhan and @ngaytra>=ngaytra) or
 (@ngaynhan>=ngaynhan and @ngaytra<=ngaytra) or 
 (@ngaynhan>=ngaynhan and @ngaytra>=ngaytra and @ngaynhan<ngaytra)) and
 cast(p.IDphong as varchar(64)) in (select * from [dbo].[SplitStringToTable](k.idphong,','))
-and k.gia>(k.tralan1+k.tralan2)
+and gia<>tralan1
 )
 )
 drop function dbo.fn_roomsInTime
 drop function [dbo].[SplitStringToTable]
---CÓ SỬA Ở ĐÂY!!!!!!!! (2/5/2021)
 --HÀM TRẢ VỀ BẢNG DT
 CREATE FUNCTION BANGDT
 (
