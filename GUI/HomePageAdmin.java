@@ -21,6 +21,7 @@ public class HomePageAdmin extends JFrame {
     private JTable tb = new JTable();
     private DefaultTableModel model = new DefaultTableModel();
     private JScrollPane sp = new JScrollPane(tb);
+    RevenueInDay RID = new RevenueInDay();
 
     public HomePageAdmin() {
         DisPlay();
@@ -105,11 +106,13 @@ public class HomePageAdmin extends JFrame {
             }
             
         });
-        DSDT = new JButton("DS D.THU THANG",new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\stlist.png"));
+        DSDT = new JButton("DS DOANH THU",new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\stlist.png"));
         DSDT.addActionListener(new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e){
-            
+            if(!RID.isVisible()){
+                RID.setVisible(true);
+            }
         }
         });
         DX = new JButton("DANG XUAT",new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\log-out.png"));
