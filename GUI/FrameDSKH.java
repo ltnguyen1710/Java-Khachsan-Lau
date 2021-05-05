@@ -69,9 +69,9 @@ public class FrameDSKH extends JFrame {
         date = new JTextField();
         date.setBounds(100, 110, 200, 30);
 
-        FIX = new JButton("FIX");
+        FIX = new JButton("SỬA");
         FIX.setBounds(80, 270, 100, 30);
-        De = new JButton("DELETE");
+        De = new JButton("XÓA");
         De.setBounds(180, 270, 100, 30);
         add(p);
         p.add(name1);

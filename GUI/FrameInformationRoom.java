@@ -34,10 +34,9 @@ public class FrameInformationRoom extends JFrame {
         add(ID);
         add(ngayDat);
         add(gia);
-        setVisible(true);
     }
     public void setNumber(String t){
-        ID.setText(t);
+        ID.setText("Phong So: "+t);
     }
     public void setTen(String t){
         Ten.setText(Ten.getText() + t);
@@ -50,8 +49,5 @@ public class FrameInformationRoom extends JFrame {
     }
     public void setGia(String t){
         gia.setText(gia.getText()+ t);
-    }
-    public static void main(String [] args){
-        new FrameInformationRoom();
     }
 }
