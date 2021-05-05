@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 public class FrameKhoaSo extends JFrame {
 
     private JLabel l1, l2, l3, l4, l5;
-    private JButton b1, b2;
+    private JButton b1;
     private BLLBangdoanhthu BLLbd = new BLLBangdoanhthu();
 
     FrameKhoaSo() {
@@ -43,14 +43,7 @@ public class FrameKhoaSo extends JFrame {
         l4 = new JLabel("VISA: ");
         l5 = new JLabel("Du Cuoi Ca: ");
         b1 = new JButton("IN", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\printer.png"));
-        b2 = new JButton("KHOA SO", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\lock.png"));
         b1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //Them action 
-            }
-        });
-        b2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Them action 
@@ -64,7 +57,6 @@ public class FrameKhoaSo extends JFrame {
         add(l4);
         add(l5);
         add(b1);
-        add(b2);
         title.setBounds(110, 5, 250, 50);
         title.setFont(new Font(null, Font.BOLD, 20));
         date.setBounds(150, 40, 140, 40);
@@ -73,8 +65,7 @@ public class FrameKhoaSo extends JFrame {
         l3.setBounds(50, 140, 200, 30);
         l4.setBounds(50, 170, 200, 30);
         l5.setBounds(50, 200, 200, 30);
-        b1.setBounds(70, 250, 120, 40);
-        b2.setBounds(190, 250, 120, 40);
+        b1.setBounds(70, 250, 200, 40);
     }
 
     public void setSoDuDau(int t) {
