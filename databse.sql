@@ -40,12 +40,12 @@ create table khach_datphong(
 	idkhach varchar(64) not null,
 	idnhanvien int not null,
 	ngaydat date,
+	ngaynhan date,
 	ngaytra date,
 	gia money,
 	tralan1 money,
 	tralan2 money,
-	phuongthucthanhtoan varchar(64),
-	ngaytratien date
+	phuongthucthanhtoan varchar(64)
 )
 drop table khach_datphong
 
@@ -78,35 +78,35 @@ create procedure datphong
 	@idkhach varchar(64),
 	@idnhanvien int,
 	@ngaydat date,
+	@ngaynhan date,
 	@ngaytra date,
 	@gia money,
 	@tralan1 money,
-	@phuongthucthanhtoan varchar(64),
-	@ngaytratien date
+	@phuongthucthanhtoan varchar(64)	
 as
 begin
 declare @tralan2 money=0
 declare @maxid int=(select max(iddatphong) from khach_datphong)
 	if(@maxid is null) set @maxid=0
 	if(@ngaydat<=@ngaytra)
-	insert into khach_datphong values(@maxid+1,@idphong,@idkhach,@idnhanvien,@ngaydat,@ngaytra,@gia,@tralan1,@tralan2,@phuongthucthanhtoan,@ngaytratien)
+	insert into khach_datphong values(@maxid+1,@idphong,@idkhach,@idnhanvien,@ngaydat,@ngaynhan,@ngaytra,@gia,@tralan1,@tralan2,@phuongthucthanhtoan)
 end
 drop function fn_roomsInTime
 --CÓ SỬA Ở ĐÂY!!!!!!!! (2/5/2021)
 --ngày trống trong khoảng thời gian từ ngaydat đến ngaytra
-create function fn_roomsInTime(@ngaydat date,@ngaytra date)
+create function fn_roomsInTime(@ngaynhan date,@ngaytra date)
 returns table
 as
 return (select idphong,loaiphong,gia 
 from phong p
 where not exists (select *
 from khach_datphong k
-where ((@ngaydat<=ngaydat and @ngaytra>=ngaytra) or 
-(@ngaydat<=ngaydat and @ngaytra<=ngaytra and @ngaytra>=ngaydat) or 
-(@ngaydat>=ngaydat and @ngaytra<=ngaytra) or 
-(@ngaydat>=ngaydat and @ngaytra>=ngaytra and @ngaydat<=ngaytra)) and
+where ((@ngaynhan<=ngaynhan and @ngaytra>=ngaytra) or 
+(@ngaynhan<=ngaynhan and @ngaytra<=ngaytra and @ngaytra>ngaynhan) or 
+(@ngaynhan>=ngaynhan and @ngaytra<=ngaytra) or 
+(@ngaynhan>=ngaynhan and @ngaytra>=ngaytra and @ngaynhan<ngaytra)) and
 cast(p.IDphong as varchar(64)) in (select * from [dbo].[SplitStringToTable](k.idphong,','))
-and (k.tralan1+k.tralan2)<k.gia
+and k.gia>(k.tralan1+k.tralan2)
 )
 )
 drop function dbo.fn_roomsInTime
@@ -122,12 +122,12 @@ BEGIN
 	DECLARE @TM MONEY=0
 	DECLARE @VISA MONEY=0
 	DECLARE @DEM INT = 1
-	DECLARE @COUNT INT=(SELECT COUNT(DISTINCT NGAYTRATIEN) FROM KHACH_DATPHONG)
+	DECLARE @COUNT INT=(SELECT COUNT(DISTINCT NGAYDAT) FROM KHACH_DATPHONG)
 		WHILE @DEM <= @COUNT
 		BEGIN
-			SELECT  DISTINCT TOP(@DEM) @DAY= NGAYTRATIEN FROM KHACH_DATPHONG ORDER BY NGAYTRATIEN
-			SELECT @TM=SUM(TRALAN1) FROM  KHACH_DATPHONG WHERE NGAYTRATIEN=@DAY AND SUBSTRING(PHUONGTHUCTHANHTOAN,1,8)='TIEN MAT'
-			SELECT @VISA=SUM(TRALAN1) FROM  KHACH_DATPHONG WHERE NGAYTRATIEN=@DAY AND SUBSTRING(PHUONGTHUCTHANHTOAN,1,11)='MASTER CARD'	
+			SELECT  DISTINCT TOP(@DEM) @DAY= NGAYDAT FROM KHACH_DATPHONG ORDER BY NGAYDAT
+			SELECT @TM=SUM(TRALAN1) FROM  KHACH_DATPHONG WHERE NGAYDAT=@DAY AND SUBSTRING(PHUONGTHUCTHANHTOAN,1,8)='TIEN MAT'
+			SELECT @VISA=SUM(TRALAN1) FROM  KHACH_DATPHONG WHERE NGAYDAT=@DAY AND SUBSTRING(PHUONGTHUCTHANHTOAN,1,11)='MASTER CARD'	
 			IF @TM IS NULL
 				BEGIN
 				SET @TM=0
@@ -140,16 +140,16 @@ BEGIN
 			SET @DEM=@DEM+1
 		END
 	SET @DEM=1
-	SET @COUNT=(SELECT COUNT(DISTINCT NGAYTRA) FROM KHACH_DATPHONG)	
+	SET @COUNT=(SELECT COUNT(DISTINCT NGAYNHAN) FROM KHACH_DATPHONG)	
 		WHILE @DEM <= @COUNT
 		BEGIN
 			SET @TM=0
 			SET @VISA=0
-			SELECT  DISTINCT TOP(@DEM) @DAY= NGAYTRA FROM KHACH_DATPHONG ORDER BY NGAYTRA
+			SELECT  DISTINCT TOP(@DEM) @DAY= NGAYNHAN FROM KHACH_DATPHONG ORDER BY NGAYNHAN
 			SELECT @TM=SUM(TRALAN2) FROM  KHACH_DATPHONG 
-				WHERE NGAYTRA=@DAY AND SUBSTRING(PHUONGTHUCTHANHTOAN,CHARINDEX(',',PHUONGTHUCTHANHTOAN)+1,8)='TIEN MAT' 
+				WHERE NGAYNHAN=@DAY AND SUBSTRING(PHUONGTHUCTHANHTOAN,CHARINDEX(',',PHUONGTHUCTHANHTOAN)+1,8)='TIEN MAT' 
 			SELECT @VISA=SUM(TRALAN2) FROM  KHACH_DATPHONG
-				WHERE NGAYTRA=@DAY AND SUBSTRING(PHUONGTHUCTHANHTOAN,CHARINDEX(',',PHUONGTHUCTHANHTOAN)+1,11)='MASTER CARD'  
+				WHERE NGAYNHAN=@DAY AND SUBSTRING(PHUONGTHUCTHANHTOAN,CHARINDEX(',',PHUONGTHUCTHANHTOAN)+1,11)='MASTER CARD'  
 			IF @TM IS NULL
 				BEGIN
 				SET @TM=0
@@ -209,7 +209,7 @@ SELECT * FROM DBO.BANGDT()
 SELECT TOP(1) * FROM(SELECT DISTINCT NGAYDAT FROM KHACH_DATPHONG)
 SELECT * FROM KHACH_DATPHONG
 select * from phong
-delete  KHACH_DATPHONG
+delete from  KHACH_DATPHONG where idkhach='1' and ngaydat='2021-05-04'
 update phong set tinhtrang='Trong'
 SELECT * FROM DBO.BANGDT()
 SELECT DISTINCT TOP 2 NGAYDAT

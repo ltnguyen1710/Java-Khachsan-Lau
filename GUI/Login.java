@@ -17,6 +17,8 @@ public class Login extends JFrame {
     public JTextField tk;
     public JTextField mk;
 
+
+
     public Login() {
         setContentPane(new JLabel(new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\login2.jpg")));
         a = new JLabel();
@@ -37,24 +39,25 @@ public class Login extends JFrame {
         b3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    BLLStaff.ChecklogStaff(Integer.parseInt(tk.getText()), mk.getText());
+                if (BLLStaff.ChecklogStaff(Integer.parseInt(tk.getText()), mk.getText())) {
                     new homePage().setTaikhoan(tk.getText());
                     setVisible(false);
-                } catch (Exception ec) {
+                } else {
                     JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng");
                 }
+
             }
         });
 
         b4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    BLLad.Checklog(tk.getText(), mk.getText());
+                if (BLLad.Checklog(tk.getText(), mk.getText())) {
+
                     new HomePageAdmin();
+                    //setVisible(false);
                     dispose();
-                } catch (Exception ev) {
+                } else {
                     JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng");
                 }
 
@@ -62,17 +65,22 @@ public class Login extends JFrame {
 
         });
         p = new JPanel();
+
         tk = new JTextField();
         mk = new JPasswordField();
+
         l1 = new JLabel("Tai khoan:");
         l2 = new JLabel("Mat Khau :");
         b1.setBounds(480, 250, 150, 60);
         b2.setBounds(640, 250, 150, 60);
-        p.setBounds(490, 320, 300, 200);
+        p.setBounds(490, 320, 300, 300);
+
         p.add(l1);
         p.add(tk);
         p.add(l2);
         p.add(mk);
+
+        //l1.setbounds(10,10,);
         tk.setPreferredSize(new Dimension(200, 30));
         mk.setPreferredSize(new Dimension(200, 30));
 
@@ -80,16 +88,19 @@ public class Login extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 a.setText("Admin");
                 l.setText("Dang Nhap Duoi Quyen ");
                 a.setForeground(Color.RED);
                 add(a);
                 tk.setText(null);
                 mk.setText(null);
+
                 b3.setVisible(false);
                 p.add(b4);
                 b4.setVisible(true);
                 add(p);
+
             }
         });
         b2.addActionListener(new ActionListener() {
@@ -103,10 +114,12 @@ public class Login extends JFrame {
                 add(a);
                 tk.setText(null);
                 mk.setText(null);
+
                 b4.setVisible(false);
                 p.add(b3);
                 b3.setVisible(true);
                 add(p);
+
             }
         });
 
@@ -121,10 +134,6 @@ public class Login extends JFrame {
         setVisible(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    }
-
-    public String getTk() {
-        return tk.getText();
     }
 
     public static void main(String[] args) {

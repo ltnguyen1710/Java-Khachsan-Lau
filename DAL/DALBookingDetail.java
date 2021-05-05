@@ -10,6 +10,10 @@ import DTO.Room;
 import java.sql.*;
 import java.util.Vector;
 
+/**
+ *
+ * @author Utech
+ */
 public class DALBookingDetail {
 
     private Connection con;
@@ -17,9 +21,9 @@ public class DALBookingDetail {
     public boolean openConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKHACHSAN";
-            String username = "nghia";
-            String password = "nghiameow";
+            String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKhachsan";
+            String username = "cop";
+            String password = "cop123";
             con = DriverManager.getConnection(dbUrl, username, password);
             return true;
         } catch (Exception ex) {
@@ -55,7 +59,7 @@ public class DALBookingDetail {
                     bd.setGia(rs.getInt("gia"));
                     bd.setTralan1(rs.getInt("tralan1"));
                     bd.setTralan2(rs.getInt("tralan2"));
-                    bd.setNgaytratien(rs.getDate("ngaytratien"));
+                    bd.setNgaynhan(rs.getDate("ngaynhan"));
                     bookingdetaillist.add(bd);
                 }
             } catch (Exception gA) {
@@ -67,15 +71,14 @@ public class DALBookingDetail {
         return bookingdetaillist;
     }
 
-    public void setDetailtrasau(String cmnd, String ngaydat, String phuongthuc, int gia, String ngaytra, String idphong) {
+    public void setDetailtrasau(String cmnd, String ngaynhan, String phuongthuc, int gia, String idphong) {
         if (openConnection()) {
             try {
                 Statement stmt = con.createStatement();
                 stmt.executeUpdate("Update khach_datphong set phuongthucthanhtoan=concat(phuongthucthanhtoan,'," + phuongthuc + "')"
-                        + " where phuongthucthanhtoan <> '" + phuongthuc + "' and idkhach='" + cmnd + "' and ngaydat='" + ngaydat + "' and len(phuongthucthanhtoan)<=11");
-                stmt.executeUpdate("Update khach_datphong set gia=" + gia + " where idkhach='" + cmnd + "' and ngaydat='" + ngaydat + "' and idphong='" + idphong + "'");
-                stmt.executeUpdate("Update khach_datphong set ngaytra='" + ngaytra + "' where idkhach='" + cmnd + "' and ngaydat='" + ngaydat + "' and idphong='" + idphong + "'");
-                stmt.executeUpdate("Update khach_datphong set tralan2=gia-tralan1 where idkhach='" + cmnd + "' and ngaydat='" + ngaydat + "' and gia>tralan1 and idphong='" + idphong + "'");
+                        + " where phuongthucthanhtoan <> '" + phuongthuc + "' and idkhach='" + cmnd + "' and ngaydat='" + ngaynhan + "' and len(phuongthucthanhtoan)<=11");
+                stmt.executeUpdate("Update khach_datphong set gia=" + gia + " where idkhach='" + cmnd + "' and ngaydat='" + ngaynhan + "' and idphong='" + idphong + "'");
+                stmt.executeUpdate("Update khach_datphong set tralan2=gia-tralan1 where idkhach='" + cmnd + "' and ngaydat='" + ngaynhan + "' and gia>tralan1 and idphong='" + idphong + "'");
             } catch (Exception gA) {
                 System.err.println(gA.getMessage());
             } finally {
@@ -84,11 +87,11 @@ public class DALBookingDetail {
         }
     }
 
-    public void huy(String ngaydat, String cmnd, String idphong) {
+    public void huy(String ngaynhan, String cmnd, String idphong) {
         if (openConnection()) {
             try {
                 Statement stmt = con.createStatement();
-                stmt.executeUpdate("Delete from khach_datphong where ngaydat='" + ngaydat + "' and idkhach='" + cmnd + "' and idphong='" + idphong + "'");
+                stmt.executeUpdate("Delete from khach_datphong where ngaynhan='" + ngaynhan + "' and idkhach='" + cmnd + "' and idphong='" + idphong + "'");
                 
             } catch (Exception gA) {
                 System.err.println(gA.getMessage());

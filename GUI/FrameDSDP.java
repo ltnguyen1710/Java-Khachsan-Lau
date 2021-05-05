@@ -33,8 +33,7 @@ public class FrameDSDP extends JFrame {
     private BLLBookingDetail bllbd = new BLLBookingDetail();
     private Vector<BookingDetail> bdlist = new Vector();
     private BLLRoom bllroom = new BLLRoom();
-    private Login lg = new Login();
-    private String cmnd = "", ngaydatphong = "", ngaytra = "", idphong = "", ngaynhan = "";
+    private String cmnd = "", ngaydat = "", ngaytra = "", idphong = "", ngaynhan = "";
     private String splits[];
 
     FrameDSDP() {
@@ -62,10 +61,10 @@ public class FrameDSDP extends JFrame {
         tim.setBounds(800, 100, 80, 30);
         tb.setModel(model);
         model.addColumn("CMND Khach");
-        model.addColumn("ID NV "+lg.getTk());
-        model.addColumn("Ngay Dat Phong");
+        model.addColumn("ID NV");
+        model.addColumn("Ngay Dat");
         model.addColumn("Ngay Nhan Phong");
-        model.addColumn("Ngay Tra Phong");
+        model.addColumn("Ngay Tra");
         model.addColumn("Phong So");
         model.addColumn("Tien Coc");
         model.addColumn("Gia");
@@ -76,7 +75,7 @@ public class FrameDSDP extends JFrame {
                 TitledBorder.CENTER, TitledBorder.CENTER, new Font("Brush Script Std", Font.PLAIN, 20), new Color(255, 77, 77)));
         NameCus = new JLabel("CMND Khach : ");
         NameCus.setBounds(10, 10, 400, 30);
-        IDStaff = new JLabel("ID NV: " + lg.getTk());
+        IDStaff = new JLabel("ID NV: " + "");
         IDStaff.setBounds(10, 40, 400, 30);
         RentDayTT = new JLabel("Ngay Dat Phong: ");
         RentDayTT.setBounds(10, 70, 400, 30);
@@ -116,7 +115,7 @@ public class FrameDSDP extends JFrame {
         p.add(Total);
         Del = new JButton("Huy Phong");
         Del.setBounds(385, 630, 80, 40);
-        Del.addActionListener(new ActionListener(){
+        Del.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 HuyActionListener(e);
@@ -188,7 +187,7 @@ public class FrameDSDP extends JFrame {
         }
         for (BookingDetail i : bdlist) {
             model.addRow(new Object[]{
-                i.getIdkhach(), i.getIdnhanvien(), i.getNgaytratien(), i.getNgaydat(), i.getNgaytra(), i.getIdphong(), i.getTralan1(), i.getGia()
+                i.getIdkhach(), i.getIdnhanvien(), i.getNgaydat(), i.getNgaynhan(), i.getNgaytra(), i.getIdphong(), i.getTralan1(), i.getGia()
             });
         }
     }
@@ -198,7 +197,7 @@ public class FrameDSDP extends JFrame {
         if (i >= 0) {
             idphong = tb.getModel().getValueAt(i, 5).toString();
             cmnd = tb.getModel().getValueAt(i, 0).toString();
-            ngaydatphong = tb.getModel().getValueAt(i, 2).toString();
+            ngaydat = tb.getModel().getValueAt(i, 2).toString();
             ngaynhan = tb.getModel().getValueAt(i, 3).toString();
             NameCus.setText("CMND Khach: " + tb.getModel().getValueAt(i, 0).toString());
             IDStaff.setText("ID NV: " + tb.getModel().getValueAt(i, 1).toString());
@@ -223,7 +222,7 @@ public class FrameDSDP extends JFrame {
     private void HuyActionListener(ActionEvent e) {
         int gia = 0;
         String phuongthuc = "";
-        if(NameCus.getText().equals("")){
+        if (NameCus.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Chon khach hang can huy");
             return;
         }
@@ -231,15 +230,15 @@ public class FrameDSDP extends JFrame {
                 null, JOptionPane.YES_NO_OPTION);
         int i = tb.getSelectedRow();
         if (yes == JOptionPane.YES_OPTION) {
-            if (ngaydatphong.equals(java.time.LocalDate.now().toString()) && !ngaydatphong.equals(ngaynhan)) {
+            if (ngaydat.equals(java.time.LocalDate.now().toString()) && !ngaydat.equals(ngaynhan)) {
                 bllbd.huy(ngaynhan, cmnd, idphong);
             } else {
-                gia=Integer.parseInt(tb.getModel().getValueAt(i, 6).toString());
-                bllbd.setDetailtrasau(cmnd, ngaynhan, phuongthuc, gia, java.time.LocalDate.now().toString(), idphong);
+                gia = Integer.parseInt(tb.getModel().getValueAt(i, 6).toString());
+                bllbd.setDetailtrasau(cmnd, ngaynhan, phuongthuc, gia, idphong);
             }
             for (int j = 0; j < splits.length; j++) {
-            bllroom.setTinhtrang(Integer.parseInt(splits[j]));
-        }
+                bllroom.setTinhtrang(Integer.parseInt(splits[j]));
+            }
             model.removeRow(i);
         }
     }
@@ -259,7 +258,7 @@ public class FrameDSDP extends JFrame {
         long diff = 0;
         SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-mm-dd");
         try {
-            java.util.Date date1 = myFormat.parse(ngaydatphong);
+            java.util.Date date1 = myFormat.parse(ngaydat);
             java.util.Date date2 = myFormat.parse(java.time.LocalDate.now().toString());
             diff = date2.getTime() - date1.getTime();
         } catch (ParseException p) {
@@ -270,7 +269,7 @@ public class FrameDSDP extends JFrame {
             ngay = 1;
         }
         gia = (gia * ngay);
-        bllbd.setDetailtrasau(cmnd, ngaynhan, phuongthuc, gia, java.time.LocalDate.now().toString(), idphong);
+        bllbd.setDetailtrasau(cmnd, ngaynhan, phuongthuc, gia, idphong);
         xuatdanhsach();
         for (int j = 0; j < splits.length; j++) {
             bllroom.setTinhtrang(Integer.parseInt(splits[j]));
@@ -282,7 +281,6 @@ public class FrameDSDP extends JFrame {
     }
 
     public static void main(String[] args) {
-        
-        new FrameDSDP().setVisible(true);
+        new FrameDSDP();
     }
 }

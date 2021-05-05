@@ -18,11 +18,11 @@ public class BLLBookingDetail {
         bdList=DALbd.getbookingdetaillist();
         return bdList;
     }
-    public void setDetailtrasau(String cmnd, String ngaydat, String phuongthuc,int gia,String ngaytra,String idphong) {
-        DALbd.setDetailtrasau(cmnd, ngaydat, phuongthuc,gia,ngaytra,idphong);
+    public void setDetailtrasau(String cmnd, String ngaynhan, String phuongthuc,int gia,String idphong) {
+        DALbd.setDetailtrasau(cmnd, ngaynhan, phuongthuc,gia,idphong);
     }
-    public void huy(String ngaydat,String cmnd,String idphong){
-        DALbd.huy(ngaydat, cmnd, idphong);
+    public void huy(String ngaynhan,String cmnd,String idphong){
+        DALbd.huy(ngaynhan, cmnd, idphong);
     }
     
 }

@@ -12,9 +12,9 @@ public class DALCustomer {
     public boolean openConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKHACHSAN";
-            String username = "nghia";
-            String password = "nghiameow";
+            String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKhachsan";
+            String username = "cop";
+            String password = "cop123";
             con = DriverManager.getConnection(dbUrl, username, password);
             return true;
         } catch (Exception ex) {

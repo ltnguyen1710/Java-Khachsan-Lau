@@ -17,9 +17,9 @@ public class DALRoom {
     public boolean openConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKHACHSAN";
-            String username = "nghia";
-            String password = "nghiameow";
+            String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKhachsan";
+            String username = "cop";
+            String password = "cop123";
             con = DriverManager.getConnection(dbUrl, username, password);
             return true;
         } catch (Exception ex) {
@@ -93,12 +93,12 @@ public class DALRoom {
         }
     }
     //lay danh sach phong trong tu ngaydat toi ngaytra
-    public Vector<Room> getPhongtrong(String ngaydat,String ngaytra){
+    public Vector<Room> getPhongtrong(String ngaynhan,String ngaytra){
         Vector<Room> rooms = new Vector();
          if (openConnection()) {
             try {
                 Statement stmt=con.createStatement();
-                ResultSet rs=stmt.executeQuery("Select * from fn_roomsInTime('"+ngaydat+"','"+ngaytra+"')");
+                ResultSet rs=stmt.executeQuery("Select * from fn_roomsInTime('"+ngaynhan+"','"+ngaytra+"')");
                 while(rs.next()){
                     Room room=new Room();
                     room.setID(rs.getInt("idphong"));
@@ -114,7 +114,7 @@ public class DALRoom {
         }
         return rooms;
     }
-    public void datphong(String idphong, String idkhach, int idnhanvien, String ngaydat, String ngaytra, int gia, int tralan1,String phuongthuc, String ngaytratien) {
+    public void datphong(String idphong, String idkhach, int idnhanvien, String ngaydat, String ngaynhan, String ngaytra, int gia, int tralan1,String phuongthuc) {
         if (openConnection()) {
             try {
                 CallableStatement callst = con.prepareCall("{call datphong(?,?,?,?,?,?,?,?,?)}");
@@ -122,11 +122,11 @@ public class DALRoom {
                 callst.setString(2, idkhach);
                 callst.setInt(3, idnhanvien);
                 callst.setString(4, ngaydat);
-                callst.setString(5, ngaytra);
-                callst.setInt(6, gia);
-                callst.setInt(7, tralan1);
-                callst.setString(8, phuongthuc);
-                callst.setString(9, ngaytratien);
+                callst.setString(5, ngaynhan);
+                callst.setString(6, ngaytra);
+                callst.setInt(7, gia);
+                callst.setInt(8, tralan1);
+                callst.setString(9, phuongthuc);                
                 callst.execute();
             } catch (Exception gA) {
                 System.err.println(gA.getMessage());
