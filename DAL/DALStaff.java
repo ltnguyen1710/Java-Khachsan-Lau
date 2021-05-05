@@ -50,7 +50,7 @@ public class DALStaff {
                     sta.setId(rs.getInt("IDNHANVIEN"));
                     sta.setTen(rs.getString("TEN"));
                     sta.setNgaysinh(rs.getString("GIOITINH"));
-                    sta.setNgayvaolam(rs.getDate("NGAYVAOLAM");
+                    sta.setNgayvaolam(rs.getString("NGAYVAOLAM"));
                 }
             } catch (Exception gS) {
                 System.err.println(gS.getMessage());
@@ -70,7 +70,7 @@ public class DALStaff {
                 stmt.setInt(1, sta.getId());
                 stmt.setString(2, sta.getTen());
                 stmt.setString(3, sta.getNgaysinh());
-                stmt.setDate(4, (Date) sta.getNgayvaolam());
+                stmt.setString(4, sta.getNgayvaolam());
             } catch (Exception aS) {
                 System.err.println(aS.getMessage());
             } finally {
@@ -80,15 +80,14 @@ public class DALStaff {
         return result;
     }
 
-
     public boolean checkLogin(int tk, String mk) {
         boolean result = false;
         if (openConnection()) {
             try {
-                String sql = "SELECT * FROM NHANVIEN WHERE IDNHANVIEN ="+tk+"  AND MK = '"+mk+"'";
+                String sql = "SELECT * FROM NHANVIEN WHERE IDNHANVIEN =" + tk + "  AND MK = '" + mk + "'";
                 Statement stmt = con.createStatement();
-                ResultSet rs=stmt.executeQuery(sql);
-                result=rs.next();
+                ResultSet rs = stmt.executeQuery(sql);
+                result = rs.next();
             } catch (SQLException aC) {
                 System.err.println(aC.getMessage());
             } finally {
@@ -114,12 +113,13 @@ public class DALStaff {
         }
         return result;
     }
+
     public boolean changedPass(int idstaff, String newPass) {
         boolean result = false;
         if (openConnection()) {
             try {
                 Statement stmt = con.createStatement();
-                stmt.executeUpdate("UPDATE NHANVIEN SET MK = '"+ newPass +"' WHERE IDNHANVIEN="+ idstaff +"");
+                stmt.executeUpdate("UPDATE NHANVIEN SET MK = '" + newPass + "' WHERE IDNHANVIEN=" + idstaff + "");
             } catch (Exception hS) {
                 System.err.println(hS);
             } finally {
@@ -128,13 +128,14 @@ public class DALStaff {
         }
         return result;
     }
-    public boolean checkStaff(int idstaff){
+
+    public boolean checkStaff(int idstaff) {
         boolean result = false;
         if (openConnection()) {
             try {
                 Statement stmt = con.createStatement();
-                ResultSet rs=stmt.executeQuery("Select * from nhanvien where idnhanvien="+idstaff);
-                result=rs.next();
+                ResultSet rs = stmt.executeQuery("Select * from nhanvien where idnhanvien=" + idstaff);
+                result = rs.next();
             } catch (Exception hS) {
                 System.err.println(hS);
             } finally {

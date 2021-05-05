@@ -24,7 +24,7 @@ public class FrameDatPhong extends JFrame {
     public JTextField from1, to1;
     private JRadioButton r1, r2;
     private JLabel CMND, InforCus, FullName, Date, sex, InforRoo, NameCus, IDStaff, RentDay, PayDay, RooAndPri, Deposit, Total;
-    private JButton Find, DatCoc, TToan;
+    private JButton Find, DatCoc, TToan, checkCMND;
     private JTextField Name, Date1, ID1;
     private JRadioButton Nam, Nu;
     private ButtonGroup bg = new ButtonGroup();
@@ -73,17 +73,19 @@ public class FrameDatPhong extends JFrame {
         Find.setBounds(770, 60, 80, 30);
 
         p1 = new JPanel(null);
-        p1.setBounds(0, 100, 500, 120);
+        p1.setBounds(0, 100, 600, 120);
         p1.setBorder(BorderFactory.createTitledBorder(null, "Thong tin Khach Hang",
                 TitledBorder.CENTER, TitledBorder.CENTER, new Font("Brush Script Std", Font.PLAIN, 20), new Color(255, 77, 77)));
         CMND = new JLabel("CMND");
         CMND.setBounds(10, 30, 50, 30);
         ID1 = new JTextField();
-        ID1.setBounds(60, 30, 150, 30);
+        ID1.setBounds(60, 30, 110, 30);
         FullName = new JLabel("Ho & Ten");
-        FullName.setBounds(210, 30, 100, 30);
+        FullName.setBounds(320, 30, 100, 30);
         Name = new JTextField();
-        Name.setBounds(290, 30, 180, 30);
+        Name.setBounds(380, 30, 190, 30);
+        checkCMND = new JButton("Check ID");
+        checkCMND.setBounds(190, 30, 100, 30);
         Date = new JLabel("Ngay Sinh");
         Date.setBounds(10, 70, 80, 30);
         Date1 = new JTextField();
@@ -131,12 +133,37 @@ public class FrameDatPhong extends JFrame {
         tt.setBounds(710, 510, 200, 50);
         DatCoc = new JButton("Dat Coc");
         DatCoc.setBounds(600, 570, 320, 40);
+        checkCMND.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+
+                    Customer cus = new Customer();
+                    if (bllcus.checkID(ID1.getText())) {
+                        cus = bllcus.xuatcusID(ID1.getText());
+                        Name.setText(cus.getName());
+                        Date1.setText(cus.getDate());
+                        if (cus.getSex().equals("Nam")) {
+                            Nam.setSelected(true);
+                            Nu.setSelected(false);
+                        }else{
+                            Nam.setSelected(false);
+                            Nu.setSelected(true);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "ID CHƯA TỒN TẠI");
+                    }
+                } catch (Exception ex) {
+                    System.err.println(ex.getMessage());
+                }
+            }
+        });
         Find.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 LocalDate date = LocalDate.parse(from1.getText());
                 LocalDate date1 = LocalDate.parse(to1.getText());
-                if (date.isBefore(java.time.LocalDate.now()) || date1.isBefore(java.time.LocalDate.now()) || date1.isBefore(date)||date1.isBefore(java.time.LocalDate.now()) || date.isAfter(date1)) {
+                if (date.isBefore(java.time.LocalDate.now()) || date1.isBefore(java.time.LocalDate.now()) || date1.isBefore(date) || date1.isBefore(java.time.LocalDate.now()) || date.isAfter(date1)) {
                     JOptionPane.showMessageDialog(null, "NGÀY KHÔNG HỢP LỆ");
                     return;
                 }
@@ -250,6 +277,7 @@ public class FrameDatPhong extends JFrame {
         p1.add(Nu);
         p1.add(CMND);
         p1.add(ID1);
+        p1.add(checkCMND);
         p1.add(Name);
         p1.add(Date);
         p1.add(Date1);

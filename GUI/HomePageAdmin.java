@@ -1,5 +1,6 @@
 package GUI;
 
+import BLL.BLLRoom;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -8,7 +9,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class HomePageAdmin extends JFrame {
-
+    
+    private BLLRoom bllroom = new BLLRoom();
     private JButton DX, ADD, FIX, FIX1,Find,Del,DSKH,DSDT;
     private JLabel name1, ID1, Day1, sex, date1, title,passwd1;
     private JRadioButton Nam, Nu;
@@ -90,6 +92,7 @@ public class HomePageAdmin extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new FrameFixMoneyRoom();
+                
             }
             
         });

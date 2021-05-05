@@ -135,6 +135,20 @@ public class DALRoom {
             }
         }
     }
+    public boolean changedGia(String loaiphong , int gia) {
+        boolean result = false;
+        if (openConnection()) {
+            try {
+                Statement stmt = con.createStatement();
+                stmt.executeUpdate("UPDATE PHONG SET GIA = '" + gia + "' WHERE LOAIPHONG='" + loaiphong + "'");
+            } catch (Exception hS) {
+                System.err.println(hS);
+            } finally {
+                closeConnection();
+            }
+        }
+        return result;
+    }
     /*public void setPhongdathue(int sophong) {
         if (openConnection()) {
             try {

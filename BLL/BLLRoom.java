@@ -14,7 +14,12 @@ import java.util.Vector;
  */
 public class BLLRoom {
     DALRoom DALroom=new DALRoom();
-    
+        public String changedGia(String loaiphong , int gia) {
+            if(DALroom.changedGia(loaiphong, gia))
+                return "ĐỔI GIÁ THÀNH CÔNG";
+            else
+                return "ĐỔI THẤT BẠI";
+        }
     public String getTinhtrang(int sophong){
         if(DALroom.getTinhtrang(sophong))
             return "Trong";

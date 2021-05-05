@@ -8,7 +8,7 @@ import java.util.Vector;
 public class DALCustomer {
 
     private Connection con;
-
+    private Vector<Customer> customer = new Vector();
     public boolean openConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -33,30 +33,47 @@ public class DALCustomer {
         }
     }
 
-    public Vector<Customer> getVectorCus() {
-        Vector<Customer> arrCus = new Vector<>();
+    public Customer xuatcusID(String cmnd) {
+        Customer cus = new Customer();
         if (openConnection()) {
             try {
-                String sql = "SELECT* FROM KHACH";
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery(sql);
-                while (rs.next()) {
-                    Customer cus = new Customer();
-                    cus.setID(rs.getString("CMND"));
-                    cus.setName(rs.getString("TEN"));
-                    cus.setSex(rs.getString("GIOITINH"));
-                    cus.setDate(rs.getString("NGAYSINH"));
-                }
-
-            } catch (Exception gC) {
-                System.err.println(gC.getMessage());
+                Statement stmt=con.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM KHACH WHERE CMND='"+cmnd+"'");
+               if(rs.next()){
+                   cus.setID(rs.getString("cmnd"));
+                   cus.setName(rs.getString("ten"));
+                   cus.setSex(rs.getString("gioitinh"));
+                   cus.setDate(rs.getString("ngaysinh"));
+               } 
+                           } catch (Exception aC) {
+                System.err.println(aC.getMessage());
             } finally {
                 closeConnection();
             }
         }
-        return arrCus;
+        return cus;
     }
-
+        public Vector<Customer> getCustomerlist() {
+        if (openConnection()) {
+            try {
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("select * from khach");
+                while (rs.next()) {
+                    Customer cus = new Customer();
+                    cus.setID(rs.getString("cmnd"));
+                    cus.setName(rs.getString("ten"));
+                    cus.setSex(rs.getString("gioitinh"));
+                    cus.setDate(rs.getString("ngaysinh"));
+                    customer.add(cus);
+                }
+            } catch (Exception gA) {
+                System.err.println(gA.getMessage());
+            } finally {
+                closeConnection();
+            }
+        }
+        return customer;
+    } 
     public boolean addCus(Customer cus) {
         boolean result = false;
         if (openConnection()) {
