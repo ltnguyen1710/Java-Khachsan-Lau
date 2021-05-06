@@ -16,7 +16,11 @@ import java.awt.event.MouseListener;
 import java.util.Vector;
 import BLL.BLLStaff;
 import DTO.Customer;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.concurrent.TimeUnit;
 
 public class FrameDatPhong extends JFrame {
 
@@ -68,7 +72,7 @@ public class FrameDatPhong extends JFrame {
         to1 = new JTextField();
         to1.setBounds(660, 60, 100, 30);
         to1.setToolTipText("YYYY-MM-dd");
-        to1.setText(java.time.LocalDate.now().toString());
+        to1.setText(java.time.LocalDate.now().plusDays(1).toString());
         Find = new JButton("Tim");
         Find.setBounds(770, 60, 80, 30);
 
@@ -146,7 +150,7 @@ public class FrameDatPhong extends JFrame {
                         if (cus.getSex().equals("Nam")) {
                             Nam.setSelected(true);
                             Nu.setSelected(false);
-                        }else{
+                        } else {
                             Nam.setSelected(false);
                             Nu.setSelected(true);
                         }
@@ -208,6 +212,7 @@ public class FrameDatPhong extends JFrame {
                     Tong += Integer.parseInt(tb1.getModel().getValueAt(i, 1).toString());
 
                 }
+
                 String idnhanvien = JOptionPane.showInputDialog("Nhap ma nhan vien: ");
                 if (!bllstaff.checkStaff(Integer.parseInt(idnhanvien))) {
                     JOptionPane.showMessageDialog(null, "Ma nhan vien khong ton tai!");
@@ -217,6 +222,16 @@ public class FrameDatPhong extends JFrame {
                     JOptionPane.showMessageDialog(null, "Chon phuong thuc thanh toan!");
                     return;
                 }
+                long diff = 0;
+                SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-mm-dd");
+                try {
+                    java.util.Date date1 = myFormat.parse(from1.getText());
+                    java.util.Date date2 = myFormat.parse(to1.getText());
+                    diff = date2.getTime() - date1.getTime();
+                } catch (ParseException p) {
+                    p.printStackTrace();
+                }
+                Tong = (int) (Tong * (TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)));
                 String phuongthuc = (r1.isSelected() ? "Tien mat" : "Master Card");
                 NameCus.setText("Ho&Ten Khach : " + Name.getText());
                 RentDay.setText("Ngay Dat Phong: " + from1.getText());
@@ -228,16 +243,19 @@ public class FrameDatPhong extends JFrame {
                 Customer cus = new Customer(ID1.getText(), Name.getText(), gioitinh, Date1.getText());
                 bllcus.addCus(cus);
                 Deposit.setText("Tien Coc: " + Tong / 2);
-                bllroom.datphong(str, ID1.getText(), Integer.parseInt(idnhanvien), from1.getText(), to1.getText(), Tong, Tong / 2, phuongthuc, java.time.LocalDate.now().toString());
+                bllroom.datphong(str, ID1.getText(), Integer.parseInt(idnhanvien), java.time.LocalDate.now().toString(), from1.getText(), to1.getText(), Tong, Tong / 2, phuongthuc);
                 for (int i = 0; i < model1.getRowCount(); i++) {
                     bllroom.setTinhtrang(Integer.parseInt(tb1.getModel().getValueAt(i, 0).toString()));
                 }
                 JOptionPane.showMessageDialog(null, "Dat coc thanh cong");
             }
-        });
-        tb.addMouseListener(new MouseListener() {
+        }
+        );
+        tb.addMouseListener(
+                new MouseListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(MouseEvent e
+            ) {
                 int i = tb.getSelectedRow();
                 if (i >= 0) {
                     model1.addRow(new Object[]{
@@ -248,60 +266,97 @@ public class FrameDatPhong extends JFrame {
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void mousePressed(MouseEvent e
+            ) {
 
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
+            public void mouseReleased(MouseEvent e
+            ) {
 
             }
 
             @Override
-            public void mouseEntered(MouseEvent e) {
+            public void mouseEntered(MouseEvent e
+            ) {
 
             }
 
             @Override
-            public void mouseExited(MouseEvent e) {
+            public void mouseExited(MouseEvent e
+            ) {
 
             }
         });
         bg1.add(r1);
+
         bg1.add(r2);
+
         tt.add(r1);
+
         tt.add(r2);
+
         bg.add(Nam);
+
         bg.add(Nu);
+
         p1.add(Nam);
+
         p1.add(Nu);
+
         p1.add(CMND);
+
         p1.add(ID1);
-        p1.add(checkCMND);
+
         p1.add(Name);
+
         p1.add(Date);
+
         p1.add(Date1);
+
         p1.add(sex);
+
         p1.add(FullName);
+        p1.add(checkCMND);
         add(title);
+
         add(dayNow);
+
         add(from);
+
         add(from1);
+
         add(to);
+
         add(to1);
+
         add(Find);
+
         add(p1);
+
         add(InforRoo);
+
         add(sp);
+
         p2.add(NameCus);
+
         p2.add(IDStaff);
+
         p2.add(RentDay);
+
         p2.add(PayDay);
+
         p2.add(sp1);
+
         p2.add(Deposit);
+
         p2.add(Total);
+
         add(tt);
+
         add(p2);
+
         add(DatCoc);
 
     }

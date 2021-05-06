@@ -21,10 +21,9 @@ public class homePage extends JFrame {
     int c = 22;
     int d = 36;
     String taikhoan;
-    final int sodudau;
+    int sodudau;
     FrameChangePassWd FCP = new FrameChangePassWd();
     FrameKhoaSo FKS = new FrameKhoaSo();
-    RevenueInDay RID = new RevenueInDay();
     FrameDatPhong FDP = new FrameDatPhong();
     Login login = new Login();
     BLLStaff BLLstaff = new BLLStaff();
@@ -33,11 +32,23 @@ public class homePage extends JFrame {
     BLLRoom bllroom = new BLLRoom();
     FrameDSDP DSDP = new FrameDSDP();
     FrameInformationRoom IFR = new FrameInformationRoom();
-
-    homePage() {
+    
+    homePage(String taikhoan){
+        this.taikhoan=taikhoan;
         String inputDialog = JOptionPane.showInputDialog("SÔ DƯ ĐẦU ");
         sodudau = Integer.parseInt(inputDialog);
         DisPlay();
+    }
+    homePage() {  
+        DisPlay();
+    }
+
+    public int getSodudau() {
+        return sodudau;
+    }
+
+    public void setSodudau(int sodudau) {
+        this.sodudau = sodudau;
     }
 
     public void setTaikhoan(String taikhoan) {
@@ -66,6 +77,7 @@ public class homePage extends JFrame {
             i = new JButton(String.valueOf(a++), new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\vip.png"));
             if (!bllroom.getTinhtrang(a - 1).equalsIgnoreCase("Trong")) {
                 i.setBackground(Color.red);
+                bllroom.setTinhtrang(a-1);
             }
             p1.add(i);
             i.addActionListener(new ActionListener() {
@@ -98,6 +110,7 @@ public class homePage extends JFrame {
             i = new JButton(String.valueOf(b++), new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\family.png"));
             if (!bllroom.getTinhtrang(b - 1).equalsIgnoreCase("Trong")) {
                 i.setBackground(Color.red);
+                bllroom.setTinhtrang(b-1);
             }
             p2.add(i);
             i.addActionListener(new ActionListener() {
@@ -129,10 +142,11 @@ public class homePage extends JFrame {
         add(p3);
 
         for (JButton i : DOI) {
-            final int cc =c;
+            final int cc = c;
             i = new JButton(String.valueOf(c++), new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\couple.png"));
             if (!bllroom.getTinhtrang(c - 1).equalsIgnoreCase("Trong")) {
                 i.setBackground(Color.red);
+                bllroom.setTinhtrang(c-1);
             }
             p3.add(i);
             i.addActionListener(new ActionListener() {
@@ -161,10 +175,11 @@ public class homePage extends JFrame {
         p4.setBounds(50, 425, 700, 180);
         p4.setBackground(new Color(0, 0, 0, 0));
         for (JButton i : DON) {
-            final int dd=d;
+            final int dd = d;
             i = new JButton(String.valueOf(d++), new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\single.png"));
             if (!bllroom.getTinhtrang(d - 1).equalsIgnoreCase("Trong")) {
                 i.setBackground(Color.red);
+                bllroom.setTinhtrang(d-1);
             }
             p4.add(i);
             i.addActionListener(new ActionListener() {
@@ -232,6 +247,7 @@ public class homePage extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!DSDP.isVisible()) {
+                    DSDP.xuatdanhsach();
                     DSDP.setVisible(true);
                 }
             }
@@ -252,10 +268,14 @@ public class homePage extends JFrame {
         b6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                homePage hp = new homePage();
+                hp.setTaikhoan(taikhoan);
+                hp.setSodudau(sodudau);
+                dispose();
             }
 
         });
-        
+
         add(b1);
         add(b2);
         add(b3);

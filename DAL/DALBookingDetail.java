@@ -17,14 +17,13 @@ import java.util.Vector;
 public class DALBookingDetail {
 
     private Connection con;
-    private Vector<BookingDetail> bookingdetaillist = new Vector();
 
     public boolean openConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKhachsan";
-            String username = "HOLAKAKA";
-            String password = "1";
+            String username = "cop";
+            String password = "cop123";
             con = DriverManager.getConnection(dbUrl, username, password);
             return true;
         } catch (Exception ex) {
@@ -44,10 +43,11 @@ public class DALBookingDetail {
     }
 
     public Vector<BookingDetail> getbookingdetaillist() {
+        Vector<BookingDetail> bookingdetaillist = new Vector();
         if (openConnection()) {
             try {
                 Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("select * from khach_datphong");
+                ResultSet rs = stmt.executeQuery("select * from khach_datphong where (tralan1+tralan2)< gia");
                 while (rs.next()) {
                     BookingDetail bd = new BookingDetail();
                     bd.setIddatphong(rs.getInt("iddatphong"));
@@ -57,7 +57,9 @@ public class DALBookingDetail {
                     bd.setNgaydat(rs.getDate("ngaydat"));
                     bd.setNgaytra(rs.getDate("ngaytra"));
                     bd.setGia(rs.getInt("gia"));
-                    bd.setDatra(rs.getInt("datra"));
+                    bd.setTralan1(rs.getInt("tralan1"));
+                    bd.setTralan2(rs.getInt("tralan2"));
+                    bd.setNgaynhan(rs.getDate("ngaynhan"));
                     bookingdetaillist.add(bd);
                 }
             } catch (Exception gA) {
@@ -69,6 +71,48 @@ public class DALBookingDetail {
         return bookingdetaillist;
     }
 
- 
-    
+    public void setDetailtrasau(String cmnd, String ngaynhan, String phuongthuc, int gia, String idphong) {
+        if (openConnection()) {
+            try {
+                Statement stmt = con.createStatement();
+                stmt.executeUpdate("Update khach_datphong set phuongthucthanhtoan=concat(phuongthucthanhtoan,'," + phuongthuc + "')"
+                        + " where phuongthucthanhtoan <> '" + phuongthuc + "' and idkhach='" + cmnd + "' and ngaynhan='" + ngaynhan + "' and len(phuongthucthanhtoan)<=11");                
+                stmt.executeUpdate("Update khach_datphong set tralan2=gia-tralan1 where idkhach='" + cmnd + "' and ngaynhan='" + ngaynhan + "' and gia>tralan1 and idphong='" + idphong + "'");
+            } catch (Exception gA) {
+                System.err.println(gA.getMessage());
+            } finally {
+                closeConnection();
+            }
+        }
+    }
+    public void huy(String cmnd, String ngaynhan, String phuongthuc, int gia, String idphong) {
+        if (openConnection()) {
+            try {
+                Statement stmt = con.createStatement();
+                stmt.executeUpdate("Update khach_datphong set phuongthucthanhtoan=concat(phuongthucthanhtoan,'," + phuongthuc + "')"
+                        + " where phuongthucthanhtoan <> '" + phuongthuc + "' and idkhach='" + cmnd + "' and ngaynhan='" + ngaynhan + "' and len(phuongthucthanhtoan)<=11");
+                stmt.executeUpdate("Update khach_datphong set gia=" + gia + " where idkhach='" + cmnd + "' and ngaynhan='" + ngaynhan + "' and idphong='" + idphong + "'");
+                stmt.executeUpdate("Update khach_datphong set ngaytra='"+ngaynhan+"' where idkhach='" + cmnd + "' and ngaynhan='" + ngaynhan + "' and idphong='" + idphong + "'");
+                stmt.executeUpdate("Update khach_datphong set tralan2=gia-tralan1 where idkhach='" + cmnd + "' and ngaynhan='" + ngaynhan + "' and gia>tralan1 and idphong='" + idphong + "'");
+            } catch (Exception gA) {
+                System.err.println(gA.getMessage());
+            } finally {
+                closeConnection();
+            }
+        }
+    }
+
+    public void huy(String ngaynhan, String cmnd, String idphong) {
+        if (openConnection()) {
+            try {
+                Statement stmt = con.createStatement();
+                stmt.executeUpdate("Delete from khach_datphong where ngaynhan='" + ngaynhan + "' and idkhach='" + cmnd + "' and idphong='" + idphong + "'");                
+            } catch (Exception gA) {
+                System.err.println(gA.getMessage());
+            } finally {
+                closeConnection();
+            }
+        }
+    }
+
 }

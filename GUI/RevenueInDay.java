@@ -72,7 +72,8 @@ public class RevenueInDay extends JFrame {
 
     }
 
-    public void dumamay() {
+    public void xuatdanhsach() {
+
         bangdoanhthu = BLLbdt.getBangdoanhthu();
         int row = tb.getRowCount();
         for (int i = row; i > 0; i--) {
@@ -84,10 +85,7 @@ public class RevenueInDay extends JFrame {
                 i.getNgay(), i.getTienmat(), i.getVisa(), i.getDthu()
             });
         }
-        System.out.println(bangdoanhthu);
     }
 
-    public static void main(String[] args) {
-        new RevenueInDay();
-    }
+   
 }

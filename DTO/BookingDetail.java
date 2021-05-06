@@ -19,7 +19,19 @@ public class BookingDetail {
     private Date ngaydat;
     private Date ngaytra;
     private int gia;
-    private int datra;
+    private int tralan1;
+    private int tralan2;
+    private Date ngaynhan;
+
+    public Date getNgaynhan() {
+        return ngaynhan;
+    }
+
+    public void setNgaynhan(Date ngaynhan) {
+        this.ngaynhan = ngaynhan;
+    }
+
+   
 
     public int getIddatphong() {
         return iddatphong;
@@ -77,12 +89,22 @@ public class BookingDetail {
         this.gia = gia;
     }
 
-    public int getDatra() {
-        return datra;
+    public int getTralan1() {
+        return tralan1;
     }
 
-    public void setDatra(int datra) {
-        this.datra = datra;
+    public void setTralan1(int tralan1) {
+        this.tralan1 = tralan1;
     }
+
+    public int getTralan2() {
+        return tralan2;
+    }
+
+    public void setTralan2(int tralan2) {
+        this.tralan2 = tralan2;
+    }
+
+    
     
 }

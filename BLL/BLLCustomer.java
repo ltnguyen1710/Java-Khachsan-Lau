@@ -16,11 +16,12 @@ import java.util.Vector;
 public class BLLCustomer {
 
     DALCustomer dalcustomer = new DALCustomer();
-    private Vector<Customer> customer = new Vector();
-        public Vector<Customer> getCustomerlist() {
-            customer=dalcustomer.getCustomerlist();
-            return customer;
-        }
+
+    public Vector<Customer> getCustomerlist() {
+        Vector<Customer> customer = new Vector();
+        customer = dalcustomer.getCustomerlist();
+        return customer;
+    }
 
     public boolean addCus(Customer cus) {
         if (!dalcustomer.hasCusID(cus.getID())) {

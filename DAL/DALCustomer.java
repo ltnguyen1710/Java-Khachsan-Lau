@@ -8,19 +8,40 @@ import java.util.Vector;
 public class DALCustomer {
 
     private Connection con;
-    private Vector<Customer> customer = new Vector();
+
     public boolean openConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKhachsan";
-            String username = "HOLAKAKA";
-            String password = "1";
+            String username = "cop";
+            String password = "cop123";
             con = DriverManager.getConnection(dbUrl, username, password);
             return true;
         } catch (Exception ex) {
             System.out.println(ex);
             return false;
         }
+    }
+
+    public Customer xuatcusID(String cmnd) {
+        Customer cus = new Customer();
+        if (openConnection()) {
+            try {
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM KHACH WHERE CMND='" + cmnd + "'");
+                if (rs.next()) {
+                    cus.setID(rs.getString("cmnd"));
+                    cus.setName(rs.getString("ten"));
+                    cus.setSex(rs.getString("gioitinh"));
+                    cus.setDate(rs.getString("ngaysinh"));
+                }
+            } catch (Exception aC) {
+                System.err.println(aC.getMessage());
+            } finally {
+                closeConnection();
+            }
+        }
+        return cus;
     }
 
     public void closeConnection() {
@@ -33,47 +54,30 @@ public class DALCustomer {
         }
     }
 
-    public Customer xuatcusID(String cmnd) {
-        Customer cus = new Customer();
+    public Vector<Customer>  getCustomerlist()  {
+        Vector<Customer> arrCus = new Vector<>();
         if (openConnection()) {
             try {
-                Statement stmt=con.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM KHACH WHERE CMND='"+cmnd+"'");
-               if(rs.next()){
-                   cus.setID(rs.getString("cmnd"));
-                   cus.setName(rs.getString("ten"));
-                   cus.setSex(rs.getString("gioitinh"));
-                   cus.setDate(rs.getString("ngaysinh"));
-               } 
-                           } catch (Exception aC) {
-                System.err.println(aC.getMessage());
-            } finally {
-                closeConnection();
-            }
-        }
-        return cus;
-    }
-        public Vector<Customer> getCustomerlist() {
-        if (openConnection()) {
-            try {
+                String sql = "SELECT* FROM KHACH";
                 Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("select * from khach");
+                ResultSet rs = stmt.executeQuery(sql);
                 while (rs.next()) {
                     Customer cus = new Customer();
-                    cus.setID(rs.getString("cmnd"));
-                    cus.setName(rs.getString("ten"));
-                    cus.setSex(rs.getString("gioitinh"));
-                    cus.setDate(rs.getString("ngaysinh"));
-                    customer.add(cus);
+                    cus.setID(rs.getString("CMND"));
+                    cus.setName(rs.getString("TEN"));
+                    cus.setSex(rs.getString("GIOITINH"));
+                    cus.setDate(rs.getString("NGAYSINH"));
                 }
-            } catch (Exception gA) {
-                System.err.println(gA.getMessage());
+
+            } catch (Exception gC) {
+                System.err.println(gC.getMessage());
             } finally {
                 closeConnection();
             }
         }
-        return customer;
-    } 
+        return arrCus;
+    }
+
     public boolean addCus(Customer cus) {
         boolean result = false;
         if (openConnection()) {

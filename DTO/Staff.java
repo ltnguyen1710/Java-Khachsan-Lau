@@ -10,9 +10,9 @@ public class Staff {
     private String ten;
     private String ngaysinh;
     private String ngayvaolam;
-    private String gioitinh;
     private String taikhoan;
     private String matkhau;
+    private String gioitinh; 
 
     public String getGioitinh() {
         return gioitinh;
@@ -21,6 +21,7 @@ public class Staff {
     public void setGioitinh(String gioitinh) {
         this.gioitinh = gioitinh;
     }
+           
     public int getId() {
         return id;
     }
@@ -37,6 +38,12 @@ public class Staff {
         return ngayvaolam;
     }
 
+    public void setNgayvaolam(String ngayvaolam) {
+        this.ngayvaolam = ngayvaolam;
+    }
+
+   
+
     public void setId(int id) {
         this.id = id;
     }
@@ -49,9 +56,7 @@ public class Staff {
         this.ngaysinh = ngaysinh;
     }
 
-    public void setNgayvaolam(String ngayvaolam) {
-        this.ngayvaolam = ngayvaolam;
-    }
+   
 
     public String getTaikhoan() {
         return taikhoan;

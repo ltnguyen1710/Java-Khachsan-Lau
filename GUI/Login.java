@@ -40,7 +40,7 @@ public class Login extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (BLLStaff.ChecklogStaff(Integer.parseInt(tk.getText()), mk.getText())) {
-                    new homePage().setTaikhoan(tk.getText());
+                    new homePage(tk.getText());
                     setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng");

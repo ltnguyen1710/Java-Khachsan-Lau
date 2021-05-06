@@ -8,6 +8,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import BLL.BLLBookingDetail;
+import DTO.BookingDetail;
+import java.util.Vector;
+import BLL.BLLRoom;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.concurrent.TimeUnit;
 
 public class FrameDSDP extends JFrame {
 
@@ -23,6 +30,11 @@ public class FrameDSDP extends JFrame {
     private JTable tb1 = new JTable();
     private DefaultTableModel model1 = new DefaultTableModel();
     private JScrollPane sp1 = new JScrollPane(tb1);
+    private BLLBookingDetail bllbd = new BLLBookingDetail();
+    private Vector<BookingDetail> bdlist = new Vector();
+    private BLLRoom bllroom = new BLLRoom();
+    private String cmnd = "", ngaydat = "", ngaytra = "", idphong = "", ngaynhan = "";
+    private String splits[];
 
     FrameDSDP() {
         DisPlay();
@@ -51,12 +63,12 @@ public class FrameDSDP extends JFrame {
         model.addColumn("CMND Khach");
         model.addColumn("ID NV");
         model.addColumn("Ngay Dat");
+        model.addColumn("Ngay Nhan Phong");
         model.addColumn("Ngay Tra");
         model.addColumn("Phong So");
         model.addColumn("Tien Coc");
         model.addColumn("Gia");
         sp.setBounds(50, 150, 800, 470);
-
         p = new JPanel(null);
         p.setBounds(870, 160, 320, 400);
         p.setBorder(BorderFactory.createTitledBorder(null, "Thanh Toan",
@@ -101,8 +113,14 @@ public class FrameDSDP extends JFrame {
         p.add(sp1);
         p.add(Deposit);
         p.add(Total);
-        Del = new JButton("XOA");
+        Del = new JButton("Huy Phong");
         Del.setBounds(385, 630, 80, 40);
+        Del.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                HuyActionListener(e);
+            }
+        });
         add(title);
         add(sp);
         add(CMND1);
@@ -118,7 +136,7 @@ public class FrameDSDP extends JFrame {
         tb1.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                tableMouseClicked(e);
+
             }
 
             @Override
@@ -140,7 +158,7 @@ public class FrameDSDP extends JFrame {
         tb.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                tableMouseClicked(e);
             }
 
             @Override
@@ -161,32 +179,89 @@ public class FrameDSDP extends JFrame {
         });
     }
 
-    private void tableMouseClicked(MouseEvent e) {
-        int i = tb.getSelectedRow();
-        if (i >= 0) {
-            NameCus.setText(NameCus.getText() + tb.getModel().getValueAt(i, 0).toString());
-            IDStaff.setText(IDStaff.getText() + tb.getModel().getValueAt(i, 1).toString());
-            RentDayTT.setText(RentDayTT.getText() + tb.getModel().getValueAt(i, 2).toString());
-            PayDay.setText(PayDay.getText() + tb.getModel().getValueAt(i, 3).toString());
-
-            //sp1.setText(tb.getModel().getValueAt(i, 4).toString()); lay id phong gia tien
-            Deposit.setText(Deposit.getText() + tb.getModel().getValueAt(i, 5).toString());
-            Total.setText(Total.getText() + tb.getModel().getValueAt(i, 6).toString());
+    public void xuatdanhsach() {
+        bdlist = bllbd.getbdList();
+        int row = tb.getRowCount();
+        for (int i = row; i > 0; i--) {
+            model.removeRow(0);
+        }
+        for (BookingDetail i : bdlist) {
+            model.addRow(new Object[]{
+                i.getIdkhach(), i.getIdnhanvien(), i.getNgaydat(), i.getNgaynhan(), i.getNgaytra(), i.getIdphong(), i.getTralan1(), i.getGia()
+            });
         }
     }
 
-    private void DeleteActionListener(ActionEvent e) {
-        int yes = JOptionPane.showConfirmDialog(null, "Ban Co that su muon xoa ?",
+    private void tableMouseClicked(MouseEvent e) {
+        int i = tb.getSelectedRow();
+        if (i >= 0) {
+            idphong = tb.getModel().getValueAt(i, 5).toString();
+            cmnd = tb.getModel().getValueAt(i, 0).toString();
+            ngaydat = tb.getModel().getValueAt(i, 2).toString();
+            ngaynhan = tb.getModel().getValueAt(i, 3).toString();
+            NameCus.setText("CMND Khach: " + tb.getModel().getValueAt(i, 0).toString());
+            IDStaff.setText("ID NV: " + tb.getModel().getValueAt(i, 1).toString());
+            RentDayTT.setText("Ngay Dat: " + tb.getModel().getValueAt(i, 3).toString());
+            PayDay.setText("Ngay Tra: " + tb.getModel().getValueAt(i, 4).toString());
+            splits = tb.getModel().getValueAt(i, 5).toString().split(",");
+            int row = tb1.getRowCount();
+            for (int j = row; j > 0; j--) {
+                model1.removeRow(0);
+            }
+            for (int j = 0; j < splits.length; j++) {
+                String gia = bllroom.getGia(Integer.parseInt(splits[j])) + "";
+                model1.addRow(new Object[]{
+                    splits[j], gia
+                });
+            }
+            Deposit.setText("Tien Coc: " + tb.getModel().getValueAt(i, 6).toString());
+            Total.setText("Gia: " + tb.getModel().getValueAt(i, 7).toString());
+        }
+    }
+
+    private void HuyActionListener(ActionEvent e) {
+        int gia = 0;
+        String phuongthuc = "";
+        if (NameCus.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Chon khach hang can huy");
+            return;
+        }
+        int yes = JOptionPane.showConfirmDialog(null, "Ban Co that su muon huy ?",
                 null, JOptionPane.YES_NO_OPTION);
         int i = tb.getSelectedRow();
         if (yes == JOptionPane.YES_OPTION) {
+            if (ngaydat.equals(java.time.LocalDate.now().toString()) && !ngaydat.equals(ngaynhan)) {
+                bllbd.huy(ngaynhan, cmnd, idphong);
+            } else {
+                gia = Integer.parseInt(tb.getModel().getValueAt(i, 6).toString());
+                bllbd.huy(cmnd, ngaynhan, phuongthuc, gia, idphong);
+            }
+            for (int j = 0; j < splits.length; j++) {
+                bllroom.setTinhtrang(Integer.parseInt(splits[j]));
+            }
             model.removeRow(i);
-            //// xoa tren sql o day lun
         }
     }
 
     private void TTActionListener(ActionEvent e) {
-        
+        int gia = 0;
+        String phuongthuc = "";
+        if (cmnd.equals("") || ngaynhan.equals("") || (!r1.isSelected() && !r2.isSelected())) {
+            JOptionPane.showMessageDialog(null, "Chọn khách cần thanh toán!!!!");
+            return;
+        }
+        int i=tb.getSelectedRow();
+        phuongthuc = (r1.isSelected() ? r1.getText() : r2.getText());
+        gia=Integer.parseInt(tb.getModel().getValueAt(i, 6).toString());
+        bllbd.setDetailtrasau(cmnd, ngaynhan, phuongthuc, gia, idphong);
+        xuatdanhsach();
+        for (int j = 0; j < splits.length; j++) {
+            bllroom.setTinhtrang(Integer.parseInt(splits[j]));
+        }
+        int row = tb1.getRowCount();
+        for (int j = row; j > 0; j--) {
+            model1.removeRow(0);
+        }
     }
 
     public static void main(String[] args) {

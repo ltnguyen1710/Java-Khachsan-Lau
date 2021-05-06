@@ -60,7 +60,7 @@ declare @today date=cast(getdate() as date)
 declare @sophong varchar(20)=cast(@idphong as varchar(20))
 	if not exists (select *
 						from khach_datphong
-						where @today>=ngaynhan and @today<ngaytra and @sophong in (select * from [dbo].[SplitStringToTable](idphong,',')))
+						where @today>=ngaynhan and @today<ngaytra and @sophong in (select * from [dbo].[SplitStringToTable](idphong,',')) and GETDATE()<=cast(concat(cast(ngaytra as varchar(10)),' 12:00:00.000') as datetime)) 
 	begin
 	update phong set tinhtrang='Trong' where IDphong=@idphong	
 	end
@@ -105,9 +105,10 @@ where ((@ngaynhan<=ngaynhan and @ngaytra>=ngaytra) or
 (@ngaynhan>=ngaynhan and @ngaytra<=ngaytra) or 
 (@ngaynhan>=ngaynhan and @ngaytra>=ngaytra and @ngaynhan<ngaytra)) and
 cast(p.IDphong as varchar(64)) in (select * from [dbo].[SplitStringToTable](k.idphong,','))
-and gia<>tralan1
+and gia<>tralan1 and GETDATE()<=cast(concat(cast(@ngaytra as varchar(10)),' 12:00:00.000') as datetime)
 )
 )
+
 drop function dbo.fn_roomsInTime
 drop function [dbo].[SplitStringToTable]
 --HÀM TRẢ VỀ BẢNG DT
@@ -213,3 +214,5 @@ SELECT * FROM DBO.BANGDT()
 SELECT DISTINCT TOP 2 NGAYDAT
 FROM KHACH_DATPHONG ORDER BY NGAYDAT
 SELECT SUBSTRING('LE TRUNG NGUYEN',LEN('LE TRUNG NGUYEN')+1,1)
+select GETDATE()
+select * from dbo.fn_roomsInTime('2021-05-07','2021-05-08')
