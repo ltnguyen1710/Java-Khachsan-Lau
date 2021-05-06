@@ -13,9 +13,9 @@ public class main {
     public static void main(String agrs[]) {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKhachsan";
-            String username = "HOLAKAKA";
-            String password = "1";
+            String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKHACHSAN";
+            String username = "nghia";
+            String password = "nghiameow";
             con = DriverManager.getConnection(dbUrl, username, password);
             data();
             addtoDB();

@@ -41,4 +41,16 @@ public class BLLStaff {
     public Vector<Staff> getVectorSta() {
         return dstaff.getVectorSta();
     }
+    public String FixStaff(int idstaff, String mk, String name, String gioitinh, String ngaysinh, String ngayLam){
+        if(dstaff.FixStaff(idstaff, mk, name, gioitinh, ngaysinh, ngayLam)){
+            return "Sửa thành công";
+        }
+        return "Sửa thất bại";
+    }
+    public String DelStaff(int idstaff){
+        if(dstaff.DelStaff(idstaff)){
+            return "Xóa thành công";
+        }
+        return "Xóa thất bại";
+    }
 }

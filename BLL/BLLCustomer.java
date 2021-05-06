@@ -40,4 +40,18 @@ public class BLLCustomer {
     public Customer xuatcusID(String cmnd) {
         return dalcustomer.xuatcusID(cmnd);
     }
+
+    public String FixCus(String ID, String ten, String Sex, String date) {
+        if (dalcustomer.FixCus(ID, ten, Sex, date)) {
+            return "Sửa thành công";
+        }
+        return "Sửa thất bại";
+    }
+
+    public String DelCus(String ID) {
+        if (dalcustomer.DelCus(ID)) {
+            return "Xóa thành công";
+        }
+        return "Xóa thất bại";
+    }
 }

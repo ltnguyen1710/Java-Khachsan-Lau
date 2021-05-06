@@ -12,14 +12,13 @@ import java.util.Vector;
 public class DALRoom {
 
     private Connection con;
-    
 
     public boolean openConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKhachsan";
-            String username = "cop";
-            String password = "cop123";
+            String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKHACHSAN";
+            String username = "nghia";
+            String password = "nghiameow";
             con = DriverManager.getConnection(dbUrl, username, password);
             return true;
         } catch (Exception ex) {
@@ -37,9 +36,10 @@ public class DALRoom {
             System.out.println(ex);
         }
     }
+
     //lấy danh sách tất cả các phòng
     public Vector<Room> getRooms() {
-       Vector<Room> rooms = new Vector();
+        Vector<Room> rooms = new Vector();
         if (openConnection()) {
             try {
                 Statement stmt = con.createStatement();
@@ -60,6 +60,7 @@ public class DALRoom {
         }
         return rooms;
     }
+
     //lây tình trạng phòng
     public boolean getTinhtrang(int sophong) {
         boolean result = false;
@@ -77,7 +78,6 @@ public class DALRoom {
         return result;
     }
 
-    
     //đặt tình trạng cho phòng
     public void setTinhtrang(int sophong) {
         if (openConnection()) {
@@ -92,15 +92,16 @@ public class DALRoom {
             }
         }
     }
+
     //lay danh sach phong trong tu ngaydat toi ngaytra
-    public Vector<Room> getPhongtrong(String ngaynhan,String ngaytra){
+    public Vector<Room> getPhongtrong(String ngaynhan, String ngaytra) {
         Vector<Room> rooms = new Vector();
-         if (openConnection()) {
+        if (openConnection()) {
             try {
-                Statement stmt=con.createStatement();
-                ResultSet rs=stmt.executeQuery("Select * from fn_roomsInTime('"+ngaynhan+"','"+ngaytra+"')");
-                while(rs.next()){
-                    Room room=new Room();
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("Select * from fn_roomsInTime('" + ngaynhan + "','" + ngaytra + "')");
+                while (rs.next()) {
+                    Room room = new Room();
                     room.setID(rs.getInt("idphong"));
                     room.setType(rs.getString("loaiphong"));
                     room.setPrice(rs.getInt("gia"));
@@ -114,7 +115,8 @@ public class DALRoom {
         }
         return rooms;
     }
-    public void datphong(String idphong, String idkhach, int idnhanvien, String ngaydat, String ngaynhan, String ngaytra, int gia, int tralan1,String phuongthuc) {
+
+    public void datphong(String idphong, String idkhach, int idnhanvien, String ngaydat, String ngaynhan, String ngaytra, int gia, int tralan1, String phuongthuc) {
         if (openConnection()) {
             try {
                 CallableStatement callst = con.prepareCall("{call datphong(?,?,?,?,?,?,?,?,?)}");
@@ -126,7 +128,7 @@ public class DALRoom {
                 callst.setString(6, ngaytra);
                 callst.setInt(7, gia);
                 callst.setInt(8, tralan1);
-                callst.setString(9, phuongthuc);                
+                callst.setString(9, phuongthuc);
                 callst.execute();
             } catch (Exception gA) {
                 System.err.println(gA.getMessage());
@@ -135,14 +137,15 @@ public class DALRoom {
             }
         }
     }
+
     public int getGia(int sophong) {
-        int gia=0;
+        int gia = 0;
         if (openConnection()) {
             try {
-                Statement stmt=con.createStatement();
-                ResultSet rs = stmt.executeQuery("Select gia from phong where idphong='"+sophong+"'");
-                if(rs.next()){
-                    gia=rs.getInt("gia");
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("Select gia from phong where idphong='" + sophong + "'");
+                if (rs.next()) {
+                    gia = rs.getInt("gia");
                 }
             } catch (Exception gA) {
                 System.err.println(gA.getMessage());
@@ -152,12 +155,16 @@ public class DALRoom {
         }
         return gia;
     }
-     public boolean changedGia(String loaiphong , int gia) {
+
+    public boolean changedGia(String loaiphong, int gia) {
         boolean result = false;
         if (openConnection()) {
             try {
+                String sql = "UPDATE PHONG SET GIA = '" + gia + "' WHERE LOAIPHONG='" + loaiphong + "'";
                 Statement stmt = con.createStatement();
-                stmt.executeUpdate("UPDATE PHONG SET GIA = '" + gia + "' WHERE LOAIPHONG='" + loaiphong + "'");
+                if (stmt.executeUpdate(sql) >= 1) {
+                    result = true;
+                }
             } catch (Exception hS) {
                 System.err.println(hS);
             } finally {

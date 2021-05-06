@@ -3,6 +3,8 @@ package GUI;
 import BLL.BLLRoom;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class FrameFixMoneyRoom extends JFrame {
@@ -30,6 +32,16 @@ public class FrameFixMoneyRoom extends JFrame {
         cb.setPreferredSize(new Dimension(200, 30));
         b1 = new JButton("   OK   ", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\checked.png"));
         b2 = new JButton("CANCEL", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\x-button.png"));
+        b1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    JOptionPane.showMessageDialog(null, bllroom.changedGia("" + cb.getSelectedItem(), Integer.parseInt(t1.getText())));
+                } catch (NullPointerException b) {
+                    JOptionPane.showMessageDialog(null, "PHẢI ĐIỀN ĐẦY ĐỦ THÔNG TIN");
+                }
+            }
+        });
         add(ro);
         add(cb);
         add(l1);

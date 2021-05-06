@@ -68,9 +68,9 @@ public class FrameDSDP extends JFrame {
         model.addColumn("Phong So");
         model.addColumn("Tien Coc");
         model.addColumn("Gia");
-        sp.setBounds(50, 150, 800, 470);
+        sp.setBounds(10, 150, 900, 470);
         p = new JPanel(null);
-        p.setBounds(870, 160, 320, 400);
+        p.setBounds(920, 160, 320, 400);
         p.setBorder(BorderFactory.createTitledBorder(null, "Thanh Toan",
                 TitledBorder.CENTER, TitledBorder.CENTER, new Font("Brush Script Std", Font.PLAIN, 20), new Color(255, 77, 77)));
         NameCus = new JLabel("CMND Khach : ");
@@ -95,11 +95,11 @@ public class FrameDSDP extends JFrame {
         bg.add(r2);
         JPanel tt = new JPanel();
         tt.setBorder(BorderFactory.createTitledBorder(null, "Hinh Thuc Thanh Toan", TitledBorder.CENTER, TitledBorder.CENTER, null, new Color(255, 64, 0)));
-        tt.setBounds(990, 570, 200, 50);
+        tt.setBounds(1040, 570, 200, 50);
         tt.add(r1);
         tt.add(r2);
         TT = new JButton("Thanh Toan");
-        TT.setBounds(870, 630, 320, 40);
+        TT.setBounds(920, 630, 320, 40);
         TT.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -114,7 +114,7 @@ public class FrameDSDP extends JFrame {
         p.add(Deposit);
         p.add(Total);
         Del = new JButton("Huy Phong");
-        Del.setBounds(385, 630, 80, 40);
+        Del.setBounds(365, 630, 120, 40);
         Del.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -265,6 +265,6 @@ public class FrameDSDP extends JFrame {
     }
 
     public static void main(String[] args) {
-        new FrameDSDP();
+        new FrameDSDP().setVisible(true);
     }
 }

@@ -131,7 +131,6 @@ public class Login extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setResizable(false); // khong cho thu nho man hinh
         setLayout(null);
-        setVisible(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }

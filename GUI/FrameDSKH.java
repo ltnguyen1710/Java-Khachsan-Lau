@@ -3,22 +3,28 @@ package GUI;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import BLL.BLLCustomer;
+import java.awt.event.MouseEvent;
+import DTO.Customer;
+import java.awt.event.MouseListener;
+import java.util.Vector;
 
 public class FrameDSKH extends JFrame {
 
-    private JLabel title, l1, name1, CMND1, sex, RentDay1, PayDay1, date1, KOfRoom1, NumRoom1;
-    private String sex1[] = {"Male", "Female"};
-    private String l[] = {"VIP", "Family", "Couple", "Single"};
-    private JComboBox KOfRoom = new JComboBox(l);
+    private JLabel title, l1, name1, CMND1, sex, date1;
+    private String sex1[] = {"Nam", "Nu"};
     private JComboBox cb = new JComboBox(sex1);
     private JPanel p;
-    private JTextField t1, name, CMND, RentDay, PayDay, date, NumRoom;
-    private JButton tim, FIX, De;
+    private JTextField t1, name, CMND, date;
+    private JButton tim, FIX, De,rs;
     private JTable tb = new JTable();
     private DefaultTableModel model = new DefaultTableModel();
     private JScrollPane sp = new JScrollPane(tb);
+    private BLLCustomer BLLCus = new BLLCustomer();
 
     FrameDSKH() {
         DisPlay();
@@ -38,9 +44,44 @@ public class FrameDSKH extends JFrame {
         t1.setBounds(500, 100, 200, 30);
         tim = new JButton("TIM", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\loupe.png"));
         tim.setBounds(720, 100, 120, 30);
+        rs = new JButton("");
+        rs.setBounds(850, 100, 80,30);
+        rs.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DSKH1();
+            }
+        });
+        tim.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (BLLCus.checkID(t1.getText())) {
+                    try {
+                        int row1 = tb.getRowCount();
+                        for (int i = row1; i > 0; i--) {
+                            model.removeRow(0);
+                        }
+                        String a = t1.getText();
+                        Vector<Customer> DS = new Vector<Customer>();
+                        DS = BLLCus.getCustomerlist();
+                        for (Customer i : DS) {
+                            if (a.equals(i.getID())) {
+                                model.addRow(new Object[]{
+                                    i.getID(), i.getName(), i.getSex(), i.getDate()});
+                                return;
+                            }
+                        }
+                    } catch (Exception ev) {
+                        JOptionPane.showMessageDialog(null, "Lỗi");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Không tồn tại");
+                }
+            }
+        });
         tb.setModel(model);
         model.addColumn("CMND");
-         model.addColumn("Họ và Tên");
+        model.addColumn("Họ và Tên");
         model.addColumn("Ngày Sinh");
         model.addColumn("Giới Tính");
         sp.setBounds(50, 170, 800, 500);
@@ -51,42 +92,74 @@ public class FrameDSKH extends JFrame {
         add(tim);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         p = new JPanel(null);
-        p.setBounds(900, 170, 310, 500);
+        p.setBounds(900, 170, 310, 200);
         p.setBorder(BorderFactory.createTitledBorder("FIX & DELETE CUSTOMER"));
         CMND1 = new JLabel("CMND");
-        CMND1.setBounds(5,20,90,30);
+        CMND1.setBounds(5, 20, 90, 30);
         CMND = new JTextField();
-        CMND.setBounds(100,20,200,30);
+        CMND.setBounds(100, 20, 200, 30);
         name1 = new JLabel("Full Name");
-        name1.setBounds(5,50,90,30 );
+        name1.setBounds(5, 50, 90, 30);
         name = new JTextField();
-        name.setBounds(100,50,200,30);
+        name.setBounds(100, 50, 200, 30);
         sex = new JLabel("Sex");
-        sex.setBounds(5,80,90,30);
-        cb.setBounds(100,80,100,30);
+        sex.setBounds(5, 80, 90, 30);
+        cb.setBounds(100, 80, 100, 30);
         date1 = new JLabel("Date");
-        date1.setBounds(5,110,90,30);
+        date1.setBounds(5, 110, 90, 30);
         date = new JTextField();
-        date.setBounds(100,110,200,30);
-        RentDay1 = new JLabel("Rent Day");
-        RentDay1.setBounds(5,140,90,30);
-        RentDay = new JTextField();
-        RentDay.setBounds(100,140,200,30);
-        PayDay1 = new JLabel("Pay day");
-        PayDay1.setBounds(5,170,100,30);
-        PayDay = new JTextField();
-        PayDay.setBounds(100,170,200,30);;
-        KOfRoom1 = new JLabel("Kind of room");
-        KOfRoom1.setBounds(5,200,200,30);
-        KOfRoom.setBounds(100,200,200,30);;
-        NumRoom1 = new JLabel("Number room");
-        NumRoom1.setBounds(5,230,100,30);
-        NumRoom = new JTextField();
-        NumRoom.setBounds(100,230,200,30);;
-        FIX = new JButton("FIX");
-        FIX.setBounds(80,270,100,30);
-        De = new JButton("DELETE");
-        De.setBounds(180,270,100,30);
+        date.setBounds(100, 110, 200, 30);
+        FIX = new JButton("SỬA");
+        FIX.setBounds(70, 150, 100, 30);
+        FIX.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    JOptionPane.showMessageDialog(null, BLLCus.FixCus(CMND.getText(), name.getText(), cb.getSelectedItem().toString(), date.getText()));
+                    DSKH1();
+                } catch (Exception c) {
+                    JOptionPane.showMessageDialog(null, "");
+                }
+            }
+        });
+        De = new JButton("XÓA");
+        De.setBounds(180, 150, 100, 30);
+        De.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    JOptionPane.showMessageDialog(null, BLLCus.DelCus(CMND.getText()));
+                    CMND.setText(null);
+                    name.setText(null);
+                    date.setText(null);
+                    DSKH1();
+                } catch (Exception c) {
+                    JOptionPane.showMessageDialog(null, "");
+                }
+            }
+        });
+        tb.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                tableMouseClicked(e);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
         add(p);
         p.add(name1);
         p.add(name);
@@ -96,17 +169,44 @@ public class FrameDSKH extends JFrame {
         p.add(cb);
         p.add(date1);
         p.add(date);
-        p.add(RentDay1);
-        p.add(RentDay);
-        p.add(PayDay1);
-        p.add(PayDay);
-        p.add(KOfRoom1);
-        p.add(KOfRoom);
-        p.add(NumRoom1);
-        p.add(NumRoom);
         p.add(FIX);
         p.add(De);
+        add(rs);
+        DSKH();
         setVisible(true);
+    }
+
+    private void tableMouseClicked(MouseEvent e) {
+        int i = tb.getSelectedRow();
+        CMND.setEnabled(false);
+        if (i >= 0) {
+            CMND.setText(tb.getModel().getValueAt(i, 0).toString());
+            name.setText(tb.getModel().getValueAt(i, 1).toString());
+            cb.setSelectedItem(tb.getModel().getValueAt(i, 2).toString());
+            date.setText(tb.getModel().getValueAt(i, 3).toString());
+        }
+    }
+
+    private void DSKH() {
+        Vector<Customer> DS = new Vector<Customer>();
+        DS = BLLCus.getCustomerlist();
+        for (Customer i : DS) {
+            model.addRow(new Object[]{
+                i.getID(), i.getName(), i.getSex(), i.getDate()});
+        }
+    }
+
+    private void DSKH1() {
+        int row1 = tb.getRowCount();
+        for (int i = row1; i > 0; i--) {
+            model.removeRow(0);
+        }
+        Vector<Customer> DS = new Vector<Customer>();
+        DS = BLLCus.getCustomerlist();
+        for (Customer i : DS) {
+            model.addRow(new Object[]{
+                i.getID(), i.getName(), i.getSex(), i.getDate()});
+        }
     }
 
     public static void main(String[] args) {

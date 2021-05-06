@@ -16,7 +16,6 @@ import java.awt.event.MouseListener;
 import java.util.Vector;
 import BLL.BLLStaff;
 import DTO.Customer;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -44,6 +43,7 @@ public class FrameDatPhong extends JFrame {
     private Vector<Room> phongtrong = new Vector();
     private BLLStaff bllstaff = new BLLStaff();
     private BLLCustomer bllcus = new BLLCustomer();
+    private String a; 
 
     FrameDatPhong() {
         DisPlay();
@@ -213,11 +213,6 @@ public class FrameDatPhong extends JFrame {
 
                 }
 
-                String idnhanvien = JOptionPane.showInputDialog("Nhap ma nhan vien: ");
-                if (!bllstaff.checkStaff(Integer.parseInt(idnhanvien))) {
-                    JOptionPane.showMessageDialog(null, "Ma nhan vien khong ton tai!");
-                    return;
-                }
                 if (!r1.isSelected() && !r2.isSelected()) {
                     JOptionPane.showMessageDialog(null, "Chon phuong thuc thanh toan!");
                     return;
@@ -237,13 +232,13 @@ public class FrameDatPhong extends JFrame {
                 RentDay.setText("Ngay Dat Phong: " + from1.getText());
                 PayDay.setText("Ngay Tra Phong: " + to1.getText());
                 Total.setText("Tong Tien: " + Tong);
-                IDStaff.setText("ID NV: " + idnhanvien);
+                IDStaff.setText("ID NV: " + getTk());
                 JOptionPane.showMessageDialog(null, "SỐ TIỀN KHÁCH PHẢI TRẢ : " + Tong / 2);
 
                 Customer cus = new Customer(ID1.getText(), Name.getText(), gioitinh, Date1.getText());
                 bllcus.addCus(cus);
                 Deposit.setText("Tien Coc: " + Tong / 2);
-                bllroom.datphong(str, ID1.getText(), Integer.parseInt(idnhanvien), java.time.LocalDate.now().toString(), from1.getText(), to1.getText(), Tong, Tong / 2, phuongthuc);
+                bllroom.datphong(str, ID1.getText(), Integer.parseInt(getTk()), java.time.LocalDate.now().toString(), from1.getText(), to1.getText(), Tong, Tong / 2, phuongthuc);
                 for (int i = 0; i < model1.getRowCount(); i++) {
                     bllroom.setTinhtrang(Integer.parseInt(tb1.getModel().getValueAt(i, 0).toString()));
                 }
@@ -290,78 +285,46 @@ public class FrameDatPhong extends JFrame {
             }
         });
         bg1.add(r1);
-
         bg1.add(r2);
-
         tt.add(r1);
-
         tt.add(r2);
-
         bg.add(Nam);
-
         bg.add(Nu);
-
         p1.add(Nam);
-
         p1.add(Nu);
-
         p1.add(CMND);
-
         p1.add(ID1);
-
         p1.add(Name);
-
         p1.add(Date);
-
         p1.add(Date1);
-
         p1.add(sex);
-
         p1.add(FullName);
         p1.add(checkCMND);
         add(title);
-
         add(dayNow);
-
         add(from);
-
         add(from1);
-
         add(to);
-
         add(to1);
-
         add(Find);
-
         add(p1);
-
         add(InforRoo);
-
         add(sp);
-
         p2.add(NameCus);
-
         p2.add(IDStaff);
-
         p2.add(RentDay);
-
         p2.add(PayDay);
-
         p2.add(sp1);
-
         p2.add(Deposit);
-
         p2.add(Total);
-
         add(tt);
-
         add(p2);
-
         add(DatCoc);
-
     }
-
-    public static void main(String[] args) {
-        new FrameDatPhong().setVisible(true);
+    public void setTk(String a){
+        this.a = a;
+    }
+    public String getTk(){
+        return a;
     }
 }

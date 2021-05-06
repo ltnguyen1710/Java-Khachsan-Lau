@@ -12,9 +12,9 @@ public class DALCustomer {
     public boolean openConnection() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKhachsan";
-            String username = "cop";
-            String password = "cop123";
+            String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKHACHSAN";
+            String username = "nghia";
+            String password = "nghiameow";
             con = DriverManager.getConnection(dbUrl, username, password);
             return true;
         } catch (Exception ex) {
@@ -54,7 +54,7 @@ public class DALCustomer {
         }
     }
 
-    public Vector<Customer>  getCustomerlist()  {
+    public Vector<Customer> getCustomerlist() {
         Vector<Customer> arrCus = new Vector<>();
         if (openConnection()) {
             try {
@@ -67,6 +67,7 @@ public class DALCustomer {
                     cus.setName(rs.getString("TEN"));
                     cus.setSex(rs.getString("GIOITINH"));
                     cus.setDate(rs.getString("NGAYSINH"));
+                    arrCus.add(cus);
                 }
 
             } catch (Exception gC) {
@@ -102,10 +103,46 @@ public class DALCustomer {
         boolean result = false;
         if (openConnection()) {
             try {
-                String sql = "SELECT * FROM KHACH WHERE CMND=" + ID + "";
+                String sql = "SELECT * FROM KHACH WHERE CMND='" + ID + "'";
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);
                 result = rs.next();
+            } catch (Exception hC) {
+                System.err.println(hC);
+            } finally {
+                closeConnection();
+            }
+        }
+        return result;
+    }
+
+    public boolean FixCus(String ID, String ten, String Sex, String date) {
+        boolean result = false;
+        if (openConnection()) {
+            try {
+                String sql = "UPDATE KHACH SET ten = '" + ten + "', gioitinh='" + Sex + "', ngaysinh='" + date + "' WHERE cmnd='" + ID + "'";
+                Statement stmt = con.createStatement();
+                if (stmt.executeUpdate(sql) >= 1) {
+                    result = true;
+                }
+            } catch (Exception hC) {
+                System.err.println(hC);
+            } finally {
+                closeConnection();
+            }
+        }
+        return result;
+    }
+
+    public boolean DelCus(String ID) {
+        boolean result = false;
+        if (openConnection()) {
+            try {
+                String sql = "DELETE FROM KHACH WHERE CMND='" + ID + "'";
+                Statement stmt = con.createStatement();
+                if (stmt.executeUpdate(sql) >= 1) {
+                    result = true;
+                }
             } catch (Exception hC) {
                 System.err.println(hC);
             } finally {

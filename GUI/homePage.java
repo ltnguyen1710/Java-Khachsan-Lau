@@ -84,7 +84,7 @@ public class homePage extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (!IFR.isVisible()) {
-                        if (bllroom.getTinhtrang(aa).equalsIgnoreCase("Trong")) {
+                        if (!bllroom.getTinhtrang(aa).equalsIgnoreCase("Trong")) {
                             IFR.setNumber(String.valueOf(aa));
                             IFR.setTen("");
                             IFR.setNgayDat("");
@@ -117,7 +117,7 @@ public class homePage extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (!IFR.isVisible()) {
-                        if (bllroom.getTinhtrang(bb).equalsIgnoreCase("Trong")) {
+                        if (!bllroom.getTinhtrang(bb).equalsIgnoreCase("Trong")) {
                             IFR.setNumber(String.valueOf(bb));
                             IFR.setTen("");
                             IFR.setNgayDat("");
@@ -153,7 +153,7 @@ public class homePage extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (!IFR.isVisible()) {
-                        if (bllroom.getTinhtrang(cc).equalsIgnoreCase("Trong")) {
+                        if (!bllroom.getTinhtrang(cc).equalsIgnoreCase("Trong")) {
                             IFR.setNumber(String.valueOf(cc));
                             IFR.setTen("");
                             IFR.setNgayDat("");
@@ -186,7 +186,7 @@ public class homePage extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (!IFR.isVisible()) {
-                        if (bllroom.getTinhtrang(dd).equalsIgnoreCase("Trong")) {
+                        if (!bllroom.getTinhtrang(dd).equalsIgnoreCase("Trong")) {
                             IFR.setNumber(String.valueOf(dd));
                             IFR.setTen("");
                             IFR.setNgayDat("");
@@ -237,6 +237,7 @@ public class homePage extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!FDP.isVisible()) {
+                    FDP.setTk(taikhoan);
                     FDP.setVisible(true);
                 }
             }
@@ -283,11 +284,6 @@ public class homePage extends JFrame {
         add(b5);
         add(b6);
         setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        new homePage();
-
     }
 
 }
