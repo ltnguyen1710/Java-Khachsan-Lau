@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class FrameInformationRoom extends JFrame {
 
-    private JLabel Ten,ngayDat, gia, ngayTra;
+    private JLabel Ten,ngayDat, ngayTra;
     private JLabel ID = new JLabel();
 
     FrameInformationRoom() {
@@ -23,31 +23,25 @@ public class FrameInformationRoom extends JFrame {
         ID.setBounds(70,0,300,50);
         Ten = new JLabel("Ten Khach Hang: ");
         Ten.setBounds(50,60,300,30);
-        ngayDat = new JLabel("Ngay Dat: ");
+        ngayDat = new JLabel("Ngay nhan phong: ");
         ngayDat.setBounds(50,90,300,30);
         ngayTra = new JLabel("Ngay tra Phong: ");
         ngayTra.setBounds(50,120,300,30);
-        gia = new JLabel("Gia tien Phong: ");
-        gia.setBounds(50,150,300,30);
         add(Ten);
         add(ngayTra);
         add(ID);
         add(ngayDat);
-        add(gia);
     }
     public void setNumber(String t){
         ID.setText("Phong So: "+t);
     }
     public void setTen(String t){
-        Ten.setText(Ten.getText() + t);
+        Ten.setText("Ten Khach Hang: " + t);
     }
     public void setNgayDat(String t){
-        ngayDat.setText(ngayDat.getText() + t);
+        ngayDat.setText("Ngay nhan phong: "+ t);
     }
     public void setngayTra(String t){
-        ngayTra.setText(ngayTra.getText()+ t);
-    }
-    public void setGia(String t){
-        gia.setText(gia.getText()+ t);
+        ngayTra.setText("Ngay tra Phong: "+ t);
     }
 }

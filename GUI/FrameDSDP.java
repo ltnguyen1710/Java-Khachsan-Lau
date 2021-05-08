@@ -222,7 +222,7 @@ public class FrameDSDP extends JFrame {
     private void HuyActionListener(ActionEvent e) {
         int gia = 0;
         String phuongthuc = "";
-        if (NameCus.getText().equals("")) {
+        if (NameCus.getText().equals("CMND Khach: ")) {
             JOptionPane.showMessageDialog(null, "Chon khach hang can huy");
             return;
         }
@@ -262,6 +262,7 @@ public class FrameDSDP extends JFrame {
         for (int j = row; j > 0; j--) {
             model1.removeRow(0);
         }
+        NameCus.setText("CMND Khach: ");
     }
 
     public static void main(String[] args) {

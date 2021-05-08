@@ -60,7 +60,7 @@ declare @today date=cast(getdate() as date)
 declare @sophong varchar(20)=cast(@idphong as varchar(20))
 	if not exists (select *
 						from khach_datphong
-						where @today>=ngaynhan and @today<ngaytra and @sophong in (select * from [dbo].[SplitStringToTable](idphong,',')) and GETDATE()<=cast(concat(cast(ngaytra as varchar(10)),' 12:00:00.000') as datetime)) 
+						where @today>=ngaynhan and GETDATE()<=cast(concat(ngaytra,' 12:00:00.000') as datetime) and @sophong in (select * from [dbo].[SplitStringToTable](idphong,','))) 
 	begin
 	update phong set tinhtrang='Trong' where IDphong=@idphong	
 	end
@@ -105,7 +105,7 @@ where ((@ngaynhan<=ngaynhan and @ngaytra>=ngaytra) or
 (@ngaynhan>=ngaynhan and @ngaytra<=ngaytra) or 
 (@ngaynhan>=ngaynhan and @ngaytra>=ngaytra and @ngaynhan<ngaytra)) and
 cast(p.IDphong as varchar(64)) in (select * from [dbo].[SplitStringToTable](k.idphong,','))
-and gia<>tralan1 and GETDATE()<=cast(concat(cast(@ngaytra as varchar(10)),' 12:00:00.000') as datetime)
+and gia<>tralan1
 )
 )
 
@@ -196,7 +196,30 @@ BEGIN
     END
     RETURN
 END
-
+drop function dbo.infor_ROOM
+CREATE FUNCTION INFOR_ROOM (
+@IDROOM INT,
+@TODAY DATE
+)
+RETURNS @OUTPUT TABLE(
+	idkhach1 varchar(64),
+	ngaynhan1 date,
+	ngaytra1 date
+) 
+as
+begin
+	declare @idkhach varchar(64)
+	declare @ngaynhan date
+	declare @ngaytra date
+	select @idkhach=idkhach,@ngaynhan=ngaynhan,@ngaytra=ngaytra
+	from khach_datphong
+	where cast(@IDROOM as varchar(64)) in (select *
+			from [dbo].SplitStringToTable(idphong,',')) and 
+		   @today>=ngaynhan and GETDATE()<=cast(concat(ngaytra,' 12:00:00.000') as datetime)
+	insert into @OUTPUT (idkhach1,ngaynhan1,ngaytra1) values (@idkhach,@ngaynhan,@ngaytra)
+	return 
+end
+--phần test
 DECLARE @TM MONEY=1000
 SELECT @TM=DATRA FROM KHACH_DATPHONG WHERE NGAYTRA='2021-06-01'
 PRINT @TM
@@ -208,6 +231,7 @@ SELECT * FROM DBO.BANGDT()
 SELECT TOP(1) * FROM(SELECT DISTINCT NGAYDAT FROM KHACH_DATPHONG)
 SELECT * FROM KHACH_DATPHONG
 select * from phong
+select * from khach
 delete from  KHACH_DATPHONG where idkhach='1' and ngaydat='2021-05-04'
 update phong set tinhtrang='Trong'
 SELECT * FROM DBO.BANGDT()
@@ -216,3 +240,11 @@ FROM KHACH_DATPHONG ORDER BY NGAYDAT
 SELECT SUBSTRING('LE TRUNG NGUYEN',LEN('LE TRUNG NGUYEN')+1,1)
 select GETDATE()
 select * from dbo.fn_roomsInTime('2021-05-07','2021-05-08')
+update khach_datphong set ngaydat='2021-05-06',ngaynhan='2021-05-06',ngaytra='2021-05-08' where iddatphong=10
+exec setTinhtrang 3
+if GETDATE()=cast(concat(cast('2021-05-08' as date),' 12:00:00.000') as datetime)
+begin
+	print 'true'
+end
+select CAST('2021-05-08' as datetime)
+select * from  dbo.INFOR_ROOM(7,'2021-06-06')

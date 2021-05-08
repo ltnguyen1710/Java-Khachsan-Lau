@@ -180,8 +180,6 @@ public class FrameDatPhong extends JFrame {
                 for (int i = row1; i > 0; i--) {
                     model1.removeRow(0);
                 }
-                Name.setText("");
-                Date1.setText("");
                 for (Room i : phongtrong) {
                     model.addRow(new Object[]{
                         i.getID(), i.getType(), i.getPrice()
@@ -218,7 +216,7 @@ public class FrameDatPhong extends JFrame {
                     return;
                 }
                 long diff = 0;
-                SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-mm-dd");
+                SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
                 try {
                     java.util.Date date1 = myFormat.parse(from1.getText());
                     java.util.Date date2 = myFormat.parse(to1.getText());

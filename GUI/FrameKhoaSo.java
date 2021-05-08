@@ -9,7 +9,11 @@ import BLL.BLLBangdoanhthu;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.sql.Date;
+import java.util.Calendar;
+import java.util.Formatter;
+import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,9 +27,9 @@ public class FrameKhoaSo extends JFrame {
     private BLLBangdoanhthu BLLbd = new BLLBangdoanhthu();
 
     FrameKhoaSo() {
-        
+
         DisPLay();
-        
+
     }
 
     private void DisPLay() {
@@ -46,7 +50,16 @@ public class FrameKhoaSo extends JFrame {
         b1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Them action 
+                try {
+                    Calendar c = Calendar.getInstance();
+                    String localdate = java.time.LocalDate.now().toString();
+                    Formatter f = new Formatter("C:\\Users\\Admin\\Documents\\NetBeansProjects\\KhachsanLau\\" + localdate + ".txt");
+                    f.format("NGÀY: %tD%n", c);
+                    f.format("DOANH THU: %s\nTIEN MAT: %s\nVISA: %s\n", BLLbd.getDthu(), BLLbd.getTienmat(), BLLbd.getVisa());
+                    f.close();
+                } catch (Exception k) {
+                    System.out.println("Eror");
+                }
             }
         });
         add(title);
@@ -70,12 +83,12 @@ public class FrameKhoaSo extends JFrame {
 
     public void setSoDuDau(int t) {
         l1.setText("Số dư đầu:        " + t);
-        int soducuoica=t+BLLbd.getDthu();
-        l2.setText("Doanh Thu Ngay: "+BLLbd.getDthu());
-        l3.setText("Tien Mat: "+BLLbd.getTienmat());
-        l4.setText("VISA: "+BLLbd.getVisa());
-        l5.setText("Du Cuoi Ca: "+soducuoica);
-        
+        int soducuoica = t + BLLbd.getDthu();
+        l2.setText("Doanh Thu Ngay: " + BLLbd.getDthu());
+        l3.setText("Tien Mat: " + BLLbd.getTienmat());
+        l4.setText("VISA: " + BLLbd.getVisa());
+        l5.setText("Du Cuoi Ca: " + soducuoica);
+
     }
 
     public void setDTNgay(Date t) {

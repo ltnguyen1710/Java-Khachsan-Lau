@@ -114,7 +114,6 @@ public class Login extends JFrame {
                 add(a);
                 tk.setText(null);
                 mk.setText(null);
-
                 b4.setVisible(false);
                 p.add(b3);
                 b3.setVisible(true);

@@ -14,22 +14,16 @@ import java.sql.Date;
 public class BookingDetail {
     private int iddatphong;
     private String idphong;
-    private int idkhach;
+    private String idkhach;
     private int idnhanvien;
-    private Date ngaydat;
-    private Date ngaytra;
+    private String ngaydat;
+    private String ngaytra;
     private int gia;
     private int tralan1;
     private int tralan2;
-    private Date ngaynhan;
+    private String ngaynhan;
 
-    public Date getNgaynhan() {
-        return ngaynhan;
-    }
-
-    public void setNgaynhan(Date ngaynhan) {
-        this.ngaynhan = ngaynhan;
-    }
+    
 
    
 
@@ -49,13 +43,15 @@ public class BookingDetail {
         this.idphong = idphong;
     }
 
-    public int getIdkhach() {
+    public String getIdkhach() {
         return idkhach;
     }
 
-    public void setIdkhach(int idkhach) {
+    public void setIdkhach(String idkhach) {
         this.idkhach = idkhach;
     }
+
+    
 
     public int getIdnhanvien() {
         return idnhanvien;
@@ -65,21 +61,31 @@ public class BookingDetail {
         this.idnhanvien = idnhanvien;
     }
 
-    public Date getNgaydat() {
+    public String getNgaydat() {
         return ngaydat;
     }
 
-    public void setNgaydat(Date ngaydat) {
+    public void setNgaydat(String ngaydat) {
         this.ngaydat = ngaydat;
     }
 
-    public Date getNgaytra() {
+    public String getNgaytra() {
         return ngaytra;
     }
 
-    public void setNgaytra(Date ngaytra) {
+    public void setNgaytra(String ngaytra) {
         this.ngaytra = ngaytra;
     }
+
+    public String getNgaynhan() {
+        return ngaynhan;
+    }
+
+    public void setNgaynhan(String ngaynhan) {
+        this.ngaynhan = ngaynhan;
+    }
+
+    
 
     public int getGia() {
         return gia;

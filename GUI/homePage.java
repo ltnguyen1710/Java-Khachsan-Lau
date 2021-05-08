@@ -1,11 +1,16 @@
 package GUI;
 
+import BLL.BLLBookingDetail;
+import BLL.BLLCustomer;
 import BLL.BLLStaff;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.TitledBorder;
 import BLL.BLLRoom;
+import DTO.BookingDetail;
+import DTO.Customer;
+import java.util.Vector;
 
 // giao dien thu ngan.
 public class homePage extends JFrame {
@@ -32,14 +37,18 @@ public class homePage extends JFrame {
     BLLRoom bllroom = new BLLRoom();
     FrameDSDP DSDP = new FrameDSDP();
     FrameInformationRoom IFR = new FrameInformationRoom();
-    
-    homePage(String taikhoan){
-        this.taikhoan=taikhoan;
+    BLLBookingDetail BLLbd = new BLLBookingDetail();
+    Vector<Customer> cuslist = new Vector();
+    BLLCustomer BLLcus = new BLLCustomer();
+
+    homePage(String taikhoan) {
+        this.taikhoan = taikhoan;
         String inputDialog = JOptionPane.showInputDialog("SÔ DƯ ĐẦU ");
         sodudau = Integer.parseInt(inputDialog);
         DisPlay();
     }
-    homePage() {  
+
+    homePage() {
         DisPlay();
     }
 
@@ -77,7 +86,7 @@ public class homePage extends JFrame {
             i = new JButton(String.valueOf(a++), new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\vip.png"));
             if (!bllroom.getTinhtrang(a - 1).equalsIgnoreCase("Trong")) {
                 i.setBackground(Color.red);
-                bllroom.setTinhtrang(a-1);
+                bllroom.setTinhtrang(a - 1);
             }
             p1.add(i);
             i.addActionListener(new ActionListener() {
@@ -85,11 +94,14 @@ public class homePage extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     if (!IFR.isVisible()) {
                         if (!bllroom.getTinhtrang(aa).equalsIgnoreCase("Trong")) {
+                            BookingDetail bd = new BookingDetail();
+                            bd = BLLbd.thongtinphong(aa, java.time.LocalDate.now().toString());
                             IFR.setNumber(String.valueOf(aa));
-                            IFR.setTen("");
-                            IFR.setNgayDat("");
-                            IFR.setngayTra("");
-                            IFR.setGia("");
+                            cuslist = BLLcus.getCustomerlist();
+                            System.out.println(bd.getIdkhach());
+                            IFR.setTen(BLLcus.tenCus(bd.getIdkhach()));
+                            IFR.setNgayDat(bd.getNgaynhan());
+                            IFR.setngayTra(bd.getNgaytra());
                             IFR.setVisible(true);
                         } else {
                             JOptionPane.showMessageDialog(null, "Phong So: " + aa + " Trong");
@@ -110,7 +122,7 @@ public class homePage extends JFrame {
             i = new JButton(String.valueOf(b++), new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\family.png"));
             if (!bllroom.getTinhtrang(b - 1).equalsIgnoreCase("Trong")) {
                 i.setBackground(Color.red);
-                bllroom.setTinhtrang(b-1);
+                bllroom.setTinhtrang(b - 1);
             }
             p2.add(i);
             i.addActionListener(new ActionListener() {
@@ -118,11 +130,18 @@ public class homePage extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     if (!IFR.isVisible()) {
                         if (!bllroom.getTinhtrang(bb).equalsIgnoreCase("Trong")) {
+                            BookingDetail bd = new BookingDetail();
+                            bd = BLLbd.thongtinphong(bb, java.time.LocalDate.now().toString());
                             IFR.setNumber(String.valueOf(bb));
-                            IFR.setTen("");
-                            IFR.setNgayDat("");
-                            IFR.setngayTra("");
-                            IFR.setGia("");
+                            cuslist = BLLcus.getCustomerlist();
+                            for (Customer i : cuslist) {
+                                if (i.getID().equals(bd.getIdkhach())) {
+                                    IFR.setTen(i.getName());
+                                    break;
+                                }
+                            }
+                            IFR.setNgayDat(bd.getNgaynhan());
+                            IFR.setngayTra(bd.getNgaytra());
                             IFR.setVisible(true);
                         } else {
                             JOptionPane.showMessageDialog(null, "Phong So: " + bb + " Trong");
@@ -146,7 +165,7 @@ public class homePage extends JFrame {
             i = new JButton(String.valueOf(c++), new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\couple.png"));
             if (!bllroom.getTinhtrang(c - 1).equalsIgnoreCase("Trong")) {
                 i.setBackground(Color.red);
-                bllroom.setTinhtrang(c-1);
+                bllroom.setTinhtrang(c - 1);
             }
             p3.add(i);
             i.addActionListener(new ActionListener() {
@@ -154,11 +173,18 @@ public class homePage extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     if (!IFR.isVisible()) {
                         if (!bllroom.getTinhtrang(cc).equalsIgnoreCase("Trong")) {
+                            BookingDetail bd = new BookingDetail();
+                            bd = BLLbd.thongtinphong(cc, java.time.LocalDate.now().toString());
                             IFR.setNumber(String.valueOf(cc));
-                            IFR.setTen("");
-                            IFR.setNgayDat("");
-                            IFR.setngayTra("");
-                            IFR.setGia("");
+                            cuslist = BLLcus.getCustomerlist();
+                            for (Customer i : cuslist) {
+                                if (i.getID().equals(bd.getIdkhach())) {
+                                    IFR.setTen(i.getName());
+                                    break;
+                                }
+                            }
+                            IFR.setNgayDat(bd.getNgaynhan());
+                            IFR.setngayTra(bd.getNgaytra());
                             IFR.setVisible(true);
                         } else {
                             JOptionPane.showMessageDialog(null, "Phong So: " + cc + " Trong");
@@ -179,7 +205,7 @@ public class homePage extends JFrame {
             i = new JButton(String.valueOf(d++), new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\single.png"));
             if (!bllroom.getTinhtrang(d - 1).equalsIgnoreCase("Trong")) {
                 i.setBackground(Color.red);
-                bllroom.setTinhtrang(d-1);
+                bllroom.setTinhtrang(d - 1);
             }
             p4.add(i);
             i.addActionListener(new ActionListener() {
@@ -187,11 +213,18 @@ public class homePage extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     if (!IFR.isVisible()) {
                         if (!bllroom.getTinhtrang(dd).equalsIgnoreCase("Trong")) {
+                            BookingDetail bd = new BookingDetail();
+                            bd = BLLbd.thongtinphong(dd, java.time.LocalDate.now().toString());
                             IFR.setNumber(String.valueOf(dd));
-                            IFR.setTen("");
-                            IFR.setNgayDat("");
-                            IFR.setngayTra("");
-                            IFR.setGia("");
+                            cuslist = BLLcus.getCustomerlist();
+                            for (Customer i : cuslist) {
+                                if (i.getID().equals(bd.getIdkhach())) {
+                                    IFR.setTen(i.getName());
+                                    break;
+                                }
+                            }
+                            IFR.setNgayDat(bd.getNgaynhan());
+                            IFR.setngayTra(bd.getNgaytra());
                             IFR.setVisible(true);
                         } else {
                             JOptionPane.showMessageDialog(null, "Phong So: " + dd + " Trong");
