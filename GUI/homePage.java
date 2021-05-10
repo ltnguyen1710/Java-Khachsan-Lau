@@ -11,8 +11,8 @@ import BLL.BLLRoom;
 import DTO.BookingDetail;
 import DTO.Customer;
 import java.util.Vector;
-
 // giao dien thu ngan.
+
 public class homePage extends JFrame {
 
     JPanel p1, p2, p3, p4;
@@ -104,7 +104,7 @@ public class homePage extends JFrame {
                             IFR.setngayTra(bd.getNgaytra());
                             IFR.setVisible(true);
                         } else {
-                            JOptionPane.showMessageDialog(null, "Phong So: " + aa + " Trong");
+                            JOptionPane.showMessageDialog(null, "Phòng Số " + aa + ": Trống");
                         }
                     }
                 }
@@ -120,7 +120,7 @@ public class homePage extends JFrame {
         for (JButton i : GD) {
             final int bb = b;
             i = new JButton(String.valueOf(b++), new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\family.png"));
-            if (!bllroom.getTinhtrang(b - 1).equalsIgnoreCase("Trong")) {
+            if (!bllroom.getTinhtrang(b - 1).equalsIgnoreCase("Trozzng")) {
                 i.setBackground(Color.red);
                 bllroom.setTinhtrang(b - 1);
             }
@@ -144,7 +144,7 @@ public class homePage extends JFrame {
                             IFR.setngayTra(bd.getNgaytra());
                             IFR.setVisible(true);
                         } else {
-                            JOptionPane.showMessageDialog(null, "Phong So: " + bb + " Trong");
+                            JOptionPane.showMessageDialog(null, "Phòng Số " + bb + ": Trống");
                         }
                     }
                 }
@@ -187,7 +187,7 @@ public class homePage extends JFrame {
                             IFR.setngayTra(bd.getNgaytra());
                             IFR.setVisible(true);
                         } else {
-                            JOptionPane.showMessageDialog(null, "Phong So: " + cc + " Trong");
+                            JOptionPane.showMessageDialog(null, "Phòng Số " + cc + ": Trống");
                         }
                     }
                 }
@@ -227,7 +227,7 @@ public class homePage extends JFrame {
                             IFR.setngayTra(bd.getNgaytra());
                             IFR.setVisible(true);
                         } else {
-                            JOptionPane.showMessageDialog(null, "Phong So: " + dd + " Trong");
+                            JOptionPane.showMessageDialog(null, "Phòng Số " + dd + ": Trống");
                         }
                     }
                 }
@@ -236,11 +236,11 @@ public class homePage extends JFrame {
 
         p4.setLayout(new GridLayout(3, 7, 10, 10));
         add(p4);
-        b1 = new JButton("Doi Mat Khau", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\sup.png"));
-        b2 = new JButton("Khoa So", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\lock.png"));
-        b3 = new JButton("Dat Phong", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\list.png"));
-        b4 = new JButton("DS D.Phong", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\room.png"));
-        b5 = new JButton("Dang Xuat", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\log-out.png"));
+        b1 = new JButton("Đổi mật khẩu", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\sup.png"));
+        b2 = new JButton("Khóa Số", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\lock.png"));
+        b3 = new JButton("Đặt Phòng", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\list.png"));
+        b4 = new JButton("DS D.Phòng", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\room.png"));
+        b5 = new JButton("Đăng Xuất", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\log-out.png"));
         b6 = new JButton("", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\loop.png"));
         b6.setBackground(new Color(0, 255, 0));
         b1.setBounds(1100, 20, 180, 80);

@@ -17,25 +17,23 @@ public class Login extends JFrame {
     public JTextField tk;
     public JTextField mk;
 
-
-
     public Login() {
         setContentPane(new JLabel(new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\login2.jpg")));
         a = new JLabel();
         a.setBounds(750, 200, 350, 50);
         a.setFont(new Font(null, Font.BOLD, 20));
-        title = new JLabel("Chao Mung Den Voi Trung Tam Khach San Lau Hai Ngoai");
-        title.setBounds(220, 60, 1000, 40);
+        title = new JLabel("CHÀO MỪNG ĐẾN VỚI KHÁCH SẠN LẬU HẢI NGOẠI");
+        title.setBounds(240, 80, 1000, 40);
         title.setFont(new Font(null, Font.BOLD, 30));
         title.setForeground(Color.yellow);
-        l = new JLabel("Dang Nhap Duoi Quyen");
+        l = new JLabel("Đăng Nhập Dưới Quyền");
         l.setBounds(525, 200, 400, 50);
         l.setFont(new Font(null, Font.BOLD, 20));
         l.setForeground(Color.white);
         b1 = new JButton("Admin", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\staff.png"));
-        b2 = new JButton("Thu Ngan", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\staff1.png"));
-        b3 = new JButton("Dang Nhap");
-        b4 = new JButton("Dang Nhap");
+        b2 = new JButton("Thu ngân", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\staff1.png"));
+        b3 = new JButton("Đăng nhập");
+        b4 = new JButton("Đăng nhập");
         b3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -53,9 +51,7 @@ public class Login extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (BLLad.Checklog(tk.getText(), mk.getText())) {
-
                     new HomePageAdmin();
-                    //setVisible(false);
                     dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng");
@@ -69,8 +65,8 @@ public class Login extends JFrame {
         tk = new JTextField();
         mk = new JPasswordField();
 
-        l1 = new JLabel("Tai khoan:");
-        l2 = new JLabel("Mat Khau :");
+        l1 = new JLabel("Tài Khoản:");
+        l2 = new JLabel("Mật Khẩu:");
         b1.setBounds(480, 250, 150, 60);
         b2.setBounds(640, 250, 150, 60);
         p.setBounds(490, 320, 300, 300);
@@ -90,7 +86,7 @@ public class Login extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 a.setText("Admin");
-                l.setText("Dang Nhap Duoi Quyen ");
+                l.setText("Đăng Nhập Dưới Quyền  ");
                 a.setForeground(Color.RED);
                 add(a);
                 tk.setText(null);
@@ -100,7 +96,6 @@ public class Login extends JFrame {
                 p.add(b4);
                 b4.setVisible(true);
                 add(p);
-
             }
         });
         b2.addActionListener(new ActionListener() {
@@ -108,32 +103,29 @@ public class Login extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                a.setText("Thu Ngan");
-                l.setText("Dang Nhap Duoi Quyen ");
+                a.setText("Thu Ngân");
+                l.setText("Đăng Nhập Dưới Quyền ");
                 a.setForeground(Color.BLUE);
                 add(a);
                 tk.setText(null);
                 mk.setText(null);
+
                 b4.setVisible(false);
                 p.add(b3);
                 b3.setVisible(true);
                 add(p);
-
             }
         });
-
         add(title);
         add(l);
         add(b1);
         add(b2);
-        setTitle("Trung Tam Khach San Lau Hai Ngoai");
+        setTitle("TRUNG TÂM KHÁCH SẠN LẬU HẢI NGOẠI");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setResizable(false); // khong cho thu nho man hinh
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
     }
-
     public static void main(String[] args) {
 
         new Login().setVisible(true);

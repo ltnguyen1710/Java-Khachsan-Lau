@@ -18,8 +18,8 @@ public class DALStaff {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKHACHSAN";
-            String username = "cop";
-            String password = "cop123";
+            String username = "nghia";
+            String password = "nghiameow";
             con = DriverManager.getConnection(dbUrl, username, password);
             return true;
         } catch (Exception ex) {

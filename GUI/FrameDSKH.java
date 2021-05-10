@@ -1,7 +1,6 @@
 package GUI;
 
-import java.awt.CardLayout;
-import java.awt.Dimension;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +19,7 @@ public class FrameDSKH extends JFrame {
     private JComboBox cb = new JComboBox(sex1);
     private JPanel p;
     private JTextField t1, name, CMND, date;
-    private JButton tim, FIX, De,rs;
+    private JButton tim, FIX, De, rs;
     private JTable tb = new JTable();
     private DefaultTableModel model = new DefaultTableModel();
     private JScrollPane sp = new JScrollPane(tb);
@@ -38,15 +37,15 @@ public class FrameDSKH extends JFrame {
         title = new JLabel("DANH SÁCH KHÁCH HÀNG");
         title.setBounds(320, 0, 700, 60);
         title.setFont(new Font(null, Font.BOLD, 50));
-        l1 = new JLabel("CMND Khach Hang");
+        l1 = new JLabel("CMND Khách Hàng");
         l1.setBounds(380, 100, 200, 30);
         t1 = new JTextField();
         t1.setBounds(500, 100, 200, 30);
-        tim = new JButton("TIM", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\loupe.png"));
+        tim = new JButton("TÌM", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\loupe.png"));
         tim.setBounds(720, 100, 120, 30);
-        rs = new JButton("");
-        rs.setBounds(850, 100, 80,30);
-        rs.addActionListener(new ActionListener(){
+        rs = new JButton("", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\loop.png"));
+        rs.setBounds(850, 100, 80, 30);
+        rs.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 DSKH1();
@@ -98,18 +97,18 @@ public class FrameDSKH extends JFrame {
         CMND1.setBounds(5, 20, 90, 30);
         CMND = new JTextField();
         CMND.setBounds(100, 20, 200, 30);
-        name1 = new JLabel("Full Name");
+        name1 = new JLabel("Họ&Tên");
         name1.setBounds(5, 50, 90, 30);
         name = new JTextField();
         name.setBounds(100, 50, 200, 30);
-        sex = new JLabel("Sex");
+        sex = new JLabel("giới tính");
         sex.setBounds(5, 80, 90, 30);
         cb.setBounds(100, 80, 100, 30);
-        date1 = new JLabel("Date");
+        date1 = new JLabel("Ngày Sinh");
         date1.setBounds(5, 110, 90, 30);
         date = new JTextField();
         date.setBounds(100, 110, 200, 30);
-        FIX = new JButton("SỬA");
+        FIX = new JButton("SỬA", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\edit.png"));
         FIX.setBounds(70, 150, 100, 30);
         FIX.addActionListener(new ActionListener() {
             @Override
@@ -118,23 +117,26 @@ public class FrameDSKH extends JFrame {
                     JOptionPane.showMessageDialog(null, BLLCus.FixCus(CMND.getText(), name.getText(), cb.getSelectedItem().toString(), date.getText()));
                     DSKH1();
                 } catch (Exception c) {
-                    JOptionPane.showMessageDialog(null, "");
+                    JOptionPane.showMessageDialog(null, "Dữ liệu không hợp lệ");
                 }
             }
         });
-        De = new JButton("XÓA");
+        De = new JButton("XÓA", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\delete.png"));
         De.setBounds(180, 150, 100, 30);
         De.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    JOptionPane.showMessageDialog(null, BLLCus.DelCus(CMND.getText()));
-                    CMND.setText(null);
-                    name.setText(null);
-                    date.setText(null);
-                    DSKH1();
+                    int yes = JOptionPane.showConfirmDialog(null, "Bạn có thật sự muốn xóa?", null, JOptionPane.YES_NO_OPTION);
+                    if (yes == JOptionPane.YES_OPTION) {
+                        JOptionPane.showMessageDialog(null, BLLCus.DelCus(CMND.getText()));
+                        CMND.setText(null);
+                        name.setText(null);
+                        date.setText(null);
+                        DSKH1();
+                    }
                 } catch (Exception c) {
-                    JOptionPane.showMessageDialog(null, "");
+                    JOptionPane.showMessageDialog(null, "Dữ liệu không hợp lệ");
                 }
             }
         });
@@ -173,7 +175,6 @@ public class FrameDSKH extends JFrame {
         p.add(De);
         add(rs);
         DSKH();
-        setVisible(true);
     }
 
     private void tableMouseClicked(MouseEvent e) {
@@ -209,7 +210,4 @@ public class FrameDSKH extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
-        new FrameDSKH();
-    }
 }

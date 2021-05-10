@@ -23,10 +23,6 @@ public class BLLCustomer {
         return customer;
     }
 
-    public String tenCus(String cmnd) {
-        return dalcustomer.tenCus(cmnd);
-    }
-
     public boolean addCus(Customer cus) {
         if (!dalcustomer.hasCusID(cus.getID())) {
             return dalcustomer.addCus(cus);
@@ -57,5 +53,8 @@ public class BLLCustomer {
             return "Xóa thành công";
         }
         return "Xóa thất bại";
+    }
+        public String tenCus(String cmnd) {
+        return dalcustomer.tenCus(cmnd);
     }
 }

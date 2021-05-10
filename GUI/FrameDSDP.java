@@ -12,9 +12,6 @@ import BLL.BLLBookingDetail;
 import DTO.BookingDetail;
 import java.util.Vector;
 import BLL.BLLRoom;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.concurrent.TimeUnit;
 
 public class FrameDSDP extends JFrame {
 
@@ -41,64 +38,86 @@ public class FrameDSDP extends JFrame {
     }
 
     private void DisPlay() {
-        setTitle("Danh Sach Dat Phong");
+        setTitle("Danh Sách Đặt Phòng");
         setResizable(false); // khong cho thu nho man hinh
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLayout(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        title = new JLabel("DANH SACH DAT PHONG");
+        title = new JLabel("DANH SÁCH ĐẶT PHÒNG");
         title.setBounds(320, 0, 700, 60);
         title.setFont(new Font(null, Font.BOLD, 50));
-        CMND1 = new JLabel("CMND Khach: ");
+        CMND1 = new JLabel("CMND Khách: ");
         CMND1.setBounds(300, 100, 120, 30);
         CMND = new JTextField();
         CMND.setBounds(420, 100, 120, 30);
-        RentDay1 = new JLabel("Ngay Dat: ");
+        RentDay1 = new JLabel("Ngày Đặt: ");
         RentDay1.setBounds(540, 100, 100, 30);
         RentDay = new JTextField();
         RentDay.setBounds(640, 100, 150, 30);
-        tim = new JButton("TIM", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\loupe.png"));
+        tim = new JButton("TÌM", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\loupe.png"));
         tim.setBounds(800, 100, 80, 30);
+        tim.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String c = CMND.getText();
+                String b = RentDay.getText();
+                if (!c.equals("") && !b.equals("")) {
+
+                    int row = tb.getRowCount();
+                    for (int a = row; a > 0; a--) {
+                        model.removeRow(0);
+                    }
+                    bdlist = bllbd.getbdList();
+                    for (BookingDetail i : bdlist) {
+                        if (c.equals(i.getIdkhach()) && b.equals(i.getNgaydat().toString())) {
+                            model.addRow(new Object[]{i.getIdkhach(), i.getIdnhanvien(), i.getNgaydat(), i.getNgaynhan(), i.getNgaytra(), i.getIdphong(), i.getTralan1(), i.getGia()});
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Dữ Liệu Không Phù Hợp");
+                }
+            }
+        });
         tb.setModel(model);
-        model.addColumn("CMND Khach");
+        model.addColumn("CMND Khách");
         model.addColumn("ID NV");
-        model.addColumn("Ngay Dat");
-        model.addColumn("Ngay Nhan Phong");
-        model.addColumn("Ngay Tra");
-        model.addColumn("Phong So");
-        model.addColumn("Tien Coc");
-        model.addColumn("Gia");
+        model.addColumn("Ngày Đặt");
+        model.addColumn("Ngày Nhận Phòng");
+        model.addColumn("Ngày Trả");
+        model.addColumn("Phòng số");
+        model.addColumn("Tiền Cọc");
+        model.addColumn("Giá");
         sp.setBounds(10, 150, 900, 470);
         p = new JPanel(null);
         p.setBounds(920, 160, 320, 400);
         p.setBorder(BorderFactory.createTitledBorder(null, "Thanh Toan",
                 TitledBorder.CENTER, TitledBorder.CENTER, new Font("Brush Script Std", Font.PLAIN, 20), new Color(255, 77, 77)));
-        NameCus = new JLabel("CMND Khach : ");
+        NameCus = new JLabel("CMND Khách : ");
         NameCus.setBounds(10, 10, 400, 30);
         IDStaff = new JLabel("ID NV: " + "");
         IDStaff.setBounds(10, 40, 400, 30);
-        RentDayTT = new JLabel("Ngay Dat Phong: ");
+        RentDayTT = new JLabel("Ngày Đặt Phòng: ");
         RentDayTT.setBounds(10, 70, 400, 30);
-        PayDay = new JLabel("Ngay Tra Phong: ");
+        PayDay = new JLabel("Ngày Trả Phòng: ");
         PayDay.setBounds(10, 100, 400, 30);
         tb1.setModel(model1);
-        model1.addColumn("So phong");
-        model1.addColumn("Gia");
+        model1.addColumn("Số Phòng");
+        model1.addColumn("Giá");
         sp1.setBounds(10, 130, 300, 200);
-        Deposit = new JLabel("Da Thanh Toan:  Tien Cọc");
+        Deposit = new JLabel("Đã Thanh Toán:");
         Deposit.setBounds(10, 330, 400, 30);
-        Total = new JLabel("Thanh Toan:  Tổng tiền - tiền cọc");
+        Total = new JLabel("Thanh Toán:");
         Total.setBounds(10, 360, 400, 30);
-        r1 = new JRadioButton("Tien Mat");
+        r1 = new JRadioButton("Tiền Mặt");
         r2 = new JRadioButton("Master Card");
         bg.add(r1);
         bg.add(r2);
         JPanel tt = new JPanel();
-        tt.setBorder(BorderFactory.createTitledBorder(null, "Hinh Thuc Thanh Toan", TitledBorder.CENTER, TitledBorder.CENTER, null, new Color(255, 64, 0)));
+        tt.setBorder(BorderFactory.createTitledBorder(null, "Hình Thức Thanh Toán", TitledBorder.CENTER, TitledBorder.CENTER, null, new Color(255, 64, 0)));
         tt.setBounds(1040, 570, 200, 50);
         tt.add(r1);
         tt.add(r2);
-        TT = new JButton("Thanh Toan");
+        TT = new JButton("Thanh Toán");
         TT.setBounds(920, 630, 320, 40);
         TT.addActionListener(new ActionListener() {
             @Override
@@ -113,12 +132,17 @@ public class FrameDSDP extends JFrame {
         p.add(sp1);
         p.add(Deposit);
         p.add(Total);
-        Del = new JButton("Huy Phong");
-        Del.setBounds(365, 630, 120, 40);
+        Del = new JButton("Hủy Phòng", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\x-button.png"));
+        Del.setBounds(365, 630, 150, 40);
         Del.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                HuyActionListener(e);
+                try {
+                    HuyActionListener(e);
+                }catch(Exception a){
+                    JOptionPane.showMessageDialog(null,"Dữ Liệu Không Phù Hợp");
+                }
+
             }
         });
         add(title);
@@ -199,10 +223,10 @@ public class FrameDSDP extends JFrame {
             cmnd = tb.getModel().getValueAt(i, 0).toString();
             ngaydat = tb.getModel().getValueAt(i, 2).toString();
             ngaynhan = tb.getModel().getValueAt(i, 3).toString();
-            NameCus.setText("CMND Khach: " + tb.getModel().getValueAt(i, 0).toString());
+            NameCus.setText("CMND Khách: " + tb.getModel().getValueAt(i, 0).toString());
             IDStaff.setText("ID NV: " + tb.getModel().getValueAt(i, 1).toString());
-            RentDayTT.setText("Ngay Dat: " + tb.getModel().getValueAt(i, 3).toString());
-            PayDay.setText("Ngay Tra: " + tb.getModel().getValueAt(i, 4).toString());
+            RentDayTT.setText("Ngày Đặt: " + tb.getModel().getValueAt(i, 3).toString());
+            PayDay.setText("Ngày Trả: " + tb.getModel().getValueAt(i, 4).toString());
             splits = tb.getModel().getValueAt(i, 5).toString().split(",");
             int row = tb1.getRowCount();
             for (int j = row; j > 0; j--) {
@@ -214,19 +238,19 @@ public class FrameDSDP extends JFrame {
                     splits[j], gia
                 });
             }
-            Deposit.setText("Tien Coc: " + tb.getModel().getValueAt(i, 6).toString());
-            Total.setText("Gia: " + tb.getModel().getValueAt(i, 7).toString());
+            Deposit.setText("Tiền Cọc: " + tb.getModel().getValueAt(i, 6).toString());
+            Total.setText("Giá: " + tb.getModel().getValueAt(i, 7).toString());
         }
     }
 
     private void HuyActionListener(ActionEvent e) {
         int gia = 0;
         String phuongthuc = "";
-        if (NameCus.getText().equals("CMND Khach: ")) {
-            JOptionPane.showMessageDialog(null, "Chon khach hang can huy");
+        if (NameCus.getText().equals("CMND Khách: ")) {
+            JOptionPane.showMessageDialog(null, "Chọn khách Hàng cần Hủy");
             return;
         }
-        int yes = JOptionPane.showConfirmDialog(null, "Ban Co that su muon huy ?",
+        int yes = JOptionPane.showConfirmDialog(null, "Bạn có thật sự muốn hủy ?",
                 null, JOptionPane.YES_NO_OPTION);
         int i = tb.getSelectedRow();
         if (yes == JOptionPane.YES_OPTION) {
@@ -240,6 +264,7 @@ public class FrameDSDP extends JFrame {
                 bllroom.setTinhtrang(Integer.parseInt(splits[j]));
             }
             model.removeRow(i);
+            JOptionPane.showMessageDialog(null, "Hủy phòng thành công!");
         }
     }
 
@@ -250,9 +275,9 @@ public class FrameDSDP extends JFrame {
             JOptionPane.showMessageDialog(null, "Chọn khách cần thanh toán!!!!");
             return;
         }
-        int i=tb.getSelectedRow();
+        int i = tb.getSelectedRow();
         phuongthuc = (r1.isSelected() ? r1.getText() : r2.getText());
-        gia=Integer.parseInt(tb.getModel().getValueAt(i, 6).toString());
+        gia = Integer.parseInt(tb.getModel().getValueAt(i, 6).toString());
         bllbd.setDetailtrasau(cmnd, ngaynhan, phuongthuc, gia, idphong);
         xuatdanhsach();
         for (int j = 0; j < splits.length; j++) {
@@ -262,10 +287,7 @@ public class FrameDSDP extends JFrame {
         for (int j = row; j > 0; j--) {
             model1.removeRow(0);
         }
-        NameCus.setText("CMND Khach: ");
+        NameCus.setText("CMND Khách: ");
     }
 
-    public static void main(String[] args) {
-        new FrameDSDP().setVisible(true);
-    }
 }

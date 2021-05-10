@@ -26,33 +26,39 @@ public class RevenueInDay extends JFrame {
     }
 
     private void DisPlay() {
-        setTitle("Danh Sach Doanh Thu");
+        setTitle("Danh sách doanh thu");
         setResizable(false); // khong cho thu nho man hinh
         setLayout(null);
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        title = new JLabel("DANH SACH DOANH THU");
+        title = new JLabel("DANH SÁCH DOANH THU");
         title.setBounds(320, 0, 700, 60);
         title.setFont(new Font(null, Font.BOLD, 50));
-        l1 = new JLabel("Nhap Ngay Doanh Thu");
+        l1 = new JLabel("Nhập ngày doanh thu");
         l1.setBounds(350, 100, 200, 30);
         t1 = new JTextField();
         t1.setBounds(500, 100, 200, 30);
-        tim = new JButton("TIM", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\loupe.png"));
+        tim = new JButton("Tìm", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\loupe.png"));
         tim.setBounds(710, 100, 80, 30);
         tim.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int row = tb.getRowCount();
-                for (int i = row; i > 0; i--) {
-                    model.removeRow(0);
-                }
-                for (Bangdoanhthu i : bangdoanhthu) {
-                    if (i.getNgay().equals(t1.getText())) {
-                        model.addRow(new Object[]{
-                            i.getNgay(), i.getTienmat(), i.getVisa(), i.getDthu()
-                        });
+                if (!t1.getText().equals("")) {
+                    int row = tb.getRowCount();
+                    for (int i = row; i > 0; i--) {
+                        model.removeRow(0);
                     }
+                    for (Bangdoanhthu i : bangdoanhthu) {
+                        if (i.getNgay().equals(t1.getText())) {
+                            model.addRow(new Object[]{
+                                i.getNgay(), i.getTienmat(), i.getVisa(), i.getDthu()
+                            });
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Dữ Liệu không phù hợp");
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Dữ liệu không tồn tại");
                 }
             }
         });
@@ -61,7 +67,6 @@ public class RevenueInDay extends JFrame {
         model.addColumn("TIỀN MẶT");
         model.addColumn("VISA");
         model.addColumn("DOANH THU NGÀY");
-
         sp.setBounds(200, 170, 900, 500);
         add(title);
         add(sp);
@@ -87,5 +92,4 @@ public class RevenueInDay extends JFrame {
         }
     }
 
-   
 }

@@ -23,7 +23,13 @@ public class BookingDetail {
     private int tralan2;
     private String ngaynhan;
 
-    
+    public String getNgaynhan() {
+        return ngaynhan;
+    }
+
+    public void setNgaynhan(String ngaynhan) {
+        this.ngaynhan = ngaynhan;
+    }
 
    
 
@@ -51,8 +57,6 @@ public class BookingDetail {
         this.idkhach = idkhach;
     }
 
-    
-
     public int getIdnhanvien() {
         return idnhanvien;
     }
@@ -77,16 +81,6 @@ public class BookingDetail {
         this.ngaytra = ngaytra;
     }
 
-    public String getNgaynhan() {
-        return ngaynhan;
-    }
-
-    public void setNgaynhan(String ngaynhan) {
-        this.ngaynhan = ngaynhan;
-    }
-
-    
-
     public int getGia() {
         return gia;
     }
@@ -109,8 +103,5 @@ public class BookingDetail {
 
     public void setTralan2(int tralan2) {
         this.tralan2 = tralan2;
-    }
-
-    
-    
+    }    
 }

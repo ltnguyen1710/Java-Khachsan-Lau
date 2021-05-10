@@ -14,7 +14,7 @@ import java.util.Vector;
 
 public class HomePageAdmin extends JFrame {
 
-    private JButton DX, ADD, FIX, FIX1, Find, Del, DSKH, DSDT,cl;
+    private JButton DX, ADD, FIX, FIX1, Find, Del, DSKH, DSDT, cl;
     private JLabel name1, ID1, Day1, sex, date1, title, passwd1;
     private JRadioButton Nam, Nu;
     private JPanel addNV, p2;
@@ -43,10 +43,10 @@ public class HomePageAdmin extends JFrame {
         ///
         addNV = new JPanel();
         addNV.setBounds(5, 100, 300, 400);
-        addNV.setBorder(BorderFactory.createTitledBorder("ADD OR FIX STAFF"));
-        name1 = new JLabel("Ho & Ten Nhan Vien");
-        ID1 = new JLabel("ID Nhan Vien");
-        Day1 = new JLabel("Ngay Bat Dau Lam");
+        addNV.setBorder(BorderFactory.createTitledBorder("NHÂN VIÊN"));
+        name1 = new JLabel("Họ & Tên Nhân Viên");
+        ID1 = new JLabel("ID Nhân Viên");
+        Day1 = new JLabel("Ngày Bắt Đầu Làm");
         name = new JTextField();
         name.setPreferredSize(new Dimension(290, 30));
         ID = new JTextField();
@@ -54,15 +54,15 @@ public class HomePageAdmin extends JFrame {
         Day = new JTextField();
         Day.setPreferredSize(new Dimension(290, 30));
         Day.setText(java.time.LocalDate.now().toString());
-        sex = new JLabel("Gioi Tinh");
+        sex = new JLabel("Giới Tính");
         cb.setPreferredSize(new Dimension(190, 30));
-        date1 = new JLabel("Ngay Sinh");
+        date1 = new JLabel("Ngày Sinh");
         date = new JTextField();
         date.setPreferredSize(new Dimension(190, 30));
-        passwd1 = new JLabel("Mat Khau");
+        passwd1 = new JLabel("Mật Khẩu");
         passwd = new JTextField();
         passwd.setPreferredSize(new Dimension(190, 30));
-        ADD = new JButton("Them", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\add.png"));
+        ADD = new JButton("Thêm", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\add.png"));
         ADD.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -81,47 +81,61 @@ public class HomePageAdmin extends JFrame {
                 xuatdanhsach();
             }
         });
-        FIX = new JButton("Sua", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\edit.png"));
+        FIX = new JButton("Sửa", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\edit.png"));
         FIX.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, bllsta.FixStaff(Integer.parseInt(ID.getText()), passwd.getText(), name.getText(), cb.getSelectedItem().toString(), date.getText(), Day.getText()));
-                xuatdanhsach();
+                try {
+                    JOptionPane.showMessageDialog(null, bllsta.FixStaff(Integer.parseInt(ID.getText()), passwd.getText(), name.getText(), cb.getSelectedItem().toString(), date.getText(), Day.getText()));
+                    xuatdanhsach();
+                } catch (Exception a) {
+                    JOptionPane.showMessageDialog(null, "Dữ liệu không hợp lệ");
+                }
             }
 
         });
-        Find = new JButton("Tim", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\loupe.png"));
+        Find = new JButton("Tìm", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\loupe.png"));
         Find.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String a = JOptionPane.showInputDialog(null, "Nhập ID Nhân Viên");
-                if (bllsta.checkStaff(Integer.parseInt(a))) {
-                    stalist = bllsta.getVectorSta();
-                    for (Staff i : stalist) {
-                        if (a.equals(String.valueOf(i.getId()))) {
-                            ID.setText(String.valueOf(i.getId()));
-                            passwd.setText(i.getMatkhau());
-                            name.setText(i.getTen());
-                            date.setText(i.getNgaysinh());
-                            cb.setSelectedItem(i.getGioitinh());
-                            Day.setText(i.getNgayvaolam());
-                            return;
+                try {
+                    String a = JOptionPane.showInputDialog(null, "Nhập ID Nhân Viên");
+                    if (bllsta.checkStaff(Integer.parseInt(a))) {
+                        stalist = bllsta.getVectorSta();
+                        for (Staff i : stalist) {
+                            if (a.equals(String.valueOf(i.getId()))) {
+                                ID.setText(String.valueOf(i.getId()));
+                                passwd.setText(i.getMatkhau());
+                                name.setText(i.getTen());
+                                date.setText(i.getNgaysinh());
+                                cb.setSelectedItem(i.getGioitinh());
+                                Day.setText(i.getNgayvaolam());
+                                return;
+                            }
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Không Thể Tìm Ra");
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Không Thể Tìm Ra");
+                } catch (Exception a) {
                 }
             }
         });
-        Del = new JButton("Xoa", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\delete.png"));
+        Del = new JButton("Xóa", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\delete.png"));
         Del.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, bllsta.DelStaff(Integer.parseInt(ID.getText())));
-                xuatdanhsach();
+                try {
+                    int yes = JOptionPane.showConfirmDialog(null, "Bạn thật sự muốn xóa?", null, JOptionPane.YES_NO_OPTION);
+                    if (yes == JOptionPane.YES_OPTION) {
+                        JOptionPane.showMessageDialog(null, bllsta.DelStaff(Integer.parseInt(ID.getText())));
+                        xuatdanhsach();
+                    }
+                } catch (Exception x) {
+                    JOptionPane.showMessageDialog(null,"Dữ liệu không hợp lệ");
+                }
             }
         });
-        cl = new JButton("Clear", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\delete.png"));
+        cl = new JButton("Clear", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\broom.png"));
         cl.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -146,32 +160,38 @@ public class HomePageAdmin extends JFrame {
         addNV.add(Del);
         addNV.add(cl);
         ///
-        title = new JLabel("DANH SACH NHAN VIEN");
+        title = new JLabel("DANH SÁCH NHÂN VIÊN");
         title.setBounds(530, 40, 400, 50);
         title.setFont(new Font(null, Font.BOLD, 30));
         tb.setModel(model);
-        model.addColumn("ID Nhan Vien");
-        model.addColumn("Mat Khau");
-        model.addColumn("Ho&Ten NV");
-        model.addColumn("Ngay Sinh");
-        model.addColumn("Gioi Tinh");
-        model.addColumn("Ngay B.Dau Lam");
+        model.addColumn("ID Nhân Viên");
+        model.addColumn("Mật Khẩu");
+        model.addColumn("Họ&Tên NV");
+        model.addColumn("Ngày Sinh");
+        model.addColumn("Giới Tính");
+        model.addColumn("Ngay B.Đầu Làm");
         sp.setBounds(350, 100, 700, 500);
         add(sp);
-        FIX1 = new JButton("SUA G.TIEN PHONG", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\fix.png"));
+        FIX1 = new JButton("SỬA G.TIỀN PHÒNG", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\fix.png"));
         FIX1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new FrameFixMoneyRoom();
+                if (!new FrameFixMoneyRoom().isVisible()) {
+                    new FrameFixMoneyRoom().setVisible(true);
+                }
+
             }
 
         });
-        DSKH = new JButton("DS KHACH HANG", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\list.png"));
+        DSKH = new JButton("DS KHÁCH HÀNG", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\list.png"));
 
         DSKH.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new FrameDSKH();
+                if (!new FrameDSKH().isVisible()) {
+                    new FrameDSKH().setVisible(true);
+                }
+
             }
 
         });
@@ -185,7 +205,7 @@ public class HomePageAdmin extends JFrame {
                 }
             }
         });
-        DX = new JButton("DANG XUAT", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\log-out.png"));
+        DX = new JButton("ĐĂNG XUẤT", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\log-out.png"));
         DX.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -263,7 +283,4 @@ public class HomePageAdmin extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
-        new HomePageAdmin();
-    }
 }

@@ -50,92 +50,92 @@ public class FrameDatPhong extends JFrame {
     }
 
     private void DisPlay() {
-        setTitle("Dat Phong");
+        setTitle("Đặt Phòng");
         setResizable(false);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLayout(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        JLabel title = new JLabel("Khach San Lau");
+        JLabel title = new JLabel("KHÁCH SẠN LẬU");
         title.setFont(new Font(null, Font.CENTER_BASELINE, 20));
         title.setBounds(560, 10, 200, 30);
-        JLabel dayNow = new JLabel("Ngay: " + java.time.LocalDate.now().toString());
+        JLabel dayNow = new JLabel("Ngày: " + java.time.LocalDate.now().toString());
         dayNow.setBounds(570, 35, 100, 20);
         // tao 2 label va 2 text de nhap ngay vao.
-        JLabel from = new JLabel("From");
-        JLabel to = new JLabel("to");
+        JLabel from = new JLabel("Từ");
+        JLabel to = new JLabel("đến");
         from.setBounds(500, 60, 40, 20);
         from1 = new JTextField();
-        from1.setBounds(540, 60, 100, 30);
+        from1.setBounds(530, 60, 100, 30);
         from1.setToolTipText("YYYY-MM-dd");
         from1.setText(java.time.LocalDate.now().toString());
-        to.setBounds(640, 60, 20, 20);
+        to.setBounds(630, 60, 30, 20);
         to1 = new JTextField();
         to1.setBounds(660, 60, 100, 30);
         to1.setToolTipText("YYYY-MM-dd");
         to1.setText(java.time.LocalDate.now().plusDays(1).toString());
-        Find = new JButton("Tim");
+        Find = new JButton("TÌM");
         Find.setBounds(770, 60, 80, 30);
 
         p1 = new JPanel(null);
         p1.setBounds(0, 100, 600, 120);
-        p1.setBorder(BorderFactory.createTitledBorder(null, "Thong tin Khach Hang",
+        p1.setBorder(BorderFactory.createTitledBorder(null, "Thong Tin Khach Hang",
                 TitledBorder.CENTER, TitledBorder.CENTER, new Font("Brush Script Std", Font.PLAIN, 20), new Color(255, 77, 77)));
         CMND = new JLabel("CMND");
         CMND.setBounds(10, 30, 50, 30);
         ID1 = new JTextField();
         ID1.setBounds(60, 30, 110, 30);
-        FullName = new JLabel("Ho & Ten");
+        FullName = new JLabel("Họ & Tên");
         FullName.setBounds(320, 30, 100, 30);
         Name = new JTextField();
         Name.setBounds(380, 30, 190, 30);
-        checkCMND = new JButton("Check ID");
+        checkCMND = new JButton("KIỂM TRA");
         checkCMND.setBounds(190, 30, 100, 30);
-        Date = new JLabel("Ngay Sinh");
+        Date = new JLabel("Ngày Sinh");
         Date.setBounds(10, 70, 80, 30);
         Date1 = new JTextField();
         Date1.setBounds(90, 70, 180, 30);
-        sex = new JLabel("Gioi tinh");
+        sex = new JLabel("giới tính");
         sex.setBounds(270, 70, 90, 30);
         Nam = new JRadioButton("Nam");
         Nam.setBounds(340, 70, 70, 30);
         Nu = new JRadioButton("Nu");
         Nu.setBounds(410, 70, 80, 30);
-        InforRoo = new JLabel("Cac phong chua duoc thue");
-        InforRoo.setBounds(50, 230, 400, 50);
+        InforRoo = new JLabel("Cac Phong Chua Duoc Thue");
+        InforRoo.setBounds(140, 240, 400, 50);
         InforRoo.setFont(new Font("Brush Script Std", Font.PLAIN, 20));
         tb.setModel(model);
-        model.addColumn("So phong");
-        model.addColumn("Loai phong");
-        model.addColumn("Gia");
+        model.addColumn("Số Phòng");
+        model.addColumn("Loại Phòng");
+        model.addColumn("Giá");
         sp.setBounds(5, 280, 500, 400);
         p2 = new JPanel(null);
         p2.setBounds(600, 100, 320, 400);
         p2.setBorder(BorderFactory.createTitledBorder(null, "Chi Tiet Dat Phong",
                 TitledBorder.CENTER, TitledBorder.CENTER, new Font("Brush Script Std", Font.PLAIN, 20), new Color(255, 77, 77)));
-        NameCus = new JLabel("Ho&Ten Khach : " + FullName.getText());
+        NameCus = new JLabel("Họ&Tên Khách : " + FullName.getText());
         NameCus.setBounds(10, 10, 400, 30);
         IDStaff = new JLabel("ID NV: " + "");
         IDStaff.setBounds(10, 40, 400, 30);
-        RentDay = new JLabel("Ngay Dat Phong: " + from1.getText());
+        RentDay = new JLabel("Ngày Dặt Phòng: " + from1.getText());
         RentDay.setBounds(10, 70, 400, 30);
-        PayDay = new JLabel("Ngay Tra Phong: " + to1.getText());
+        PayDay = new JLabel("Ngày Trả Phòng: " + to1.getText());
         PayDay.setBounds(10, 100, 400, 30);
         tb1.setModel(model1);
-        model1.addColumn("So phong");
-        model1.addColumn("Gia");
+        model1.addColumn("Số Phòng");
+        model1.addColumn("Giá");
         sp1.setBounds(10, 130, 300, 200);
         //RooAndPri = new JLabel("So Phong"+SoPhong);
         //RooAndPri.setBounds(10,130,400,60);
-        Deposit = new JLabel("Tien Coc: " + "");
+        Deposit = new JLabel("Tiền Cọc: " + "");
         Deposit.setBounds(10, 330, 400, 30);
-        Total = new JLabel("Tong Tien: ");
+        Total = new JLabel("Tổng Tiền: ");
         Total.setBounds(10, 360, 400, 30);
-        r1 = new JRadioButton("Tien Mat");
+        r1 = new JRadioButton("Tiền Mặt");
         r2 = new JRadioButton("Master Card");
         JPanel tt = new JPanel();
-        tt.setBorder(BorderFactory.createTitledBorder(null, "Hinh Thuc Thanh Toan", TitledBorder.CENTER, TitledBorder.CENTER, null, new Color(255, 64, 0)));
+        tt.setBorder(BorderFactory.createTitledBorder(null, "Hình Thức Thanh Toán", TitledBorder.CENTER, TitledBorder.CENTER, null, new Color(255, 64, 0)));
         tt.setBounds(710, 510, 200, 50);
-        DatCoc = new JButton("Dat Coc");
+        DatCoc = new JButton("Dặt Cọc");
         DatCoc.setBounds(600, 570, 320, 40);
         checkCMND.addActionListener(new ActionListener() {
             @Override
@@ -192,11 +192,11 @@ public class FrameDatPhong extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (CMND.getText().equalsIgnoreCase("") || FullName.getText().equalsIgnoreCase("") || Date.getText().equalsIgnoreCase("") || (!Nam.isSelected() && !Nu.isSelected())) {
-                    JOptionPane.showMessageDialog(null, "Phai nhap du thong tin khach hang");
+                    JOptionPane.showMessageDialog(null, "Nhập đủ thông tin khách hàng");
                     return;
                 }
                 if (model1.getRowCount() == 0) {
-                    JOptionPane.showMessageDialog(null, "Chua chon phong!");
+                    JOptionPane.showMessageDialog(null, "Chưa Chọn Phòng kìa!");
                     return;
                 }
                 String gioitinh = (Nam.isSelected() ? "Nam" : "Nu");
@@ -212,7 +212,7 @@ public class FrameDatPhong extends JFrame {
                 }
 
                 if (!r1.isSelected() && !r2.isSelected()) {
-                    JOptionPane.showMessageDialog(null, "Chon phuong thuc thanh toan!");
+                    JOptionPane.showMessageDialog(null, "Chọn Phương Thức thanh toán Đê!");
                     return;
                 }
                 long diff = 0;
@@ -225,22 +225,21 @@ public class FrameDatPhong extends JFrame {
                     p.printStackTrace();
                 }
                 Tong = (int) (Tong * (TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)));
-                String phuongthuc = (r1.isSelected() ? "Tien mat" : "Master Card");
-                NameCus.setText("Ho&Ten Khach : " + Name.getText());
-                RentDay.setText("Ngay Dat Phong: " + from1.getText());
-                PayDay.setText("Ngay Tra Phong: " + to1.getText());
-                Total.setText("Tong Tien: " + Tong);
+                String phuongthuc = (r1.isSelected() ? "Tiền Mặt" : "Master Card");
+                NameCus.setText("Họ&Tên Khách : " + Name.getText());
+                RentDay.setText("Ngày Đặt Phòng: " + from1.getText());
+                PayDay.setText("Ngày Trả Phòng: " + to1.getText());
+                Total.setText("Tổng Tiền: " + Tong);
                 IDStaff.setText("ID NV: " + getTk());
                 JOptionPane.showMessageDialog(null, "SỐ TIỀN KHÁCH PHẢI TRẢ : " + Tong / 2);
-
                 Customer cus = new Customer(ID1.getText(), Name.getText(), gioitinh, Date1.getText());
                 bllcus.addCus(cus);
-                Deposit.setText("Tien Coc: " + Tong / 2);
+                Deposit.setText("Tiền Cọc: " + Tong / 2);
                 bllroom.datphong(str, ID1.getText(), Integer.parseInt(getTk()), java.time.LocalDate.now().toString(), from1.getText(), to1.getText(), Tong, Tong / 2, phuongthuc);
                 for (int i = 0; i < model1.getRowCount(); i++) {
                     bllroom.setTinhtrang(Integer.parseInt(tb1.getModel().getValueAt(i, 0).toString()));
                 }
-                JOptionPane.showMessageDialog(null, "Dat coc thanh cong");
+                JOptionPane.showMessageDialog(null, "Đặt Cọc Thành Công");
             }
         }
         );

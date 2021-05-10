@@ -13,8 +13,8 @@ public class DALCustomer {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String dbUrl = "jdbc:sqlserver://localhost:1433;DatabaseName=QLKHACHSAN";
-            String username = "cop";
-            String password = "cop123";
+            String username = "nghia";
+            String password = "nghiameow";
             con = DriverManager.getConnection(dbUrl, username, password);
             return true;
         } catch (Exception ex) {
@@ -42,22 +42,6 @@ public class DALCustomer {
             }
         }
         return cus;
-    }
-        public String tenCus(String cmnd) {
-        if (openConnection()) {
-            try {
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT TEN  FROM KHACH WHERE CMND='" + cmnd + "'");
-                if (rs.next()) {
-                    return rs.getString("ten");
-                }
-            } catch (Exception aC) {
-                System.err.println(aC.getMessage());
-            } finally {
-                closeConnection();
-            }
-        }
-        return "";
     }
 
     public void closeConnection() {
@@ -166,5 +150,21 @@ public class DALCustomer {
             }
         }
         return result;
+    }
+    public String tenCus(String cmnd) {
+        if (openConnection()) {
+            try {
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT TEN  FROM KHACH WHERE CMND='" + cmnd + "'");
+                if (rs.next()) {
+                    return rs.getString("ten");
+                }
+            } catch (Exception aC) {
+                System.err.println(aC.getMessage());
+            } finally {
+                closeConnection();
+            }
+        }
+        return "";
     }
 }

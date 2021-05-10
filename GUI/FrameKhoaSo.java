@@ -39,25 +39,28 @@ public class FrameKhoaSo extends JFrame {
         setBounds(450, 100, 400, 500);
         setLayout(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        JLabel title = new JLabel("Khach San Lau");
+        JLabel title = new JLabel("KHÁCH SẠN LẬU");
         JLabel date = new JLabel(java.time.LocalDate.now().toString());
-        l1 = new JLabel("So Du Dau: ");
-        l2 = new JLabel("Doanh Thu Ngay: ");
-        l3 = new JLabel("Tien Mat: ");
+        l1 = new JLabel("Số Dư Đầu: ");
+        l2 = new JLabel("Doanh Thu Ngày: ");
+        l3 = new JLabel("Tiền Mặt: ");
         l4 = new JLabel("VISA: ");
-        l5 = new JLabel("Du Cuoi Ca: ");
+        l5 = new JLabel("Dư Cuối Ca: ");
         b1 = new JButton("IN", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\printer.png"));
         b1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Them action 
                 try {
                     Calendar c = Calendar.getInstance();
                     String localdate = java.time.LocalDate.now().toString();
-                    Formatter f = new Formatter("C:\\Users\\Admin\\Documents\\NetBeansProjects\\KhachsanLau\\" + localdate + ".txt");
+                    Formatter f = new Formatter("C:\\Users\\Nghia\\Documents\\NetBeansProjects\\" + localdate + ".txt");
                     f.format("NGÀY: %tD%n", c);
-                    f.format("DOANH THU: %s\nTIEN MAT: %s\nVISA: %s\n", BLLbd.getDthu(), BLLbd.getTienmat(), BLLbd.getVisa());
+                    f.format("DOANH THU: %s\nTIỀN MẶT: %s\nVISA: %s\n", BLLbd.getDthu(), BLLbd.getTienmat(), BLLbd.getVisa());
+                    JOptionPane.showMessageDialog(null,"Sổ Đã Khóa");
                     f.close();
                 } catch (Exception k) {
+                    JOptionPane.showMessageDialog(null, "Lỗi Gòy");
                     System.out.println("Eror");
                 }
             }
@@ -84,10 +87,10 @@ public class FrameKhoaSo extends JFrame {
     public void setSoDuDau(int t) {
         l1.setText("Số dư đầu:        " + t);
         int soducuoica = t + BLLbd.getDthu();
-        l2.setText("Doanh Thu Ngay: " + BLLbd.getDthu());
-        l3.setText("Tien Mat: " + BLLbd.getTienmat());
+        l2.setText("Doanh Thu Ngày: " + BLLbd.getDthu());
+        l3.setText("Tiền Mặt: " + BLLbd.getTienmat());
         l4.setText("VISA: " + BLLbd.getVisa());
-        l5.setText("Du Cuoi Ca: " + soducuoica);
+        l5.setText("Dư Cuối Ca: " + soducuoica);
 
     }
 

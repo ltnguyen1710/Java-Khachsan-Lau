@@ -38,19 +38,19 @@ public class FrameChangePassWd extends JFrame {
     }
 
     private void DisPlay() {
-        setTitle("Change Password");
+        setTitle("Thay đổi Mật Khẩu");
 
         setResizable(false);
         setBounds(450, 210, 300, 300);
         setLayout(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        l1 = new JLabel("Mat Khau cu :");
-        l2 = new JLabel("Mat Khau moi:");
-        l3 = new JLabel("Nhap Lai Mat Khau:");
+        l1 = new JLabel("Mật khẩu cũ:");
+        l2 = new JLabel("Mật khẩu mới:");
+        l3 = new JLabel("Nhập lại mật khẩu:");
         t1 = new JPasswordField();
         t2 = new JPasswordField();
         t3 = new JPasswordField();
-        b = new JButton("Xac Nhan", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\checked.png"));
+        b = new JButton("Xác Nhận", new ImageIcon("C:\\Users\\Nghia\\Documents\\imageDoAn\\checked.png"));
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -79,4 +79,5 @@ public class FrameChangePassWd extends JFrame {
         b.setBounds(70, 220, 150, 30);
 
     }
+    
 }
